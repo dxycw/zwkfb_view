@@ -45,3 +45,11 @@
 #    public <init>(android.content.Context, android.util.AttributeSet);
 #    public <init>(android.content.Context, android.util.AttributeSet, int);
 #}
+
+#-dontwarn java.lang.management.ManagementFactory
+#-dontwarn java.lang.management.ThreadInfo
+#-dontwarn java.lang.management.ThreadMXBean
+#-dontwarn java.rmi.server.UID
+#-dontwarn javax.management.MBeanServer
+#-dontwarn javax.management.ObjectInstance
+#-dontwarn javax.management.ObjectName

@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
+import android.webkit.WebView
 
 /**
  * 创建时间：2025年11月18日.
@@ -109,6 +110,72 @@ fun View.取滑动y(): Int = this.getScrollY()
  * @param 值 值。
  */
 fun View.置滑动y(值: Int) = this.setScrollY(值)
+
+//======================================================================
+
+/**
+ * 描述：横向滑动
+ * @param 启用 启用。
+ * @return 横向滑动
+ */
+var View.横向滑动: Boolean
+    get() = this.isHorizontalScrollBarEnabled
+    set(启用) {this.isHorizontalScrollBarEnabled = 启用}
+
+/**
+ * 描述：获取横向滑动
+ * @return 横向滑动
+ */
+fun View.取横向滑动(): Boolean = this.isHorizontalScrollBarEnabled()
+/**
+ * 描述：置横向滑动
+ * @param 启用 启用。
+ */
+fun View.置横向滑动(启用: Boolean) = this.setHorizontalScrollBarEnabled(启用)
+
+//======================================================================
+
+/**
+ * 描述：纵向滑动
+ * @param 启用 启用。
+ * @return 纵向滑动
+ */
+var View.纵向滑动: Boolean
+    get() = this.isVerticalScrollBarEnabled
+    set(启用) {this.isVerticalScrollBarEnabled = 启用}
+/**
+ * 描述：获取纵向滑动
+ * @return 纵向滑动
+ */
+fun View.取纵向滑动(): Boolean = this.isVerticalScrollBarEnabled()
+
+/**
+ * 描述：置纵向滑动
+ * @param 启用 启用。
+ */
+fun View.置纵向滑动(启用: Boolean) = this.setVerticalScrollBarEnabled(启用)
+
+//======================================================================
+
+/**
+ * 描述：嵌套滑动
+ * @param 启用 启用。
+ * @return 嵌套滑动
+ */
+var View.嵌套滑动: Boolean
+    get() = this.isNestedScrollingEnabled
+    set(启用) {this.isNestedScrollingEnabled = 启用}
+
+/**
+ * 描述：获取嵌套滑动
+ * @return 嵌套滑动 嵌套滑动。
+ */
+fun View.取嵌套滑动(): Boolean = this.isNestedScrollingEnabled()
+/**
+ * 描述：置嵌套滑动
+ * @param 启用 启用
+ */
+fun View.置嵌套滑动(启用: Boolean) = this.setNestedScrollingEnabled(启用)
 
 //======================================================================
 
@@ -332,7 +399,6 @@ fun View.置触摸回调监听事件(回调: View.OnTouchListener) =
 fun View.置滚动改变回调监听事件(回调: View.OnScrollChangeListener) =
     this.setOnScrollChangeListener(回调)
 
-
-//=========================================================
+//======================================= ==================
 
 

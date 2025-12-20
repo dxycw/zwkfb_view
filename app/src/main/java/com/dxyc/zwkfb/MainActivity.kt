@@ -1,25 +1,27 @@
 package com.dxyc.zwkfb
 
 import android.os.Bundle
-import android.widget.Button
-import androidx.annotation.OptIn
 import androidx.appcompat.app.AppCompatActivity
-import androidx.media3.common.util.UnstableApi
-import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.ui.PlayerView
+//import androidx.media3.common.MediaItem
+//import androidx.media3.common.util.UnstableApi
+//import androidx.media3.datasource.DefaultHttpDataSource
+//import androidx.media3.exoplayer.ExoPlayer
+//import androidx.media3.exoplayer.source.ProgressiveMediaSource
+//import androidx.media3.ui.PlayerView
 import 安卓.应用.查找视图Id
 import 安卓.应用.置内容视图
 import 安卓.视图.置内边距
-import 安卓.视图.置单击回调监听事件
+import 安卓x.应用兼容包.应用.应用兼容活动
 import 安卓x.核心.视图.取边距
 import 安卓x.核心.视图.窗口边距兼容
 import 安卓x.核心.视图.视图兼容
 import 安卓x.活动.启用边缘到边缘
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : 应用兼容活动() {
 
-    lateinit var player: ExoPlayer
-    lateinit var playerview: PlayerView
+//    lateinit var player: ExoPlayer
+//    lateinit var playerview: PlayerView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,15 +36,17 @@ class MainActivity : AppCompatActivity() {
 
         init()
 
+//        toast("Hello ${R.string.app_name}")
     }
 
-    @OptIn(UnstableApi::class)
-    private fun init() {
-        playerview = findViewById(R.id.playerview)
 
-        // 1. 创建播放器
-        player = ExoPlayer.Builder(this).build()
-        playerview.player = player          // 绑定视图
+//    @OptIn(UnstableApi::class)
+    private fun init() {
+//        playerview = findViewById(R.id.playerview)
+//
+//        // 1. 创建播放器
+//        player = ExoPlayer.Builder(this).build()
+//        playerview.player = player          // 绑定视图
 
 
 //        url = "android.resource://${packageName}/${R.raw.a}"
@@ -60,42 +64,50 @@ class MainActivity : AppCompatActivity() {
 //        // 4. 组合成 MediaSource
 //        val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory)
 //            .createMediaSource(mediaItem)
+
+//        // 5. 塞给播放器
+//        player.setMediaSource(App.用网址播放视频("https://gitee.com/dxycw/shuju/raw/master/视频/2.mp4"))
+//        player.prepare()
+//        player.playWhenReady = true         // 自动开始
 //
-//         5. 塞给播放器
-        player.setMediaSource(App.用网址播放视频("https://gitee.com/dxycw/shuju/raw/master/视频/2.mp4"))
-        player.prepare()
-        player.playWhenReady = true         // 自动开始
+//        查找视图Id<Button>(R.id.btn1).置单击回调监听事件{
+//            player.play() // 播放视频
+//        }
+//
+//        查找视图Id<Button>(R.id.btn2).置单击回调监听事件{
+//            player.pause() // 暂停视频
+//        }
+//
+//
+//        查找视图Id<Button>(R.id.btn3).置单击回调监听事件{
+//            player.setMediaSource(App.用网址播放视频("https://gitee.com/dxycw/shuju/raw/master/视频/1.mp4"))
+//            player.play() // 播放视频
+//        }
+//
+//
+//        查找视图Id<Button>(R.id.btn4).置单击回调监听事件{
+//            player.setMediaSource(App.用网址播放视频("https://gitee.com/dxycw/shuju/raw/master/视频/2.mp4"))
+//            player.play() // 播放视频
+//        }
 
-        查找视图Id<Button>(R.id.btn1).置单击回调监听事件{
-            player.play() // 播放视频
-        }
 
-        查找视图Id<Button>(R.id.btn2).置单击回调监听事件{
-            player.pause() // 暂停视频
-        }
+//        val myAbi = Build.SUPPORTED_ABIS.joinToString()
+//
+//        查找视图Id<Button>(R.id.btn4).文本 = "本进程运行在：${ Build.SUPPORTED_ABIS[0]}."
 
-
-        查找视图Id<Button>(R.id.btn3).置单击回调监听事件{
-            player.setMediaSource(App.用网址播放视频("https://gitee.com/dxycw/shuju/raw/master/视频/1.mp4"))
-            player.play() // 播放视频
-        }
-
-        查找视图Id<Button>(R.id.btn4).置单击回调监听事件{
-            player.setMediaSource(App.用网址播放视频("https://gitee.com/dxycw/shuju/raw/master/视频/2.mp4"))
-            player.play() // 播放视频
-        }
 
     }
 
-    override fun onStop() {
-        super.onStop()
-        player.playWhenReady = false
-    }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        player.release()
-    }
+//    override fun onStop() {
+//        super.onStop()
+//        player.playWhenReady = false
+//    }
+//
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        player.release()
+//    }
+
 
 }
-

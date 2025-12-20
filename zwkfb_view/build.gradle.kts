@@ -20,7 +20,7 @@ android {
     }
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 26
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -63,6 +63,26 @@ dependencies {
 //    androidTestImplementation(libs.androidx.espresso.core)
 
     api(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar", "*.jar"))))
+
+    //=====================================================================
+
+    //广告 ID 库定义了一个接口，用于在运行您应用的不同设备上与系统级广告提供程序进行交互。此接口可让您的应用接收一致的广告 ID 值。
+//    api("androidx.ads:ads-identifier:1.0.0-alpha05")
+
+    //AppSearch 是一个搜索库，用于管理本地存储的结构化数据，其中包含用于将数据编入索引和通过全文搜索来检索数据的 API。您可以使用此库来为用户构建自定义的应用内搜索功能。
+//    api("androidx.appsearch:appsearch:1.1.0")
+
+    //就是 “系统浏览器遥控器”：不装内核，只发 Intent，却能获得与 Chrome 同等性能 + 定制 UI + PWA 全屏，适合“外跳网页”场景，包体几乎零增加。
+//    api("androidx.browser:browser:1.9.0")
+
+    //通过生物识别特征或设备凭据进行身份验证，以及执行加密操作。
+//    api("androidx.biometric:biometric:1.4.0-alpha05")
+
+    //使用向后兼容的 API 使用 Android 平台的蓝牙功能。
+//    api("androidx.bluetooth:bluetooth:1.0.0-alpha02")
+
+    //它本身不是新内核，而是给系统 WebView 增加了新 API，并保证在低版本系统上也能调用，开发者无需自己写版本判断。
+//    api("androidx.webkit:webkit:1.15.0")
 
     //=====================================================================
 
@@ -167,9 +187,112 @@ dependencies {
 
     //=====================================================================
 
-    // 弹幕
+    // 弹幕,B 站开源的一款 Android 弹幕解析与绘制引擎，主打“高性能 + 低耦合 + 易集成”，能让任何视频/直播类 App 在 1-2 天内快速拥有“B 站级”弹幕体验。
     api("com.github.bilibili.DanmakuFlameMaster:DanmakuFlameMaster:v0.9.25")
 
     //=====================================================================
 
+    // 浏览器 Geckoview 浏览器内核,仅暴露已定型且通过兼容性测试的接口，向后兼容性强。
+    api("org.mozilla.geckoview:geckoview:146.0.20251201213807")
+
+    // 浏览器 Geckoview 浏览器内核  nightly 版本,会提前开放实验性 API（如新增 WebExtension、Web 标准实现等），接口随时可能变动或被移除 。
+//    api("org.mozilla.geckoview:geckoview-nightly:148.0.20251218095601")
+
+    //=====================================================================
+
+    // 相机 media3
+//    api("androidx.camera.media3:media3-effect:1.0.0-alpha04")
+
+    //=====================================================================
+
+    //查询相机功能。
+//    api("androidx.camera.featurecombinationquery:featurecombinationquery:1.6.0-alpha02")
+//    api("androidx.camera.featurecombinationquery:featurecombinationquery-play-services:1.6.0-alpha02")
+
+    //=====================================================================
+
+    // 适用于相机的独立可组合项和基于视图的取景器"
+//    api("androidx.camera.viewfinder:viewfinder-view:1.6.0-alpha02")
+//    api("androidx.camera.viewfinder:viewfinder-core:1.6.0-alpha02")
+//    api("androidx.camera.viewfinder:viewfinder-compose:1.6.0-alpha02")
+
+    //=====================================================================
+
+    // CameraX 是 Jetpack 的新增库。利用该库，可以更轻松地向应用添加相机功能。
+    // 该库提供了很多兼容性修复程序和解决方法，有助于在众多设备上打造一致的开发者体验。
+//    api("androidx.camera:camera-core:1.5.2")
+//    api("androidx.camera:camera-camera2:1.5.2")
+    // 如果你还想使用 CameraX 生命周期库
+//    api("androidx.camera:camera-lifecycle:1.5.2")
+    // 如果你想额外使用 CameraX VideoCapture 库
+//    api("androidx.camera:camera-video:1.5.2")
+    // 如果你还想使用 CameraX 视图类
+//    api("androidx.camera:camera-view:1.5.2")
+    // 如果你想额外添加 CameraX ML Kit 视觉集成
+//    api("androidx.camera:camera-mlkit-vision:1.5.2")
+    // 如果你还想使用 CameraX 扩展库
+//    api("androidx.camera:camera-extensions:1.5.2")
+
+    // MLKit 条形码扫描
+//    api("com.google.mlkit:barcode-scanning:17.3.0")
+
+    //=====================================================================
+
+    // 二维码
+//    api("com.github.jenly1314:zxing-lite:3.3.0")
+
+    //=====================================================================
+
+    //公共库 (*必须) MLKit 二维码
+//    api("com.github.jenly1314.MLKit:mlkit-common:2.3.0")
+    //条码识别 (可选)
+//    api("com.github.jenly1314.MLKit:mlkit-barcode-scanning:2.3.0")
+    //人脸检测 (可选)
+//    api("com.github.jenly1314.MLKit:mlkit-face-detection:2.3.0")
+    //人脸网格检测 (可选)
+//    api("com.github.jenly1314.MLKit:mlkit-face-mesh-detection:2.3.0")
+    //图像标签 (可选)
+//    api("com.github.jenly1314.MLKit:mlkit-image-labeling:2.3.0")
+    //对象检测 (可选)
+//    api("com.github.jenly1314.MLKit:mlkit-object-detection:2.3.0")
+    //姿势检测 (可选)
+//    api("com.github.jenly1314.MLKit:mlkit-pose-detection:2.3.0")
+    //姿势检测精确版 (可选)
+//    api("com.github.jenly1314.MLKit:mlkit-pose-detection-accurate:2.3.0")
+    //自拍分割 (可选)
+//    api("com.github.jenly1314.MLKit:mlkit-segmentation-selfie:2.3.0")
+    //文字识别 (可选)
+//    api("com.github.jenly1314.MLKit:mlkit-text-recognition:2.3.0")
+
+    //=====================================================================
+
+    // XUI 通用UI库
+//    api("com.github.xuexiangjys:XUI:1.2.1")
+
+    //=====================================================================
+
+    // DialogX对话框
+//    api("com.github.kongzue.DialogX:DialogX:0.0.50")
+
+    //=====================================================================
+
+    //是 “Android/Kotlin 样板代码粉碎机”——把官方 SDK / Jetpack 里最常用的 200+
+    // 个小痛点拆成 单功能、零依赖、<3 kB 的微模块，想用哪个就引哪个，不写重复工具类。
+//    api("com.louiscad.splitties:splitties-fun-pack-android-base:3.0.0")
+//    api("com.louiscad.splitties:splitties-fun-pack-android-base-with-views-dsl:3.0.0")
+//    api("com.louiscad.splitties:splitties-fun-pack-android-appcompat:3.0.0")
+//    api("com.louiscad.splitties:splitties-fun-pack-android-appcompat-with-views-dsl:3.0.0")
+//    api("com.louiscad.splitties:splitties-fun-pack-android-material-components:3.0.0")
+//    api("com.louiscad.splitties:splitties-fun-pack-android-material-components-with-views-dsl:3.0.0")
+
+    //=====================================================================
+
+
+    //=====================================================================
+
+
+    //=====================================================================
+
+
+    //=====================================================================
 }
