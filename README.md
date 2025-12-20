@@ -246,7 +246,7 @@ dependencies {
 * 新增 android.view.View 类添加“横向滑动”、“纵向滑动”、“嵌套滑动”属性；
 * 新增 android.view.View 类添加“取横向滑动()”、“置横向滑动()”、“取纵向滑动()”、“置纵向滑动()”、“取嵌套滑动()”、“置嵌套滑动()”函数；
 * 新增 org.mozilla.geckoview:geckoview 依赖库 [Geckoview](https://mozilla.github.io/geckoview/javadoc/mozilla-central/org/mozilla/geckoview/doc-files/CHANGELOG)；
-* 新增 “ic_shipin”、“ic_yingyong”图标
+* 新增 “ic_shipin”、“ic_yingyong”图标；
 
 ## 0.2.0
 
