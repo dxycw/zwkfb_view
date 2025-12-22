@@ -20,7 +20,7 @@ android {
     }
 
     defaultConfig {
-        minSdk = 26
+        minSdk = 24
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -39,9 +39,13 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "11"
+
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+        }
     }
+
     buildFeatures {
         viewBinding = true
     }
@@ -52,7 +56,7 @@ dependencies {
     api("androidx.core:core-ktx:1.17.0") // 核心ktx库
     api("androidx.appcompat:appcompat:1.7.1") // appcompat库
     api("com.google.android.material:material:1.13.0") // material库
-    api("androidx.activity:activity:1.12.1") // activity库
+    api("androidx.activity:activity:1.12.2") // activity库
     api("androidx.constraintlayout:constraintlayout:2.2.1") // 约束布局库
     api("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0") // 下拉刷新库
 

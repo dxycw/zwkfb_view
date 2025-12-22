@@ -12,8 +12,8 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import zwkfb.view.R
+import 安卓.视图.视图组
 import 安卓x.回收视图.组件.回收视图
 import 自定义.动画类.动画类
 import 自定义.系统类.dp转px
@@ -24,31 +24,26 @@ import 自定义.资源类.int转Drawable
 
 
 class 图片高级列表框 : 回收视图 {
-    var 布局参数: GridLayoutManager? = null
-    private var 适配器: 适配器? = null
+    private var 上下文: Context? = null
+    private var 布局参数: GridLayoutManager? = null
+    private var 适配器: 图片高级列表框适配器? = null
 
-    var 列数: Int = 3
-
-    constructor(上下文: Context) : super(上下文) {
-        init(上下文)
+    companion object{
+        var 图片文字变灰效果: Int = 0
+        var 整体变灰效果: Int = 1
     }
 
-    constructor(上下文: Context, attrs: AttributeSet?) : super(上下文, attrs) {
-        init(上下文)
-    }
+    private var 列数: Int = 3
+
+    constructor(上下文: Context) : this(上下文, null)
+
+    constructor(上下文: Context, attrs: AttributeSet?) : this(上下文, attrs , 0)
 
     constructor(上下文: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        上下文,
-        attrs,
-        defStyleAttr
+        上下文, attrs, defStyleAttr
     ) {
-        init(上下文)
-    }
-
-    private fun init(上下文: Context) {
-        Companion.上下文 = 上下文
-
-        this.适配器 = 适配器()
+        this.上下文 = 上下文
+        this.适配器 = 图片高级列表框适配器(上下文)
         布局参数 = GridLayoutManager(上下文, 列数)
         this.setLayoutManager(布局参数) //列表布局,垂直,必须写
     }
@@ -110,53 +105,61 @@ class 图片高级列表框 : 回收视图 {
      * 以下为事件方法
      */
     // 设置单击项目事件
-    fun 置单击项目事件(项目单击事件: (位置: Int) -> Unit) {
+
+    fun 置单击项目事件(项目单击事件: (项目序数: Int) -> Unit) {
         适配器?.事件 = object : 项目单击事件 {
-            override fun 列表项目单击事件(位置: Int) {
-                项目单击事件(位置)
+            override fun 列表项目单击事件(项目序数: Int) {
+                项目单击事件(项目序数)
             }
         }
     }
 
+    fun 置单击项目事件(项目单击事件: 项目单击事件?) {
+        适配器?.事件 = object : 项目单击事件 {
+            override fun 列表项目单击事件(项目序数: Int) {
+                项目单击事件?.列表项目单击事件(项目序数)
+            }
+        }
+    }
 
-    //RecyclerView.Adapter<ViewHolder>
-    private class 适配器 : Adapter<ViewHolder?>() {
+    private class 图片高级列表框适配器(val 上下文: Context?) : Adapter<viewHolder>() {
         var 事件: 项目单击事件? = null // 定义接口
-        val 图标: ArrayList<Drawable?> = ArrayList<Drawable?>()
+        val 图标 = ArrayList<Drawable?>()
 
         var 图标宽度: Int = 50
         var 图标高度: Int = 50
 
         var 是否图片文字变灰效果: Boolean = false
 
-        val 标题: ArrayList<String?> = ArrayList<String?>()
+        val 标题 = ArrayList<String?>()
 
         var 标题单行 = false
         var 背景颜色 = Color.TRANSPARENT
         var 标题字体大小 = 12
         var 标题字体颜色 = -1
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
             val 视图 = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_tpgjlbk, parent, false)
-            return ViewHolder(视图)
+            return viewHolder(视图)
         }
 
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        @Suppress("DEPRECATION")
+        override fun onBindViewHolder(holder: viewHolder, position: Int) {
             //
             val 项目图标 = 图标[position]
             holder.列表图标.setImageDrawable(项目图标)
-            val layoutParams = LinearLayout.LayoutParams(holder.列表图标.layoutParams)
-            layoutParams.width = 上下文!!.dp转px(图标宽度)
-            layoutParams.height = 上下文!!.dp转px( 图标高度)
-            holder.列表图标.setLayoutParams(layoutParams)
+            val 布局参数 = LinearLayout.LayoutParams(holder.列表图标.layoutParams)
+            布局参数.width = 上下文!!.dp转px(图标宽度)
+            布局参数.height = 上下文.dp转px( 图标高度)
+            holder.列表图标.setLayoutParams(布局参数)
 
             val 项目文本 = 标题[position]
             holder.列表标题.text = 项目文本
-            holder.列表标题.textSize = 上下文!!.dp转sp(标题字体大小).toFloat()
+            holder.列表标题.textSize = 上下文.dp转sp(标题字体大小).toFloat()
             holder.列表标题.setSingleLine(标题单行)
             if (标题字体颜色 == -1) {
-                holder.列表标题.setTextColor(if (上下文!!.是否是深色模式) Color.WHITE else Color.BLACK)
+                holder.列表标题.setTextColor(if (上下文.是否是深色模式) Color.WHITE else Color.BLACK)
             } else {
                 holder.列表标题.setTextColor(标题字体颜色)
             }
@@ -165,15 +168,15 @@ class 图片高级列表框 : 回收视图 {
                 动画类.变灰效果(holder.itemView)
             } else {
                 holder.列表框.setBackgroundResource(
-                    上下文!!.attr转int(android.R.attr.selectableItemBackground)
+                    上下文.attr转int(android.R.attr.selectableItemBackground)
                 )
             }
             holder.itemView.setBackgroundColor(背景颜色)
-            holder.itemView.setOnClickListener(OnClickListener { v: View? ->
+            holder.itemView.setOnClickListener {
                 if (事件 != null) {
                     事件!!.列表项目单击事件(holder.getAdapterPosition())
                 }
-            })
+            }
         }
 
         override fun getItemCount(): Int {
@@ -186,26 +189,14 @@ class 图片高级列表框 : 回收视图 {
         }
     }
 
-    private class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var 列表框: LinearLayout
-        var 列表图标: ImageView
-        var 列表标题: TextView
-
-        init {
-            列表框 = itemView.findViewById<LinearLayout>(R.id.lbk)
-            列表图标 = itemView.findViewById<ImageView>(R.id.lbtb)
-            列表标题 = itemView.findViewById<TextView>(R.id.lbbt)
-        }
+    private class viewHolder(项目视图: View) : ViewHolder(项目视图) {
+        var 列表框 = 项目视图.findViewById<LinearLayout>(R.id.lbk)
+        var 列表图标 = 项目视图.findViewById<ImageView>(R.id.lbtb)
+        var 列表标题 = 项目视图.findViewById<TextView>(R.id.lbbt)
     }
 
     interface 项目单击事件 {
         fun 列表项目单击事件(项目序数: Int)
     }
 
-    companion object {
-        @SuppressLint("StaticFieldLeak")
-        var 上下文: Context? = null
-        var 图片文字变灰效果: Int = 0
-        var 整体变灰效果: Int = 1
-    }
 }

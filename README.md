@@ -39,7 +39,7 @@ dependencyResolutionManagement {
 
 ```groovy
 dependencies {
-    implementation 'com.github.dxycw:zwkfb_view:0.2.1' // 添加 zwkfb_view 依赖
+    implementation 'com.github.dxycw:zwkfb_view:0.2.2' // 添加 zwkfb_view 依赖
 }
 ```
 
@@ -47,7 +47,7 @@ dependencies {
 
 ```kotlin
 dependencies {
-    implementation("com.github.dxycw:zwkfb_view:0.2.1") // 添加 zwkfb_view 依赖
+    implementation("com.github.dxycw:zwkfb_view:0.2.2") // 添加 zwkfb_view 依赖
 }
 ```
 
@@ -62,7 +62,7 @@ dependencies {
 * androidx.core:core-ktx:1.17.0 
 * androidx.appcompat:appcompat:1.7.1 
 * com.google.android.material:material:1.13.0 
-* androidx.activity:activity:1.12.1 
+* androidx.activity:activity:1.12.2
 * androidx.constraintlayout:constraintlayout:2.2.1 
 * androidx.swiperefreshlayout:swiperefreshlayout:1.1.0 
 * com.google.firebase:firebase-crashlytics-buildtools:3.0.6 
@@ -187,7 +187,7 @@ android {
 
 ```groovy
 dependencies {
-    implementation 'com.github.dxycw:zwkfb_view:0.2.1'{
+    implementation 'com.github.dxycw:zwkfb_view:0.2.2'{
         exclude group: '', module: 'mysql-connector-java-5.1.49'
         
         exclude group: 'com.github.OCNYang.ImmersionBar', module: 'immersionbar-ktx'
@@ -214,7 +214,7 @@ dependencies {
 
 ```kotlin
 dependencies {
-    implementation("com.github.dxycw:zwkfb_view:0.2.1"){
+    implementation("com.github.dxycw:zwkfb_view:0.2.2"){
         exclude("", "mysql-connector-java-5.1.49")
         
         exclude("com.github.OCNYang.ImmersionBar", "immersionbar-ktx")
@@ -240,6 +240,11 @@ dependencies {
 2、如果在你的项目中使用到了以上依赖库，注释掉或在项目中添加需要的依赖库。
 
 # 更新内容
+
+## 0.2.2
+
+* 修复 minSdk 版本为 24 报错显示 26 的Bug；
+* 更新 androidx.activity:activity库版本为 1.12.2；
 
 ## 0.2.1
 

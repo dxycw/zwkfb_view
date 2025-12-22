@@ -7,44 +7,52 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import zwkfb.view.R
 import 安卓x.回收视图.组件.回收视图
+import 自定义.动画类.动画类
+import 自定义.资源类.attr转int
 
 
 class 文本高级列表框 : 回收视图 {
-    var 上下文: Context? = null
-    var 布局参数: LinearLayoutManager? = null
-    var 分割线: DividerItemDecoration? = null
-    private var 适配器: 适配器? = null
+    private var 上下文: Context? = null
+    private var 布局参数: LinearLayoutManager? = null
+    private var 分割线: DividerItemDecoration? = null
 
-    constructor(上下文: Context) : super(上下文) {
-        init(上下文)
+    private var 适配器: 文本高级列表框适配器? = null
+
+
+    companion object{
+        var 文字变灰效果: Int = 0
+        var 整体变灰效果: Int = 1
     }
 
-    constructor(上下文: Context, attrs: AttributeSet?) : super(上下文, attrs) {
-        init(上下文)
-    }
+
+    constructor(上下文: Context) : this(上下文, null)
+
+    constructor(上下文: Context, attrs: AttributeSet?) : this(上下文, attrs, 0)
 
     constructor(上下文: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        上下文,
-        attrs,
-        defStyleAttr
+        上下文, attrs, defStyleAttr
     ) {
-        init(上下文)
-    }
-
-    private fun init(上下文: Context) {
         this.上下文 = 上下文
-        this.适配器 = 适配器()
+        this.适配器 = 文本高级列表框适配器(上下文)
         布局参数 = LinearLayoutManager(上下文, LinearLayoutManager.VERTICAL, false)
         this.setLayoutManager(布局参数) //列表布局,垂直,必须写
         分割线 = DividerItemDecoration(上下文, 布局参数!!.orientation)
     }
 
+    fun 置项目单击效果(效果: Int) {
+        if (效果 == 文字变灰效果) {
+            适配器!!.是否文字变灰效果 = true
+        } else if (效果 == 整体变灰效果) {
+            适配器!!.是否文字变灰效果 = false
+        }
+        适配器!!.刷新()
+    }
 
     fun 添加项目(标题: String?) {
         适配器?.标题?.add(标题)
@@ -84,43 +92,63 @@ class 文本高级列表框 : 回收视图 {
     /**
      * 以下为事件方法
      */
-    fun 置单击项目事件(单击项目事件: 项目单击事件?) {
-        适配器?.事件 = 单击项目事件
+    fun 置单击项目事件(单击项目事件: (项目序数: Int) -> Unit) {
+        适配器?.事件 = object : 项目单击事件 {
+            override fun 列表项目单击事件(项目序数: Int) {
+                单击项目事件(项目序数)
+            }
+        }
     }
 
+    fun 置单击项目事件(单击项目事件: 项目单击事件?) {
+        适配器?.事件 = object : 项目单击事件 {
+            override fun 列表项目单击事件(项目序数: Int) {
+                单击项目事件?.列表项目单击事件(项目序数)
+            }
+        }
+    }
 
-    //RecyclerView.Adapter<ViewHolder>
-    private class 适配器 : Adapter<ViewHolder?>() {
+    private class 文本高级列表框适配器(val 上下文: Context?)  : Adapter<viewHolder?>() {
         var 事件: 项目单击事件? = null // 定义接口
-        var 标题: ArrayList<String?>
+
+        var 是否文字变灰效果: Boolean = false
+
+        var 标题 = ArrayList<String?>()
 
         var 标题单行 = false
         var 背景颜色 = Color.TRANSPARENT
         var 标题字体大小 = 16
         var 标题字体颜色 = Color.BLACK
 
-        init {
-            标题 = ArrayList<String?>()
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
             val 视图 = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_wbgjlbk, parent, false)
-            return ViewHolder(视图)
+            return viewHolder(视图)
         }
 
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        @Suppress("DEPRECATION")
+        override fun onBindViewHolder(holder: viewHolder, position: Int) {
             val 项目文本 = 标题[position]
             holder.列表标题.text = 项目文本
             holder.列表标题.textSize = 标题字体大小.toFloat()
             holder.列表标题.setSingleLine(标题单行)
             holder.列表标题.setTextColor(标题字体颜色)
+
+            if (是否文字变灰效果) {
+                动画类.变灰效果(holder.itemView)
+            } else {
+                holder.列表框.setBackgroundResource(
+                    上下文!!.attr转int(android.R.attr.selectableItemBackground)
+                )
+            }
+
             holder.itemView.setBackgroundColor(背景颜色)
-            holder.itemView.setOnClickListener(OnClickListener { v: View? ->
+
+            holder.itemView.setOnClickListener {
                 if (事件 != null) {
                     事件!!.列表项目单击事件(holder.getAdapterPosition())
                 }
-            })
+            }
         }
 
         override fun getItemCount(): Int {
@@ -133,15 +161,13 @@ class 文本高级列表框 : 回收视图 {
         }
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var 列表标题: TextView
-
-        init {
-            列表标题 = itemView.findViewById<TextView>(R.id.lbbt)
-        }
+    private class viewHolder(项目视图: View) : ViewHolder(项目视图) {
+        var 列表框 = 项目视图.findViewById<LinearLayout>(R.id.lbk)
+        var 列表标题 = 项目视图.findViewById<TextView>(R.id.lbbt)
     }
 
     interface 项目单击事件 {
         fun 列表项目单击事件(项目序数: Int)
     }
+
 }

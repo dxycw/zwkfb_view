@@ -13,13 +13,12 @@ import androidx.core.view.ViewCompat
  * 版本：0.0.7
  * @author dxyc
  */
-open class 视图兼容 : ViewCompat() {
+open class 视图兼容 : ViewCompat {
+    constructor() : super()
 
-    companion object:ViewCompat() {
+    companion object {
         /**
-         * 版本：0.0.7
-         *
-         * 置应用窗口边距回调监听器
+         * 描述：置应用窗口边距回调监听器
          * @param 视图 View
          * @param 监听器 OnApplyWindowInsetsListener
          */
@@ -33,9 +32,7 @@ open class 视图兼容 : ViewCompat() {
 //================================================================
 
 /**
- * 版本：0.0.7
- *
- * 置应用窗口边距回调监听器
+ * 描述：置应用窗口边距回调监听器
  * @param 视图 View
  * @param 监听器 OnApplyWindowInsetsListener
  */
