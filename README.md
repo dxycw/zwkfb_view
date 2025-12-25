@@ -2,8 +2,7 @@
 
 [![](https://jitpack.io/v/dxycw/zwkfb_view.svg)](https://jitpack.io/#dxycw/zwkfb_view)
 
-本项目是中文开发的开发包项目，适用于Android的View版的xml布局项目。
-如果你使用的是Jetpack Compose项目，请使用[zwkfb_compose](https://github.com/dxycw/zwkfb_compose)。
+本项目是中文开发的开发包项目，适用于Android的View版的xml布局项目。 如果你使用的是Jetpack Compose项目，请使用[zwkfb_compose](https://github.com/dxycw/zwkfb_compose)。
 
 # 使用方法
 
@@ -39,7 +38,7 @@ dependencyResolutionManagement {
 
 ```groovy
 dependencies {
-    implementation 'com.github.dxycw:zwkfb_view:0.2.2' // 添加 zwkfb_view 依赖
+    implementation 'com.github.dxycw:zwkfb_view:0.2.3' // 添加 zwkfb_view 依赖
 }
 ```
 
@@ -47,7 +46,7 @@ dependencies {
 
 ```kotlin
 dependencies {
-    implementation("com.github.dxycw:zwkfb_view:0.2.2") // 添加 zwkfb_view 依赖
+    implementation("com.github.dxycw:zwkfb_view:0.2.3") // 添加 zwkfb_view 依赖
 }
 ```
 
@@ -80,13 +79,15 @@ dependencies {
 * androidx.media3:media3-ui:1.8.0 (在0.1.8版本添加 ，[Media3 UI](https://github.com/androidx/media))
 * com.github.CarGuo.GSYVideoPlayer:gsyvideoplayer:v11.3.0 (在0.1.8版本添加 ，[GSYVideoPlayer](https://github.com/CarGuo/GSYVideoPlayer))
 * com.github.bilibili.DanmakuFlameMaster:DanmakuFlameMaster:v0.9.25 (在0.1.8版本添加 ，[DanmakuFlameMaster](https://github.com/bilibili/DanmakuFlameMaster))
-* org.mozilla.geckoview:geckoview:146.0.20251201213807 (在0.2.1版本添加 ，[Geckoview](https://mozilla.github.io/geckoview/javadoc/mozilla-central/org/mozilla/geckoview/doc-files/CHANGELOG))
+* org.mozilla.geckoview:geckoview-nightly:145.0.20251006095753 (在0.2.1版本添加 ，[Geckoview](https://mozilla.github.io/geckoview/javadoc/mozilla-central/org/mozilla/geckoview/doc-files/CHANGELOG))
+* org.mozilla.geckoview:geckoview-exoplayer2-nightly:145.0.20251006095753 (在0.2.3版本添加)
+* com.mysql:mysql-connector-j:9.5.0 (在0.2.3版本添加)
 
 # 打包体积压缩
 
 ## 一、打包分包
 
-1、在项目的 build.gradle 文件中使用“splits”配置分包，如下配置：
+在项目的 build.gradle 文件中使用“splits”配置分包，如下配置：
 
 * Groovy 版本：
 
@@ -117,8 +118,6 @@ android{
     }
 }
 ```
-
-2、注意：因为“Geckoview”只有"x86", "x86_64"两个架构，但是有大部分手机还有这两个架构，所以必须写。
 
 ## 二、混淆规则
 
@@ -187,8 +186,8 @@ android {
 
 ```groovy
 dependencies {
-    implementation 'com.github.dxycw:zwkfb_view:0.2.2'{
-        exclude group: '', module: 'mysql-connector-java-5.1.49'
+    implementation 'com.github.dxycw:zwkfb_view:0.2.3'{
+        exclude group: 'com.mysql', module: 'mysql-connector-j'
         
         exclude group: 'com.github.OCNYang.ImmersionBar', module: 'immersionbar-ktx'
         exclude group: "com.gitee.zackratos", module: "UltimateBarX"
@@ -205,7 +204,8 @@ dependencies {
         exclude group: "com.github.CarGuo.GSYVideoPlayer", module: "gsyvideoplayer"
         exclude group: "com.github.bilibili.DanmakuFlameMaster", module: "DanmakuFlameMaster"
 
-        exclude group: "org.mozilla.geckoview", module: "geckoview"
+        exclude group: "org.mozilla.geckoview", module: "geckoview-nightly"
+        exclude group: "org.mozilla.geckoview", module: "geckoview-exoplayer2-nightly"
     }
 }
 ```
@@ -214,9 +214,9 @@ dependencies {
 
 ```kotlin
 dependencies {
-    implementation("com.github.dxycw:zwkfb_view:0.2.2"){
-        exclude("", "mysql-connector-java-5.1.49")
-        
+    implementation("com.github.dxycw:zwkfb_view:0.2.3"){
+        exclude("com.mysql", "mysql-connector-j")
+
         exclude("com.github.OCNYang.ImmersionBar", "immersionbar-ktx")
         exclude("com.gitee.zackratos", "UltimateBarX")
 
@@ -232,7 +232,8 @@ dependencies {
         exclude("com.github.CarGuo.GSYVideoPlayer", "gsyvideoplayer")
         exclude("com.github.bilibili.DanmakuFlameMaster", "DanmakuFlameMaster")
 
-        exclude("org.mozilla.geckoview", "geckoview")
+        exclude("org.mozilla.geckoview", "geckoview-nightly")
+        exclude("org.mozilla.geckoview", "geckoview-exoplayer2-nightly")
     }
 }
 ```
@@ -240,6 +241,14 @@ dependencies {
 2、如果在你的项目中使用到了以上依赖库，注释掉或在项目中添加需要的依赖库。
 
 # 更新内容
+
+## 0.2.3
+
+* 修改 org.mozilla.geckoview:geckoview依赖库为org.mozilla.geckoview:geckoview-nightly依赖库，版本改为145.0.20251006095753，(145.0.20251006095753版本是最后一个 支持Api 21 的版本)；
+* 新增 com.mysql:mysql-connector-j依赖库版本为9.5.0；
+* 新增 org.mozilla.geckoview:geckoview-exoplayer2-nightly 依赖库版本为145.0.20251006095753，(145.0.20251006095753版本是最后一个 支持Api 21 的版本)；
+* 新增 “ic_caidan”、“ic_search”、“ic_jinggao”、“ic_wode”、“ic_wode_2”、“ic_zhuti”图标；
+* 新增 android.view.TextView 类的所有可用的函数；
 
 ## 0.2.2
 

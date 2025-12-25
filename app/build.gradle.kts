@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -71,7 +69,7 @@ android {
 dependencies {
     implementation(project(":zwkfb_view")){
 
-        exclude("", "mysql-connector-java-5.1.49")
+        exclude("com.mysql", "mysql-connector-j")
 
         exclude("com.github.OCNYang.ImmersionBar", "immersionbar-ktx")
         exclude("com.gitee.zackratos", "UltimateBarX")
@@ -88,7 +86,9 @@ dependencies {
         exclude("com.github.CarGuo.GSYVideoPlayer", "gsyvideoplayer")
         exclude("com.github.bilibili.DanmakuFlameMaster", "DanmakuFlameMaster")
 
-        exclude("org.mozilla.geckoview", "geckoview")
+        exclude("org.mozilla.geckoview", "geckoview-nightly")
+        exclude("org.mozilla.geckoview", "geckoview-exoplayer2-nightly")
+
     }
 
     testImplementation(libs.junit)

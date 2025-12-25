@@ -3,9 +3,11 @@ package com.dxyc.zwkfb
 import android.os.Build
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import 安卓.应用.查找视图Id
 import 安卓.应用.置内容视图
 import 安卓.组件.文本
+import 安卓.组件.文本视图
 import 安卓.视图.置内边距
 import 安卓x.应用兼容包.应用.应用兼容活动
 import 安卓x.核心.视图.取边距
@@ -84,7 +86,7 @@ class MainActivity : 应用兼容活动() {
 
 //        val myAbi = Build.SUPPORTED_ABIS.joinToString()
 
-        查找视图Id<Button>(R.id.btn4).文本 = "本进程运行在：${Build.SUPPORTED_ABIS[0]}."
+        查找视图Id<TextView>(R.id.btn1).文本 = "本进程运行在：${Build.SUPPORTED_ABIS[0]}."
 
     }
 

@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -35,6 +33,7 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -60,13 +59,22 @@ dependencies {
     api("androidx.constraintlayout:constraintlayout:2.2.1") // 约束布局库
     api("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0") // 下拉刷新库
 
+    //=====================================================================
+
     api("com.google.firebase:firebase-crashlytics-buildtools:3.0.6") // firebase crashlytics 构建工具
 
-    testImplementation(libs.junit)
-//    androidTestImplementation(libs.androidx.junit)
-//    androidTestImplementation(libs.androidx.espresso.core)
+    //=====================================================================
 
-    api(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar", "*.jar"))))
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+
+    //=====================================================================
+//    api(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar", "*.jar"))))
+    //=====================================================================
+
+    // 数据库 mysql 驱动
+    api("com.mysql:mysql-connector-j:9.5.0")
 
     //=====================================================================
 
@@ -105,8 +113,12 @@ dependencies {
     api("com.squareup.okhttp3:okhttp:5.3.2")
 //    api("com.squareup.okio:okio:3.16.4")
 
+    //=====================================================================
+
     // Json解析,是 Google 官方出品的 Java/Kotlin JSON 解析库 Gson 的 2.13.2 版本，用于把 JSON 字符串 ↔ Java/Kotlin 对象 之间做 序列化 / 反序列化。
     api("com.google.code.gson:gson:2.13.2")
+
+    //=====================================================================
 
     // Markdown,md解析
     api("io.noties.markwon:core:4.6.2")
@@ -196,11 +208,10 @@ dependencies {
 
     //=====================================================================
 
-    // 浏览器 Geckoview 浏览器内核,仅暴露已定型且通过兼容性测试的接口，向后兼容性强。
-    api("org.mozilla.geckoview:geckoview:146.0.20251201213807")
-
     // 浏览器 Geckoview 浏览器内核  nightly 版本,会提前开放实验性 API（如新增 WebExtension、Web 标准实现等），接口随时可能变动或被移除 。
-//    api("org.mozilla.geckoview:geckoview-nightly:148.0.20251218095601")
+    api("org.mozilla.geckoview:geckoview-nightly:145.0.20251006095753") // 最后一个支持Api 21
+
+    api("org.mozilla.geckoview:geckoview-exoplayer2-nightly:145.0.20251006095753") // 最后一个支持Api 21
 
     //=====================================================================
 

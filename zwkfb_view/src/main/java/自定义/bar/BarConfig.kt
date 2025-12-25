@@ -2,7 +2,6 @@
 
 package 自定义.bar
 
-import android.R
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
@@ -65,7 +64,7 @@ internal class BarConfig(activity: Activity) {
     private fun getActionBarHeight(context: Context): Int {
         val result: Int
         val tv = TypedValue()
-        context.theme.resolveAttribute(R.attr.actionBarSize, tv, true)
+        context.theme.resolveAttribute(android.R.attr.actionBarSize, tv, true)
         result = TypedValue.complexToDimensionPixelSize(tv.data,
             context.resources.displayMetrics
         )
