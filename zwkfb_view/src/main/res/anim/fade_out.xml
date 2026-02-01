@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<alpha xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromAlpha="1.0"
+    android:toAlpha="0.0"
+    android:duration="300">
+<!--    fade_out.xml 是 “淡出”效果-->
+<!--    让任意 View 在指定时间内从“完全不透明”渐变到“完全透明”（或反向）。-->
+<!--    android:fromAlpha       动画开始时的透明度    0.0 ~ 1.0     0.0 = 完全透明-->
+<!--    android:toAlpha         动画结束时的透明度    0.0 ~ 1.0     1.0 = 完全不透明-->
+<!--    android:duration         动画持续时间     ≥ 0，单位 ms     300 = 0.3 秒-->
+<!--    注意想修改数据请复制内容到自己的anim的xml文件了修改。-->
+</alpha>
