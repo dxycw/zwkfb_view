@@ -24,6 +24,10 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
+    publishing {
+        singleVariant("release")
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -42,6 +46,19 @@ android {
         viewBinding = true
     }
 
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            register<MavenPublication>("release") {
+                from(components["release"])
+                groupId = "com.github.dxycw"
+                artifactId = "zwkfb_view"
+                version = "0.2.5"
+            }
+        }
+    }
 }
 
 dependencies {
