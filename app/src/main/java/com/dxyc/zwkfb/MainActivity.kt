@@ -38,7 +38,6 @@ class MainActivity : 应用兼容活动() {
         init()
     }
 
-
     private fun init() {
 //        playerview = findViewById(R.id.playerview)
 //
