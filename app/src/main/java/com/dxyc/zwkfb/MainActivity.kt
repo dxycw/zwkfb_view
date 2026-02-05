@@ -7,6 +7,7 @@ import android.view.HapticFeedbackConstants
 import android.widget.Button
 import androidx.annotation.RequiresApi
 import com.dxyc.zwkfb.databinding.ActivityMainBinding
+import com.google.android.material.snackbar.Snackbar
 import 商业.谷歌.安卓.材质.时间选择器.材质时间选择器
 import 商业.谷歌.安卓.材质.标签.文本
 import 商业.谷歌.安卓.材质.标签.标签布局
@@ -44,6 +45,7 @@ class MainActivity : 应用兼容活动() {
             边距
         }
         init()
+        Snackbar
     }
 
     private fun init() {

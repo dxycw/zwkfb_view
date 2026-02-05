@@ -22,6 +22,7 @@ import androidx.annotation.StringRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.R
 import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.SnackbarContentLayout
 import com.google.firebase.crashlytics.buildtools.reloc.com.google.errorprone.annotations.CanIgnoreReturnValue
 
@@ -33,16 +34,11 @@ import com.google.firebase.crashlytics.buildtools.reloc.com.google.errorprone.an
  * 版本：0.1.2
  * @author dxyc
  */
-class 提示栏 private constructor(
-    context: Context,
-    parent: ViewGroup,
-    content: View,
-    contentViewCallback: com.google.android.material.snackbar.ContentViewCallback
-) : BaseTransientBottomBar<提示栏?>(context, parent, content, contentViewCallback) {
+open class 提示栏 : BaseTransientBottomBar<提示栏> {
     private val accessibilityManager: AccessibilityManager?
     private var hasAction = false
 
-    class Callback : BaseCallback<提示栏?>() {
+    class Callback : BaseCallback<提示栏>() {
         override fun onShown(sb: 提示栏?) {
             // Stub implementation to make API check happy.
         }
@@ -69,12 +65,13 @@ class 提示栏 private constructor(
         }
     }
 
-    private var callback: BaseCallback<提示栏?>? = null
+    private var callback: BaseCallback<提示栏>? = null
 
-    init {
+    private constructor(
+        context: Context, parent: ViewGroup, content: View, contentViewCallback: com.google.android.material.snackbar.ContentViewCallback
+    ) : super(context, parent, content, contentViewCallback) {
         accessibilityManager =
-            parent.getContext()
-                .getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager?
+            parent.getContext().getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager?
     }
 
     // TODO: Delete this once custom Robolectric shadows no longer depend on this method being present
@@ -321,13 +318,29 @@ class 提示栏 private constructor(
     private val messageView: TextView?
         get() = this.contentLayout!!.getMessageView()
 
+    @SuppressLint("RestrictedApi")
+    private fun getMessageView(): TextView? {
+        return this.contentLayout!!.getMessageView()
+    }
+
+
     @get:SuppressLint("RestrictedApi")
     private val actionView: Button
         get() = this.contentLayout!!.getActionView()
 
+    @SuppressLint("RestrictedApi")
+    private fun getActionView(): Button {
+        return this.contentLayout!!.getActionView()
+    }
+
     @get:SuppressLint("RestrictedApi")
     private val contentLayout: SnackbarContentLayout?
         get() = view.getChildAt(0) as SnackbarContentLayout?
+
+    @SuppressLint("RestrictedApi")
+    private fun getContentLayout(): SnackbarContentLayout? {
+        return view.getChildAt(0) as SnackbarContentLayout?
+    }
 
     companion object {
         private val SNACKBAR_BUTTON_STYLE_ATTR = intArrayOf(R.attr.snackbarButtonStyle)
@@ -497,580 +510,111 @@ class 提示栏 private constructor(
 //==================================================================
 
 /**
- * 创建时间：2025年11月27日
- *
  * 描述：持续时间
- *
- * 版本：0.1.2
- */
-var com.google.android.material.snackbar.Snackbar.持续时间 : Int
-    get() = duration
-    set(值){ duration = 值 }
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：取持续时间
- *
- * 版本：0.1.2
- */
-fun com.google.android.material.snackbar.Snackbar.取持续时间() : Int =
-    this.getDuration()
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：置持续时间
- *
- * 版本：0.1.2
- */
-fun com.google.android.material.snackbar.Snackbar.置持续时间(持续时间: Int) =
-    this.setDuration(持续时间)
-
-//======================================================================
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：置文本
- *
- * 版本：0.1.2
- */
-fun com.google.android.material.snackbar.Snackbar.置文本(资源Id: Int) : com.google.android.material.snackbar.Snackbar =
-    this.setText(资源Id)
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：置文本
- *
- * 版本：0.1.2
- */
-fun com.google.android.material.snackbar.Snackbar.置文本(文本: CharSequence) : com.google.android.material.snackbar.Snackbar =
-    this.setText(文本)
-
-//======================================================================
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：置文本颜色
- *
- * 版本：0.1.2
- */
-fun com.google.android.material.snackbar.Snackbar.置文本颜色(颜色: Int) : com.google.android.material.snackbar.Snackbar =
-    this.setTextColor(颜色)
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：置文本颜色
- *
- * 版本：0.1.2
- */
-fun com.google.android.material.snackbar.Snackbar.置文本颜色(颜色: ColorStateList) : com.google.android.material.snackbar.Snackbar =
-    this.setTextColor(颜色)
-
-//======================================================================
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：置背景色调
- *
- * 版本：0.1.2
- */
-fun com.google.android.material.snackbar.Snackbar.置背景色调(颜色: Int) : com.google.android.material.snackbar.Snackbar =
-    this.setBackgroundTint(颜色)
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：置背景色调列表
- *
- * 版本：0.1.2
- */
-fun com.google.android.material.snackbar.Snackbar.置背景色调列表(颜色: ColorStateList) : com.google.android.material.snackbar.Snackbar =
-    this.setBackgroundTintList(颜色)
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：置背景色调模式
- *
- * 版本：0.1.2
- */
-fun com.google.android.material.snackbar.Snackbar.置背景色调模式(模式: PorterDuff.Mode) : com.google.android.material.snackbar.Snackbar =
-    this.setBackgroundTintMode(模式)
-
-//======================================================================
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：显示
- *
- * 版本：0.1.2
- */
-fun com.google.android.material.snackbar.Snackbar.显示() = this.show()
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：关闭
- *
- * 版本：0.1.2
- */
-fun com.google.android.material.snackbar.Snackbar.关闭() = this.dismiss()
-
-//======================================================================
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：是否可见
- *
- * 版本：0.1.2
- */
-val com.google.android.material.snackbar.Snackbar.是否可见 : Boolean get() = isShown
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：是否可见
- *
- * 版本：0.1.2
- */
-fun com.google.android.material.snackbar.Snackbar.是否可见() : Boolean = this.isShown()
-
-//======================================================================
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：置动作
- *
- * 版本：0.1.2
- */
-fun com.google.android.material.snackbar.Snackbar.置动作(资源Id: Int, 事件: View.OnClickListener) : com.google.android.material.snackbar.Snackbar {
-    return setAction(资源Id, 事件)
-}
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：置动作
- *
- * 版本：0.1.2
- */
-fun com.google.android.material.snackbar.Snackbar.置动作(文本: CharSequence, 事件: View.OnClickListener) : com.google.android.material.snackbar.Snackbar {
-    return setAction(文本, 事件)
-}
-
-//======================================================================
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：置动作文本颜色
- *
- * 版本：0.1.2
- */
-fun com.google.android.material.snackbar.Snackbar.置动作文本颜色(颜色: Int) : com.google.android.material.snackbar.Snackbar {
-    return setActionTextColor(颜色)
-}
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：置动作文本颜色
- *
- * 版本：0.1.2
- */
-fun com.google.android.material.snackbar.Snackbar.置动作文本颜色(颜色: ColorStateList) : com.google.android.material.snackbar.Snackbar =
-    this.setActionTextColor(颜色)
-
-
-
-
-
-
-
-
-
-
-//======================================================================
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：持续时间
- *
- * 版本：0.1.2
  */
 var Snackbar.持续时间 : Int
     get() = duration
     set(值){ duration = 值 }
 
 /**
- * 创建时间：2025年11月27日
- *
- * 描述：持续时间
- *
- * 版本：0.1.2
+ * 描述：取持续时间
  */
-fun Snackbar.取持续时间() : Int = getDuration()
-
+fun Snackbar.取持续时间() : Int = this.getDuration()
 /**
- * 创建时间：2025年11月27日
- *
- * 描述：持续时间
- *
- * 版本：0.1.2
+ * 描述：置持续时间
  */
-fun Snackbar.置持续时间(持续时间: Int) { setDuration(持续时间) }
+fun Snackbar.置持续时间(持续时间: Int): Snackbar = this.setDuration(持续时间)
 
 //======================================================================
 
 /**
- * 创建时间：2025年11月27日
- *
  * 描述：置文本
- *
- * 版本：0.1.2
  */
-fun Snackbar.置文本(资源Id: Int) : Snackbar = setText(资源Id)
+fun Snackbar.置文本(资源Id: Int) : Snackbar = this.setText(资源Id)
 
 /**
- * 创建时间：2025年11月27日
- *
  * 描述：置文本
- *
- * 版本：0.1.2
  */
-fun Snackbar.置文本(文本: CharSequence) : Snackbar = setText(文本)
+fun Snackbar.置文本(文本: CharSequence) : Snackbar = this.setText(文本)
 
 //======================================================================
 
 /**
- * 创建时间：2025年11月27日
- *
  * 描述：置文本颜色
- *
- * 版本：0.1.2
  */
-fun Snackbar.置文本颜色(颜色: Int) : Snackbar = setTextColor(颜色)
+fun Snackbar.置文本颜色(颜色: Int) : Snackbar = this.setTextColor(颜色)
 
 /**
- * 创建时间：2025年11月27日
- *
  * 描述：置文本颜色
- *
- * 版本：0.1.2
  */
-fun Snackbar.置文本颜色(颜色: ColorStateList) : Snackbar = setTextColor(颜色)
+fun Snackbar.置文本颜色(颜色: ColorStateList) : Snackbar = this.setTextColor(颜色)
 
 //======================================================================
 
 /**
- * 创建时间：2025年11月27日
- *
  * 描述：置背景色调
- *
- * 版本：0.1.2
  */
-fun Snackbar.置背景色调(颜色: Int) : Snackbar = setBackgroundTint(颜色)
+fun Snackbar.置背景色调(颜色: Int) : Snackbar = this.setBackgroundTint(颜色)
 
 /**
- * 创建时间：2025年11月27日
- *
  * 描述：置背景色调列表
- *
- * 版本：0.1.2
  */
-fun Snackbar.置背景色调列表(颜色: ColorStateList) : Snackbar = setBackgroundTintList(颜色)
+fun Snackbar.置背景色调列表(颜色: ColorStateList) : Snackbar = this.setBackgroundTintList(颜色)
 
 /**
- * 创建时间：2025年11月27日
- *
  * 描述：置背景色调模式
- *
- * 版本：0.1.2
  */
-fun Snackbar.置背景色调模式(模式: PorterDuff.Mode) : Snackbar = setBackgroundTintMode(模式)
+fun Snackbar.置背景色调模式(模式: PorterDuff.Mode) : Snackbar = this.setBackgroundTintMode(模式)
 
 //======================================================================
 
 /**
- * 创建时间：2025年11月27日
- *
  * 描述：显示
- *
- * 版本：0.1.2
  */
-fun Snackbar.显示() { show() }
+fun Snackbar.显示() = this.show()
 
 /**
- * 创建时间：2025年11月27日
- *
  * 描述：关闭
- *
- * 版本：0.1.2
  */
-fun Snackbar.关闭() { dismiss() }
+fun Snackbar.关闭() = this.dismiss()
 
 //======================================================================
 
 /**
- * 创建时间：2025年11月27日
- *
  * 描述：是否可见
- *
- * 版本：0.1.2
  */
 val Snackbar.是否可见 : Boolean get() = isShown
 
 /**
- * 创建时间：2025年11月27日
- *
  * 描述：是否可见
- *
- * 版本：0.1.2
  */
-fun Snackbar.是否可见() : Boolean = isShown()
+fun Snackbar.是否可见() : Boolean = this.isShown()
 
 //======================================================================
 
 /**
- * 创建时间：2025年11月27日
- *
  * 描述：置动作
- *
- * 版本：0.1.2
  */
-fun Snackbar.置动作(资源Id: Int, 事件: View.OnClickListener) : Snackbar {
-    return setAction(资源Id, 事件)
-}
+fun Snackbar.置动作(资源Id: Int, 事件: View.OnClickListener) : Snackbar = this.setAction(资源Id, 事件)
 
 /**
- * 创建时间：2025年11月27日
- *
  * 描述：置动作
- *
- * 版本：0.1.2
  */
-fun Snackbar.置动作(文本: CharSequence, 事件: View.OnClickListener) : Snackbar{
-    return setAction(文本, 事件)
-}
+fun Snackbar.置动作(文本: CharSequence, 事件: View.OnClickListener) : Snackbar = this.setAction(文本, 事件)
+
 
 //======================================================================
 
 /**
- * 创建时间：2025年11月27日
- *
  * 描述：置动作文本颜色
- *
- * 版本：0.1.2
  */
-fun Snackbar.置动作文本颜色(颜色: Int) : Snackbar{
-    return setActionTextColor(颜色)
-}
+fun Snackbar.置动作文本颜色(颜色: Int) : Snackbar = this.setActionTextColor(颜色)
+
 
 /**
- * 创建时间：2025年11月27日
- *
  * 描述：置动作文本颜色
- *
- * 版本：0.1.2
  */
-fun Snackbar.置动作文本颜色(颜色: ColorStateList) : Snackbar{
-    return setActionTextColor(颜色)
-}
-
-
-
-
-
-
-
+fun Snackbar.置动作文本颜色(颜色: ColorStateList) : Snackbar = this.setActionTextColor(颜色)
 
 //======================================================================
 
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：持续时间
- *
- * 版本：0.1.2
- */
-var 提示栏.持续时间 : Int
-    get() = duration
-    set(值){ duration = 值 }
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：持续时间
- *
- * 版本：0.1.2
- */
-fun 提示栏.取持续时间() : Int = getDuration()
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：持续时间
- *
- * 版本：0.1.2
- */
-fun 提示栏.置持续时间(持续时间: Int) { setDuration(持续时间) }
-
-//======================================================================
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：置文本
- *
- * 版本：0.1.2
- */
-fun 提示栏.置文本(资源Id: Int) : 提示栏 = setText(资源Id)
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：置文本
- *
- * 版本：0.1.2
- */
-fun 提示栏.置文本(文本: CharSequence) : 提示栏 = setText(文本)
-
-//======================================================================
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：置文本颜色
- *
- * 版本：0.1.2
- */
-fun 提示栏.置文本颜色(颜色: Int) : 提示栏 = setTextColor(颜色)
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：置文本颜色
- *
- * 版本：0.1.2
- */
-fun 提示栏.置文本颜色(颜色: ColorStateList) : 提示栏 = setTextColor(颜色)
-
-//======================================================================
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：置背景色调
- *
- * 版本：0.1.2
- */
-fun 提示栏.置背景色调(颜色: Int) : 提示栏 = setBackgroundTint(颜色)
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：置背景色调列表
- *
- * 版本：0.1.2
- */
-fun 提示栏.置背景色调列表(颜色: ColorStateList) : 提示栏 = setBackgroundTintList(颜色)
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：置背景色调模式
- *
- * 版本：0.1.2
- */
-fun 提示栏.置背景色调模式(模式: PorterDuff.Mode) : 提示栏 = setBackgroundTintMode(模式)
-
-//======================================================================
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：显示
- *
- * 版本：0.1.2
- */
-fun 提示栏.显示() = this.show()
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：关闭
- *
- * 版本：0.1.2
- */
-fun 提示栏.关闭() = this.dismiss()
-
-//======================================================================
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：是否可见
- *
- * 版本：0.1.2
- */
-val 提示栏.是否可见 : Boolean get() = this.isShown
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：是否可见
- *
- * 版本：0.1.2
- */
-fun 提示栏.是否可见() : Boolean = this.isShown()
-
-//======================================================================
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：置动作
- *
- * 版本：0.1.2
- */
-fun 提示栏.置动作(资源Id: Int, 事件: View.OnClickListener) : 提示栏 =
-    this.setAction(资源Id, 事件)
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：置动作
- *
- * 版本：0.1.2
- */
-fun 提示栏.置动作(文本: CharSequence, 事件: View.OnClickListener) : 提示栏 =
-    this.setAction(文本, 事件)
-
-//======================================================================
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：置动作文本颜色
- *
- * 版本：0.1.2
- */
-fun 提示栏.置动作文本颜色(颜色: Int) : 提示栏 = this.setActionTextColor(颜色)
-
-
-/**
- * 创建时间：2025年11月27日
- *
- * 描述：置动作文本颜色
- *
- * 版本：0.1.2
- */
-fun 提示栏.置动作文本颜色(颜色: ColorStateList) : 提示栏 = this.setActionTextColor(颜色)
