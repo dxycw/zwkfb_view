@@ -9,14 +9,15 @@
     <!--        android:layout_width="match_parent"-->
     <!--        android:layout_height="match_parent"/>-->
 
-    <!--    <android.widget.inline.InlineContentView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"/>-->
+
+<!--    <android.widget.inline.InlineContentView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:importantForAutofill="no"/>-->
 
     <!--    <android.window.SplashScreenView-->
     <!--        android:layout_width="match_parent"-->
     <!--        android:layout_height="wrap_content"/>-->
-
 
     <!--    <安卓x.约束布局.组件.约束布局-->
     <!--        android:layout_width="match_parent"-->
@@ -40,6 +41,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <商业.谷歌.安卓.材质.标签.标签项
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tab 1" />
+
+        <商业.谷歌.安卓.材质.标签.标签项
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tab 2" />
+
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,20 +63,6 @@
 
     </商业.谷歌.安卓.材质.标签.标签布局>
 
-    <商业.谷歌.安卓.材质.标签.标签布局
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <商业.谷歌.安卓.材质.标签.标签项
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tab 1" />
-        <商业.谷歌.安卓.材质.标签.标签项
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tab 2" />
-
-    </商业.谷歌.安卓.材质.标签.标签布局>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -74,10 +71,11 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
             <TextView
                 android:id="@+id/btn1"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="1" />
@@ -115,12 +113,11 @@
                 android:layout_margin="10dp"
                 android:text="视频2" />
 
-
-            <!--            <安卓x.应用兼容包.组件.应用兼容按钮-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_margin="10dp"-->
-            <!--                android:text="视频2" />-->
+            <安卓x.应用兼容包.组件.应用兼容按钮
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="视频2" />
 
         </LinearLayout>
 

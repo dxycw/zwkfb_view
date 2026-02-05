@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import 安卓.内容.切换窗口
+import 安卓.内容.启动活动
 import 安卓.组件.吐司
 
 /**
@@ -18,40 +18,32 @@ import 安卓.组件.吐司
 //==========================================================================================
 
 /**
- * 切换窗口
- *
- * 版本：0.1.1
+ * 启动活动
  */
-fun Activity.切换窗口(窗口: Class<out Activity>) =
+fun Activity.启动活动(窗口: Class<out Activity>) =
     this.startActivity(Intent(this, 窗口))
 
 /**
- * 切换窗口
- *
- * 版本：0.1.1
+ * 启动活动
  */
-fun Activity.切换窗口(窗口: Activity) =
+fun Activity.启动活动(窗口: Activity) =
     this.startActivity(Intent(this, 窗口::class.java))
 
 //=================================================================================
 /**
- * 切换窗口到地址
- *
- * 版本：0.1.1
+ * 启动活动到地址
  */
 @SuppressLint("UnsafeImplicitIntentLaunch")
-fun Activity.切换窗口到地址(网址: Uri) =
+fun Activity.启动活动到地址(网址: Uri) =
     this.startActivity(Intent(Intent.ACTION_VIEW, 网址))
 
 //==========================================================================================
 
 /**
  * 返回桌面,直接退出到后台，不会关闭应用程序
- *
- * 版本：0.1.1
  */
 fun Activity.返回桌面() =
-    this.切换窗口(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME))
+    this.启动活动(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME))
 
 //==========================================================================================
 

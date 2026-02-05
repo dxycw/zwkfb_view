@@ -35,7 +35,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <商业.谷歌.安卓.材质.时间选择器.TimePickerView
+    <商业.谷歌.安卓.材质.时间选择器.时间选择器视图
         android:id="@+id/material_timepicker_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

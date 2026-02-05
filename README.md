@@ -40,7 +40,7 @@ dependencyResolutionManagement {
 
 ```groovy
 dependencies {
-    implementation 'com.github.dxycw:zwkfb_view:0.2.5' // 添加 zwkfb_view 依赖
+    implementation 'com.github.dxycw:zwkfb_view:0.2.6' // 添加 zwkfb_view 依赖
 }
 ```
 
@@ -48,7 +48,7 @@ dependencies {
 
 ```kotlin
 dependencies {
-    implementation("com.github.dxycw:zwkfb_view:0.2.5") // 添加 zwkfb_view 依赖
+    implementation("com.github.dxycw:zwkfb_view:0.2.6") // 添加 zwkfb_view 依赖
 }
 ```
 
@@ -234,7 +234,7 @@ android {
 
 ```groovy
 dependencies {
-    implementation 'com.github.dxycw:zwkfb_view:0.2.5'{
+    implementation 'com.github.dxycw:zwkfb_view:0.2.6'{
         exclude group: 'com.mysql', module: 'mysql-connector-j'
         
         exclude group: 'com.github.OCNYang.ImmersionBar', module: 'immersionbar-ktx'
@@ -263,7 +263,7 @@ dependencies {
 
 ```kotlin
 dependencies {
-    implementation("com.github.dxycw:zwkfb_view:0.2.5"){
+    implementation("com.github.dxycw:zwkfb_view:0.2.6"){
         exclude("com.mysql", "mysql-connector-j")
 
         exclude("com.github.OCNYang.ImmersionBar", "immersionbar-ktx")
@@ -292,10 +292,19 @@ dependencies {
 
 # 更新内容
 
+## 0.2.6
+
+* 修复 “按钮”组件的Bug；
+* 修改 部分 java 代码转为 kotlin 代码；
+* 修改 “相册”组件为 “图库”组件；
+* 修改 “切换窗口()”为 “启动活动()”函数；
+* 添加 “未实现错误”类；
+* 添加 两个“待办事项()”函数；
+* 添加 所有“上下文”及Context类的函数及属性；
+
 ## 0.2.5
 
 * 重置库，修复 0.2.4版本上传失败的Bug；
-
 
 ## 0.2.4
 

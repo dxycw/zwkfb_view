@@ -20,7 +20,7 @@ import android.content.Intent
  * 版本：0.1.1
  * @param 窗口 窗口。
  */
-fun Context.切换窗口(窗口: Class<out Activity>) =
+fun Context.启动活动(窗口: Class<out Activity>) =
     this.startActivity(Intent(this, 窗口))
 
 /**
@@ -29,5 +29,5 @@ fun Context.切换窗口(窗口: Class<out Activity>) =
  * 版本：0.1.1
  * @param 窗口 窗口。
  */
-fun Context.切换窗口(窗口: Activity) =
+fun Context.启动活动(窗口: Activity) =
     this.startActivity(Intent(this, 窗口::class.java))

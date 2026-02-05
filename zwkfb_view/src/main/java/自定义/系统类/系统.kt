@@ -12,7 +12,6 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.provider.Settings
 import androidx.core.net.toUri
-import 安卓.内容.切换窗口
 import 安卓.内容.资源
 import 自定义.文件类.随机文件名
 import java.io.File

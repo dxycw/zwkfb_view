@@ -18,10 +18,6 @@ open class 意图 :Intent{
     constructor(o: Intent?) : super(o)
     constructor(action: String?) : super(action)
     constructor(action: String?, uri: Uri?) : super(action, uri)
-    constructor(
-        action: String?,
-        uri: Uri?,
-        packageContext: Context?,
-        cls: Class<*>?,
+    constructor(action: String?, uri: Uri?, packageContext: Context?, cls: Class<*>?,
     ) : super(action, uri, packageContext, cls)
 }

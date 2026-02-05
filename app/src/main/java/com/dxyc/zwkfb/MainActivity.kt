@@ -1,10 +1,13 @@
 package com.dxyc.zwkfb
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.widget.Button
-import android.widget.TextView
+import androidx.annotation.RequiresApi
+import com.dxyc.zwkfb.databinding.ActivityMainBinding
+import 商业.谷歌.安卓.材质.时间选择器.材质时间选择器
 import 商业.谷歌.安卓.材质.标签.文本
 import 商业.谷歌.安卓.材质.标签.标签布局
 import 安卓.应用.查找视图Id
@@ -19,18 +22,23 @@ import 安卓x.核心.视图.窗口边距兼容
 import 安卓x.核心.视图.视图兼容
 import 安卓x.活动.启用边缘到边缘
 import 科特林.应用
+import 科特林.待办事项
 
 
 class MainActivity : 应用兼容活动() {
+    private lateinit var binding: ActivityMainBinding
 
 //    lateinit var player: ExoPlayer
 //    lateinit var playerview: PlayerView
 
+    @SuppressLint("WrongConstant")
+    @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         启用边缘到边缘()
-        置内容视图(R.layout.activity_main)
-        视图兼容.置应用窗口边距回调监听器(查找视图Id(R.id.main)) { 视图, 边距 ->
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        置内容视图(binding.root)
+        视图兼容.置应用窗口边距回调监听器(binding.main) { 视图, 边距 ->
             val 系统栏 = 边距.取边距(窗口边距兼容.类型.系统栏())
             视图.置内边距(系统栏.left, 系统栏.top, 系统栏.right, 系统栏.bottom)
             边距
@@ -117,11 +125,13 @@ class MainActivity : 应用兼容活动() {
 //            player.play() // 播放视频
 //        }
 
-
-
-//        val myAbi = Build.SUPPORTED_ABIS.joinToString()
-
-        查找视图Id<TextView>(R.id.btn1).文本 = "本进程运行在：${Build.SUPPORTED_ABIS[0]}."
+        材质时间选择器.Builder()
+            .setTimeFormat(商业.谷歌.安卓.材质.时间选择器.时间格式.CLOCK_12H)
+            .setHour(12)
+            .setMinute(30)
+            .setTitleText("选择时间")
+            .build()
+        binding.btn1.文本 = "支持的ABI：${Build.SUPPORTED_ABIS.joinToString()}，\n本进程运行在：${Build.SUPPORTED_ABIS[0]}."
 
     }
 

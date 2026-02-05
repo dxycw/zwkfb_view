@@ -19,7 +19,7 @@ import com.gyf.immersionbar.NotchCallback
 import com.gyf.immersionbar.OnBarListener
 import com.gyf.immersionbar.OnKeyboardListener
 import com.gyf.immersionbar.OnNavigationBarListener
-import 安卓.os.构建
+import 安卓.操作系统.构建
 import 自定义.系统类.是否是深色模式
 
 

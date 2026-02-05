@@ -14,7 +14,7 @@ import android.widget.Gallery
  * 版本：0.0.9
  * @author dxyc
  */
-open class 相册 : Gallery {
+open class 图库 : Gallery {
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(

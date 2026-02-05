@@ -22,7 +22,7 @@
     android:layout_height="256dp"
     android:layout_gravity="center">
 
-    <商业.谷歌.安卓.材质.时间选择器.ClockHandView
+    <商业.谷歌.安卓.材质.时间选择器.时钟指针视图
         android:id="@+id/material_clock_hand"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
