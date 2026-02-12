@@ -76,6 +76,7 @@ publishing {
         mavenLocal()
     }
 }
+
 dependencies {
     api("androidx.core:core-ktx:1.17.0") // 核心ktx库
     api("androidx.appcompat:appcompat:1.7.1") // appcompat库
