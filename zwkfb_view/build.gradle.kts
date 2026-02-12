@@ -28,9 +28,11 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
-//    publishing {
-//        singleVariant("release")
-//    }
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
 
     buildTypes {
         release {
@@ -54,19 +56,26 @@ android {
 
 }
 
-//afterEvaluate {
-//    publishing {
-//        publications {
-//            register<MavenPublication>("release") {
-//                from(components["release"])
-//                groupId = "com.github.dxycw"
-//                artifactId = "zwkfb_view"
-//                version = "0.2.7"
-//            }
-//        }
-//    }
-//}
+// 关键：使用正确的 publishing 配置
+publishing {
+    publications {
+        create<MavenPublication>("release") {
+            groupId = "com.github.dxycw"
+            artifactId = "zwkfb_view"
+            version = "0.2.7"
 
+            // 关键：使用 afterEvaluate 获取组件
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+    }
+
+    // 关键：配置仓库到本地 Maven
+    repositories {
+        mavenLocal()
+    }
+}
 dependencies {
     api("androidx.core:core-ktx:1.17.0") // 核心ktx库
     api("androidx.appcompat:appcompat:1.7.1") // appcompat库
