@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromXDelta="0%p"
+    android:toXDelta="-100%p"
+    android:duration="300" >
+    <!-- slide_out_left.xml  向左滑出屏幕 -->
+<!--    让任意 View 在水平方向从屏幕右侧外（100% 父容器宽度）滑入到当前位置（0%）-->
+<!--    android:fromXDelta    动画开始时 View 的 水平偏移量 	   相对父容器宽度的百分比     父宽 1080 px → 100%p = 1080 px-->
+<!--    android:toXDelta      动画结束时 View 的 水平偏移量 	   相对父容器宽度的百分比     父宽 1080 px → 0%p = 0 px-->
+<!--    android:duration      动画持续毫秒数                    ≥ 0，单位 ms               300 = 0.3 秒-->
+<!--    注意想修改数据请复制内容到自己的anim的xml文件了修改。-->
+</translate>
+
