@@ -4,6 +4,8 @@ import android.os.Build
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import com.dxyc.zwkfb_view.databinding.ActivityMainBinding
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import 商业.谷歌.安卓.材质.标签.文本
 import 安卓.应用.置内容视图
 import 安卓.组件.文本
@@ -93,18 +95,18 @@ class MainActivity : 应用兼容活动() {
                 true
             }
             置单击回调监听事件{
-//                val aa = MaterialTimePicker.Builder()
-//                    .setTimeFormat(TimeFormat.CLOCK_24H) // 商业.谷歌.安卓.材质.时间选择器.时间格式.CLOCK_12H
-//                    .setHour(12)
-//                    .setMinute(30)
-//                    .setTitleText("选择时间")
-//                    .setPositiveButtonText("确定")
-//                    .build()
-//
-//                aa.addOnPositiveButtonClickListener { view ->
-//                    binding.btn2.文本 = aa.hour.toString() + ":" + aa.minute.toString()
-//                }
-//                aa.show(supportFragmentManager, "time_picker")
+                val aa = MaterialTimePicker.Builder()
+                    .setTimeFormat(TimeFormat.CLOCK_24H) // 商业.谷歌.安卓.材质.时间选择器.时间格式.CLOCK_12H
+                    .setHour(12)
+                    .setMinute(30)
+                    .setTitleText("选择时间")
+                    .setPositiveButtonText("确定")
+                    .build()
+
+                aa.addOnPositiveButtonClickListener { view ->
+                    binding.btn2.文本 = aa.hour.toString() + ":" + aa.minute.toString()
+                }
+                aa.show(supportFragmentManager, "time_picker")
             }
         }
 

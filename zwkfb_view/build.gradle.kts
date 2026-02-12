@@ -70,11 +70,6 @@ publishing {
             }
         }
     }
-
-    // 关键：配置仓库到本地 Maven
-    repositories {
-        mavenLocal()
-    }
 }
 
 dependencies {
