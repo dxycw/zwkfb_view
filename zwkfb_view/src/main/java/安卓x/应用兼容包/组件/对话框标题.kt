@@ -1,5 +1,6 @@
 package 安卓x.应用兼容包.组件
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.DialogTitle
@@ -12,6 +13,7 @@ import androidx.appcompat.widget.DialogTitle
  * 版本：0.1.5
  * @author dxyc
  */
+@SuppressLint("RestrictedApi")
 open class 对话框标题 : DialogTitle {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
         context,

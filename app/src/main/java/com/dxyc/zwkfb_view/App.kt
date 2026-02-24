@@ -11,9 +11,6 @@ class App : 应用程序() {
     override fun 创建回调() {
         super.创建回调()
 
-//        com.mysql.jdbc.Driver()
-
-
 //        PlayerFactory.setPlayManager(Exo2PlayerManager::class.java)
 //        CacheFactory.setCacheManager(ExoPlayerCacheManager::class.java)
 

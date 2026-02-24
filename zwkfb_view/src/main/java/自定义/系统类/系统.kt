@@ -1,5 +1,6 @@
 package 自定义.系统类
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DownloadManager
 import android.content.Context
@@ -41,10 +42,12 @@ object 系统类 {
         return Build.VERSION.RELEASE // 获取系统版本号 例如：8.0
     }
 
+    @SuppressLint("HardwareIds")
     fun 获取手机唯一标识(): String? {
         return Build.SERIAL // 获取手机唯一标识 例如：9d0c0d0c0d0c0d0c
     }
 
+    @SuppressLint("HardwareIds")
     fun 获取设备唯一标识(上下文: Context): String? {
         return Settings.Secure.getString(上下文.contentResolver, Settings.Secure.ANDROID_ID)
     }
@@ -52,6 +55,7 @@ object 系统类 {
 }
 
 
+@SuppressLint("HardwareIds")
 fun Context.获取设备唯一标识(): String? {
     return Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
 }
@@ -71,11 +75,11 @@ fun Context.是否处于横屏(): Boolean {
 //==============================================================================================
 
 fun Activity.切换竖屏() {
-    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+    this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
 }
 
 fun Activity.切换横屏() {
-    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
+    this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
 }
 
 //==============================================================================================
@@ -112,7 +116,6 @@ fun Context.分享文本(文本: String?) {
     startActivity(Intent.createChooser(分享, null))
 }
 
-
 //==============================================================================
 
 /**
@@ -121,7 +124,7 @@ fun Context.分享文本(文本: String?) {
  * @return 如果URL以常见的下载文件扩展名结尾，则返回true，否则返回false
  */
 fun 是否是下载链接(url: String): Boolean {
-    // 定义常见的下载文件扩展名数组
+    // 定义常见地下载文件扩展名数组
     val 扩展名 =
         arrayOf<String?>(".zip", ".pdf", ".docx", ".xlsx", ".pptx", ".jpg", ".png", ".gif", ".apk")
     // 遍历扩展名数组，检查URL是否以任何扩展名结尾
@@ -166,8 +169,8 @@ fun Activity.选择文件及拍照功能(请求码: Int): String {
     //打开相机intent
     var intent: Intent? = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
     if (intent!!.resolveActivity(packageManager) != null) {
-        val photoFile: File? = File(saveName + 随机文件名() + ".jpg")
-        if (!photoFile!!.exists()) {
+        val photoFile = File(saveName + 随机文件名() + ".jpg")
+        if (!photoFile.exists()) {
             try {
                 photoFile.createNewFile()
             } catch (e: IOException) {

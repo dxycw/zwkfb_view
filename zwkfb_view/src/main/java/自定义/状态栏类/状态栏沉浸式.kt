@@ -8,6 +8,8 @@ import android.graphics.Color
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import androidx.annotation.ColorRes
+import androidx.annotation.FloatRange
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -194,53 +196,61 @@ class 状态栏沉浸式 {
 
         // ================================================================================
 
-        fun 获取导航栏高度(上下文: Activity): Int {
+        fun 取导航栏高度(上下文: Activity): Int {
             return ImmersionBar.getNavigationBarHeight(上下文)
         }
 
-        fun 获取导航栏高度(上下文: Context): Int {
+        fun 取导航栏高度(上下文: Context): Int {
             return ImmersionBar.getNavigationBarHeight(上下文)
         }
 
-        fun 获取导航栏高度(上下文: Fragment): Int {
+        fun 取导航栏高度(上下文: Fragment): Int {
             return ImmersionBar.getNavigationBarHeight(上下文)
         }
 
         // ================================================================================
 
-        fun 获取导航栏宽度(上下文: Activity): Int {
+        fun 取导航栏宽度(上下文: Activity): Int {
             return ImmersionBar.getNavigationBarWidth(上下文)
         }
 
-        fun 获取导航栏宽度(上下文: Context): Int {
+        fun 取导航栏宽度(上下文: Context): Int {
             return ImmersionBar.getNavigationBarWidth(上下文)
         }
 
-        fun 获取导航栏宽度(上下文: Fragment): Int {
+        fun 取导航栏宽度(上下文: Fragment): Int {
+            return ImmersionBar.getNavigationBarWidth(上下文)
+        }
+
+        fun 取导航栏宽度(上下文: android.app.Fragment): Int {
             return ImmersionBar.getNavigationBarWidth(上下文)
         }
 
         // ================================================================================
 
-        fun 获取状态栏高度(上下文: Activity): Int {
+        fun 取状态栏高度(上下文: Activity): Int {
             return ImmersionBar.getStatusBarHeight(上下文)
         }
 
-        fun 获取状态栏高度(上下文: Context): Int {
+        fun 取状态栏高度(上下文: Context): Int {
             return ImmersionBar.getStatusBarHeight(上下文)
         }
 
-        fun 获取状态栏高度(上下文: Fragment): Int {
+        fun 取状态栏高度(上下文: Fragment): Int {
+            return ImmersionBar.getStatusBarHeight(上下文)
+        }
+
+        fun 取状态栏高度(上下文: android.app.Fragment): Int {
             return ImmersionBar.getStatusBarHeight(上下文)
         }
 
         // ================================================================================
 
-        fun 获取ActionBar高度(上下文: Activity): Int {
+        fun 取ActionBar高度(上下文: Activity): Int {
             return ImmersionBar.getActionBarHeight(上下文)
         }
 
-        fun 获取ActionBar高度(上下文: Fragment): Int {
+        fun 取ActionBar高度(上下文: Fragment): Int {
             return ImmersionBar.getActionBarHeight(上下文)
         }
 
@@ -330,15 +340,15 @@ class 状态栏沉浸式 {
         fun 是否隐藏状态栏导航栏(上下文: Activity, 是否隐藏: Boolean = false, 自动深色: Boolean = false, 深色颜色: Boolean = false) {
             // 获取根视图
             根视图 = 上下文.findViewById(android.R.id.content)
-            val 沉浸设置 = 状态栏沉浸式.初始化沉浸式(上下文)
+            val 沉浸设置 = 初始化沉浸式(上下文)
             if (是否隐藏) {
                 沉浸设置.隐藏状态栏导航栏()
-                沉浸设置.是否全屏显示(true)
+                沉浸设置.全屏(true)
                 沉浸设置.状态栏导航栏透明()
                 沉浸设置.状态栏导航栏自动深色模式(自动深色)
                 沉浸设置.刷新()
 
-                if (状态栏沉浸式.是否是手势(上下文)) { //有
+                if (是否是手势(上下文)) { //有
                     //隐藏状态栏和导航栏
                     上下文.window.decorView.setSystemUiVisibility(
                         (View.SYSTEM_UI_FLAG_LAYOUT_STABLE // 让内容在状态栏和导航栏之间留白
@@ -358,7 +368,7 @@ class 状态栏沉浸式 {
                 }
             } else {
                 沉浸设置.显示状态栏导航栏()
-                if (状态栏沉浸式.是否是手势(上下文)) { //有
+                if (是否是手势(上下文)) { //有
                     if (自动深色) {
                         沉浸设置.状态栏字体图标自动深色模式(!上下文.是否是深色模式)
                         if (构建.制造商() == "Xiaomi") {
@@ -430,37 +440,37 @@ class 状态栏沉浸式 {
             状态栏沉浸式.初始化沉浸式(上下文).状态栏导航栏透明().显示状态栏导航栏().状态栏字体图标自动深色模式(状态栏字体图标自动深色模式).刷新()
         }
 
-        fun 隐藏对话框子窗口状态栏(对话框子窗口上下文: Fragment, 状态栏字体图标自动深色模式: Boolean = true) {
-            状态栏沉浸式.初始化沉浸式(对话框子窗口上下文).状态栏导航栏透明().隐藏状态栏().状态栏字体图标自动深色模式(状态栏字体图标自动深色模式).刷新()
+        fun 隐藏对话框子窗口状态栏(上下文: Fragment, 状态栏字体图标自动深色模式: Boolean = true) {
+            状态栏沉浸式.初始化沉浸式(上下文).状态栏导航栏透明().隐藏状态栏().状态栏字体图标自动深色模式(状态栏字体图标自动深色模式).刷新()
         }
 
-        fun 显示对话框子窗口状态栏(对话框子窗口上下文: Fragment, 状态栏字体图标自动深色模式: Boolean = true) {
-            状态栏沉浸式.初始化沉浸式(对话框子窗口上下文).状态栏导航栏透明().显示状态栏导航栏().状态栏字体图标自动深色模式(状态栏字体图标自动深色模式).刷新()
+        fun 显示对话框子窗口状态栏(上下文: Fragment, 状态栏字体图标自动深色模式: Boolean = true) {
+            状态栏沉浸式.初始化沉浸式(上下文).状态栏导航栏透明().显示状态栏导航栏().状态栏字体图标自动深色模式(状态栏字体图标自动深色模式).刷新()
         }
 
-        fun 隐藏对话框子窗口状态栏(对话框子窗口上下文: android.app.Fragment, 状态栏字体图标自动深色模式: Boolean = true) {
-            状态栏沉浸式.初始化沉浸式(对话框子窗口上下文).状态栏导航栏透明().隐藏状态栏().状态栏字体图标自动深色模式(状态栏字体图标自动深色模式).刷新()
+        fun 隐藏对话框子窗口状态栏(上下文: android.app.Fragment, 状态栏字体图标自动深色模式: Boolean = true) {
+            状态栏沉浸式.初始化沉浸式(上下文).状态栏导航栏透明().隐藏状态栏().状态栏字体图标自动深色模式(状态栏字体图标自动深色模式).刷新()
         }
 
-        fun 显示对话框子窗口状态栏(对话框子窗口上下文: android.app.Fragment, 状态栏字体图标自动深色模式: Boolean = true) {
-            状态栏沉浸式.初始化沉浸式(对话框子窗口上下文).状态栏导航栏透明().显示状态栏导航栏().状态栏字体图标自动深色模式(状态栏字体图标自动深色模式).刷新()
+        fun 显示对话框子窗口状态栏(上下文: android.app.Fragment, 状态栏字体图标自动深色模式: Boolean = true) {
+            状态栏沉浸式.初始化沉浸式(上下文).状态栏导航栏透明().显示状态栏导航栏().状态栏字体图标自动深色模式(状态栏字体图标自动深色模式).刷新()
         }
 
-        fun 隐藏对话框子窗口状态栏(对话框子窗口上下文: DialogFragment, 状态栏字体图标自动深色模式: Boolean = true) {
-            状态栏沉浸式.初始化沉浸式(对话框子窗口上下文).状态栏导航栏透明().隐藏状态栏().状态栏字体图标自动深色模式(状态栏字体图标自动深色模式).刷新()
+        fun 隐藏对话框子窗口状态栏(上下文: DialogFragment, 状态栏字体图标自动深色模式: Boolean = true) {
+            状态栏沉浸式.初始化沉浸式(上下文).状态栏导航栏透明().隐藏状态栏().状态栏字体图标自动深色模式(状态栏字体图标自动深色模式).刷新()
         }
 
-        fun 显示对话框子窗口状态栏(对话框子窗口上下文: DialogFragment, 状态栏字体图标自动深色模式: Boolean = true) {
-            状态栏沉浸式.初始化沉浸式(对话框子窗口上下文).状态栏导航栏透明().显示状态栏导航栏()
+        fun 显示对话框子窗口状态栏(上下文: DialogFragment, 状态栏字体图标自动深色模式: Boolean = true) {
+            状态栏沉浸式.初始化沉浸式(上下文).状态栏导航栏透明().显示状态栏导航栏()
                 .状态栏字体图标自动深色模式(状态栏字体图标自动深色模式).刷新()
         }
 
-        fun 隐藏对话框子窗口状态栏(对话框子窗口上下文: android.app.DialogFragment, 状态栏字体图标自动深色模式: Boolean = true) {
-            状态栏沉浸式.初始化沉浸式(对话框子窗口上下文).状态栏导航栏透明().隐藏状态栏().状态栏字体图标自动深色模式(状态栏字体图标自动深色模式).刷新()
+        fun 隐藏对话框子窗口状态栏(上下文: android.app.DialogFragment, 状态栏字体图标自动深色模式: Boolean = true) {
+            状态栏沉浸式.初始化沉浸式(上下文).状态栏导航栏透明().隐藏状态栏().状态栏字体图标自动深色模式(状态栏字体图标自动深色模式).刷新()
         }
 
-        fun 显示对话框子窗口状态栏(对话框子窗口上下文: android.app.DialogFragment, 状态栏字体图标自动深色模式: Boolean = true) {
-            状态栏沉浸式.初始化沉浸式(对话框子窗口上下文).状态栏导航栏透明().显示状态栏导航栏().状态栏字体图标自动深色模式(状态栏字体图标自动深色模式).刷新()
+        fun 显示对话框子窗口状态栏(上下文: android.app.DialogFragment, 状态栏字体图标自动深色模式: Boolean = true) {
+            状态栏沉浸式.初始化沉浸式(上下文).状态栏导航栏透明().显示状态栏导航栏().状态栏字体图标自动深色模式(状态栏字体图标自动深色模式).刷新()
         }
 
         fun 隐藏对话框子窗口状态栏(上下文: Activity, 对话框上下文: Dialog, 状态栏字体图标自动深色模式: Boolean = true) {
@@ -477,7 +487,7 @@ class 状态栏沉浸式 {
 
     fun 刷新() = 沉浸式配置.init()
 
-    fun 恢复默认(): 状态栏沉浸式 {
+    fun 重置(): 状态栏沉浸式 {
         沉浸式配置.reset()
         return this
     }
@@ -491,23 +501,23 @@ class 状态栏沉浸式 {
         return this
     }
 
-    fun 状态栏透明度(透明度: Float): 状态栏沉浸式 {
+    fun 状态栏透明度(@FloatRange(from = 0.0, to = 1.0) 透明度: Float): 状态栏沉浸式 {
         沉浸式配置.statusBarAlpha(透明度)
         return this
     }
     //========================================================================
 
-    fun 状态栏颜色(颜色: Int): 状态栏沉浸式 {
+    fun 状态栏颜色(@ColorRes 颜色: Int): 状态栏沉浸式 {
         沉浸式配置.statusBarColor(颜色)
         return this
     }
 
-    fun 状态栏颜色(颜色: Int, 透明度: Float): 状态栏沉浸式 {
+    fun 状态栏颜色(@ColorRes 颜色: Int, @FloatRange(from = 0.0, to = 1.0) 透明度: Float): 状态栏沉浸式 {
         沉浸式配置.statusBarColor(颜色, 透明度)
         return this
     }
 
-    fun 状态栏颜色(颜色: Int, 改变后的颜色: Int, 透明度: Float): 状态栏沉浸式 {
+    fun 状态栏颜色(@ColorRes 颜色: Int, @ColorRes 改变后的颜色: Int, @FloatRange(from = 0.0, to = 1.0) 透明度: Float): 状态栏沉浸式 {
         沉浸式配置.statusBarColor(颜色, 改变后的颜色, 透明度)
         return this
     }
@@ -517,49 +527,49 @@ class 状态栏沉浸式 {
         return this
     }
 
-    fun 状态栏颜色(颜色: String?, 透明度: Float): 状态栏沉浸式 {
+    fun 状态栏颜色(颜色: String?, @FloatRange(from = 0.0, to = 1.0) 透明度: Float): 状态栏沉浸式 {
         沉浸式配置.statusBarColor(颜色, 透明度)
         return this
     }
 
-    fun 状态栏颜色(颜色: String?, 改变后的颜色: String?, 透明度: Float): 状态栏沉浸式 {
+    fun 状态栏颜色(颜色: String?, 改变后的颜色: String?, @FloatRange(from = 0.0, to = 1.0) 透明度: Float): 状态栏沉浸式 {
         沉浸式配置.statusBarColor(颜色, 改变后的颜色, 透明度)
         return this
     }
 
     //========================================================================
 
-    fun 状态栏自动深色模式(值: Boolean): 状态栏沉浸式 {
-        沉浸式配置.autoStatusBarDarkModeEnable(值)
+    fun 自动状态栏深色模式启用(是否启用: Boolean): 状态栏沉浸式 {
+        沉浸式配置.autoStatusBarDarkModeEnable(是否启用)
         return this
     }
 
-    fun 状态栏自动深色模式(值: Boolean, 透明度: Float): 状态栏沉浸式 {
-        沉浸式配置.autoStatusBarDarkModeEnable(值, 透明度)
-        return this
-    }
-
-    //========================================================================
-
-    fun 状态栏字体图标自动深色模式(值: Boolean): 状态栏沉浸式 {
-        沉浸式配置.statusBarDarkFont(值)
-        return this
-    }
-
-    fun 状态栏字体图标自动深色模式(值: Boolean, 透明度: Float): 状态栏沉浸式 {
-        沉浸式配置.statusBarDarkFont(值, 透明度)
+    fun 自动状态栏深色模式启用(是否启用: Boolean, @FloatRange(from = 0.0, to = 1.0) 自动深色模式透明度: Float): 状态栏沉浸式 {
+        沉浸式配置.autoStatusBarDarkModeEnable(是否启用, 自动深色模式透明度)
         return this
     }
 
     //========================================================================
 
-    fun FlymeOS系统手机状态栏字体颜色(值: Int): 状态栏沉浸式 {
-        沉浸式配置.flymeOSStatusBarFontColor(值)
+    fun 状态栏字体图标自动深色模式(是否深色字体: Boolean): 状态栏沉浸式 {
+        沉浸式配置.statusBarDarkFont(是否深色字体)
         return this
     }
 
-    fun FlymeOS系统手机状态栏字体颜色(值: String?): 状态栏沉浸式 {
-        沉浸式配置.flymeOSStatusBarFontColor(值)
+    fun 状态栏字体图标自动深色模式(是否深色字体: Boolean, @FloatRange(from = 0.0, to = 1.0) 状态透明度: Float): 状态栏沉浸式 {
+        沉浸式配置.statusBarDarkFont(是否深色字体, 状态透明度)
+        return this
+    }
+
+    //========================================================================
+
+    fun flyme操作系统状态栏字体颜色(@ColorRes flyme操作系统状态栏字体颜色: Int): 状态栏沉浸式 {
+        沉浸式配置.flymeOSStatusBarFontColor(flyme操作系统状态栏字体颜色)
+        return this
+    }
+
+    fun flyme操作系统状态栏字体颜色(flyme操作系统状态栏字体颜色: String?): 状态栏沉浸式 {
+        沉浸式配置.flymeOSStatusBarFontColor(flyme操作系统状态栏字体颜色)
         return this
     }
 
@@ -570,7 +580,7 @@ class 状态栏沉浸式 {
         return this
     }
 
-    fun 导航栏透明度(透明度: Float): 状态栏沉浸式 {
+    fun 导航栏透明度(@FloatRange(from = 0.0, to = 1.0) 透明度: Float): 状态栏沉浸式 {
         沉浸式配置.navigationBarAlpha(透明度)
         return this
     }
@@ -748,103 +758,103 @@ class 状态栏沉浸式 {
         return this
     }
 
-    fun 添加视图变色(视图: View): 状态栏沉浸式 {
+    fun 添加视图支持变换颜色(视图: View): 状态栏沉浸式 {
         沉浸式配置.addViewSupportTransformColor(视图)
         return this
     }
 
-    fun 添加视图变色(视图: View, 变换后的颜色: Int): 状态栏沉浸式 {
+    fun 添加视图支持变换颜色(视图: View, 变换后的颜色: Int): 状态栏沉浸式 {
         沉浸式配置.addViewSupportTransformColor(视图, 变换后的颜色)
         return this
     }
 
-    fun 添加视图变色(视图: View, 变换前的颜色: Int, 变换后的颜色: Int): 状态栏沉浸式 {
+    fun 添加视图支持变换颜色(视图: View, 变换前的颜色: Int, 变换后的颜色: Int): 状态栏沉浸式 {
         沉浸式配置.addViewSupportTransformColor(视图, 变换前的颜色, 变换后的颜色)
         return this
     }
 
-    fun 状态栏沉浸式添加视图变色(视图: View, 变换后的颜色: String?): 状态栏沉浸式 {
+    fun 添加视图支持变换颜色(视图: View, 变换后的颜色: String?): 状态栏沉浸式 {
         沉浸式配置.addViewSupportTransformColor(视图, 变换后的颜色)
         return this
     }
 
-    fun 添加视图变色(视图: View, 变换前的颜色: String?, 变换后的颜色: String?): 状态栏沉浸式 {
+    fun 添加视图支持变换颜色(视图: View, 变换前的颜色: String?, 变换后的颜色: String?): 状态栏沉浸式 {
         沉浸式配置.addViewSupportTransformColor(视图, 变换前的颜色, 变换后的颜色)
         return this
     }
 
-    fun 是否全屏显示(值: Boolean): 状态栏沉浸式 {
-        沉浸式配置.fullScreen(值)
+    fun 全屏(是否全屏显示: Boolean): 状态栏沉浸式 {
+        沉浸式配置.fullScreen(是否全屏显示)
         return this
     }
 
-    fun 适配系统窗口(值: Boolean): 状态栏沉浸式 {
-        沉浸式配置.fitsSystemWindows(值)
+    fun 适配系统窗口(适配: Boolean): 状态栏沉浸式 {
+        沉浸式配置.fitsSystemWindows(适配)
         return this
     }
 
-    fun 适配系统窗口(值: Boolean, 背景色: Int): 状态栏沉浸式 {
-        沉浸式配置.fitsSystemWindows(值, 背景色)
+    fun 适配系统窗口(适配: Boolean, 内容颜色: Int): 状态栏沉浸式 {
+        沉浸式配置.fitsSystemWindows(适配, 内容颜色)
         return this
     }
 
-    fun 适配系统窗口(值: Boolean, 背景色: Int, 改变后的背景色: Int, 透明度: Float): 状态栏沉浸式 {
-        沉浸式配置.fitsSystemWindows(值, 背景色, 改变后的背景色, 透明度)
+    fun 适配系统窗口(适配: Boolean, 内容颜色: Int, 内容颜色转换: Int, @FloatRange(from = 0.0, to = 1.0) 内容透明度: Float): 状态栏沉浸式 {
+        沉浸式配置.fitsSystemWindows(适配, 内容颜色, 内容颜色转换, 内容透明度)
         return this
     }
 
-    fun 是否修复状态栏与布局重叠(值: Boolean): 状态栏沉浸式 {
-        沉浸式配置.fitsLayoutOverlapEnable(值)
+    fun 适配布局重叠启用(适配布局重叠启用: Boolean): 状态栏沉浸式 {
+        沉浸式配置.fitsLayoutOverlapEnable(适配布局重叠启用)
         return this
     }
 
-    fun 状态栏下面的组件(组件: View?): 状态栏沉浸式 {
+    fun 状态栏视图(组件: View?): 状态栏沉浸式 {
         沉浸式配置.statusBarView(组件)
         return this
     }
 
-    fun 状态栏下面的组件(组件: Int): 状态栏沉浸式 {
+    fun 状态栏视图(组件: Int): 状态栏沉浸式 {
         沉浸式配置.statusBarView(组件)
         return this
     }
 
-    fun 状态栏下面的组件(组件: Int, 视图: View): 状态栏沉浸式 {
+    fun 状态栏视图(组件: Int, 视图: View): 状态栏沉浸式 {
         沉浸式配置.statusBarView(组件, 视图)
         return this
     }
 
-    fun 解决状态栏与布局顶部重叠(组件: View?): 状态栏沉浸式 {
+    fun 标题栏(组件: View?): 状态栏沉浸式 {
         沉浸式配置.titleBar(组件)
         return this
     }
 
-    fun 解决状态栏与布局顶部重叠(组件: View?, 值: Boolean): 状态栏沉浸式 {
+    fun 标题栏(组件: View?, 值: Boolean): 状态栏沉浸式 {
         沉浸式配置.titleBar(组件, 值)
         return this
     }
 
-    fun 解决状态栏与布局顶部重叠(组件: Int): 状态栏沉浸式 {
+    fun 标题栏(组件: Int): 状态栏沉浸式 {
         沉浸式配置.titleBar(组件)
         return this
     }
 
-    fun 解决状态栏与布局顶部重叠(组件: Int, 值: Boolean): 状态栏沉浸式 {
+    fun 标题栏(组件: Int, 值: Boolean): 状态栏沉浸式 {
         沉浸式配置.titleBar(组件, 值)
         return this
     }
 
-    fun 解决状态栏与布局顶部重叠(组件: Int, 视图: View): 状态栏沉浸式 {
+    fun 标题栏(组件: Int, 视图: View): 状态栏沉浸式 {
         沉浸式配置.titleBar(组件, 视图)
         return this
     }
 
-    fun 解决状态栏与布局顶部重叠(组件: Int, 视图: View, 值: Boolean): 状态栏沉浸式 {
+    fun 标题栏(组件: Int, 视图: View, 值: Boolean): 状态栏沉浸式 {
         沉浸式配置.titleBar(组件, 视图, 值)
         return this
     }
 
-    fun 解决布局与状态栏重叠(值: Boolean): 状态栏沉浸式 {
-        沉浸式配置.applySystemFits(值)
+    fun 应用系统适配(应用系统适配: Boolean): 状态栏沉浸式 {
+        沉浸式配置.applySystemFits(应用系统适配)
         return this
     }
 
@@ -953,7 +963,11 @@ class 状态栏沉浸式 {
         return this
     }
 
-    fun 获取状态栏参数(): BarParams? {
+    /**
+     * 获取状态栏参数
+     * @return 返回当前状态栏参数
+     */
+    fun 取状态栏参数(): BarParams? {
         return 沉浸式配置.getBarParams()
     }
 }

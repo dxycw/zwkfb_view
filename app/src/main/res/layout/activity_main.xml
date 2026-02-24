@@ -87,13 +87,6 @@
                 android:text="2" />
         </LinearLayout>
 
-
-        <商业.谷歌.安卓.材质.加载指示器.加载指示器
-            android:id="@+id/loading_indicator"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-
         <LinearLayout
             android:id="@+id/aa"
             android:orientation="vertical"
@@ -114,6 +107,7 @@
                 android:text="视频4" />
 
             <安卓x.应用兼容包.组件.应用兼容按钮
+                android:id="@+id/btn5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"

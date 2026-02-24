@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package 自定义.状态栏类
 
 import android.annotation.SuppressLint
@@ -11,177 +9,346 @@ import android.os.Build
 import android.view.View
 import android.view.ViewConfiguration
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import android.view.Window
 import android.view.WindowManager
-import androidx.activity.ComponentActivity
-import androidx.activity.enableEdgeToEdge
-import androidx.core.view.OnApplyWindowInsetsListener
+import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import androidx.core.content.edit
+import 安卓x.核心.视图.窗口兼容
 import 自定义.系统类.是否为手机
 import 自定义.系统类.是否处于横屏
-import 自定义.系统类.是否处于竖屏
 import 自定义.系统类.是否是深色模式
 
 
 object 状态栏沉浸式类 {
 
-    fun 状态栏沉浸设置(上下文: ComponentActivity) {
-        状态栏沉浸式.初始化沉浸式(上下文).状态栏导航栏透明().状态栏字体图标自动深色模式(!上下文.是否是深色模式)
-            .导航栏图标自动深色模式(!上下文.是否是深色模式).刷新()
+    fun 状态栏沉浸设置(上下文: Activity) {
+        val 沉浸式 = 状态栏沉浸式.初始化沉浸式(上下文).状态栏导航栏透明().状态栏字体图标自动深色模式(!上下文.是否是深色模式)
+            .导航栏图标自动深色模式(!上下文.是否是深色模式)
         if (上下文.是否为手机()) {
-            if (上下文.是否处于竖屏()) {
-                状态栏沉浸式类.显示状态栏导航栏(上下文)
-            } else {
-                状态栏沉浸式类.隐藏状态栏导航栏(上下文)
+            显示状态栏导航栏(上下文)
+//            if (上下文.是否处于竖屏()) {
+//            } else {
+//                隐藏状态栏导航栏(上下文, 根视图)
+//            }
+        }
+        沉浸式.刷新()
+    }
+
+    //=============================================================
+    //=============================================================
+
+    fun 隐藏状态栏导航栏(上下文 : Activity) {
+        隐藏状态栏导航栏(上下文, 上下文.window)
+    }
+
+    fun 隐藏状态栏导航栏(上下文 : Activity, 窗口 : Window) {
+        窗口兼容.置装饰视图适应系统窗口(窗口, false)
+
+        窗口.statusBarColor = Color.TRANSPARENT // 状态栏透明
+        窗口.navigationBarColor = Color.TRANSPARENT // 导航栏透明
+
+        // 获取控制器对象
+        WindowCompat.getInsetsController(窗口, 窗口.decorView).apply {
+            this.isAppearanceLightStatusBars = !上下文.是否是深色模式 // 状态栏字体颜色
+            this.isAppearanceLightNavigationBars = !上下文.是否是深色模式 // 导航栏字体颜色
+            this.hide(WindowInsetsCompat.Type.statusBars()) // 隐藏状态栏
+            this.hide(WindowInsetsCompat.Type.navigationBars()) // 隐藏导航栏
+            this.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE // 滑动呼出后再次自动隐藏
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (上下文.是否处于横屏()){
+                ViewCompat.setOnApplyWindowInsetsListener(窗口.decorView) { view, insets ->
+                    val systemBar = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                    view.setPadding(systemBar.left, systemBar.top, systemBar.right, systemBar.bottom)
+                    insets
+                }
+            }else{
+                ViewCompat.setOnApplyWindowInsetsListener(窗口.decorView) { view, insets ->
+                    val displayCutout = insets.getInsets(WindowInsetsCompat.Type.displayCutout())
+                    view.setPadding(displayCutout.left, displayCutout.top, displayCutout.right, displayCutout.bottom)
+                    insets
+                }
+            }
+        }else{
+            窗口.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+//            窗口.decorView.systemUiVisibility = (
+//                // 沉浸粘性模式：用户滑动后自动重新隐藏
+//                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+//                        // 隐藏导航栏
+//                        or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//                        // 隐藏状态栏
+//                        or View.SYSTEM_UI_FLAG_FULLSCREEN
+//                        // 布局延伸到系统栏下方（防止布局跳动）
+//                        or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                        or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//                        or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//            )
+
+            ViewCompat.setOnApplyWindowInsetsListener(窗口.decorView) { view, insets ->
+                val systemBar = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                view.setPadding(systemBar.left, systemBar.top, systemBar.right, systemBar.bottom)
+                insets
             }
         }
     }
 
-    fun 沉浸式状态栏(上下文: Activity?) {
-        (上下文 as ComponentActivity).enableEdgeToEdge()
+    //=============================================================
+
+    fun 隐藏状态栏(上下文 : Activity) {
+        隐藏状态栏(上下文, 上下文.window)
     }
 
-    fun 沉浸式状态栏(上下文: ComponentActivity) {
-        上下文.enableEdgeToEdge()
-    }
+    fun 隐藏状态栏(上下文 : Activity, 窗口 : Window) {
+        窗口兼容.置装饰视图适应系统窗口(窗口, false)
 
-    fun 修复状态栏导航栏高度(视图: View) {
-        ViewCompat.setOnApplyWindowInsetsListener(视图,
-            OnApplyWindowInsetsListener { v: View?, insets: WindowInsetsCompat? ->
-                val systemBars = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
-                v!!.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-                insets
-            })
-    }
+        窗口.statusBarColor = Color.TRANSPARENT // 状态栏透明
+        窗口.navigationBarColor = Color.TRANSPARENT // 导航栏透明
 
-    fun 修复状态栏高度(视图: View) {
-        ViewCompat.setOnApplyWindowInsetsListener(视图,
-            OnApplyWindowInsetsListener { v: View?, insets: WindowInsetsCompat? ->
-                val systemBars = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
-                v!!.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
-                insets
-            })
-    }
-
-    fun 修复导航栏高度(视图: View) {
-        ViewCompat.setOnApplyWindowInsetsListener(视图,
-            OnApplyWindowInsetsListener { v: View?, insets: WindowInsetsCompat? ->
-                val systemBars = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
-                v!!.setPadding(systemBars.left, 0, systemBars.right, systemBars.bottom)
-                insets
-            })
-    }
-
-    @JvmStatic
-    fun 隐藏状态栏导航栏(上下文: ComponentActivity) {
-        // 隐藏状态栏和导航栏
-        val window = 上下文.window // 获取窗口对象
-        WindowCompat.setDecorFitsSystemWindows(window, false) // 设置内容
-        val windowInsetsController =
-            WindowCompat.getInsetsController(window, window.decorView) // 获取控制器对象
-        windowInsetsController.hide(WindowInsetsCompat.Type.systemBars()) // 隐藏状态栏和导航栏
-        windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE // 设置状态栏和导航栏的显示方式
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-            // 兼容处理，例如使用老的API或者第三方库
-            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-            window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN)
-            window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-        }
-    }
-
-    fun 隐藏状态栏导航栏(上下文: Activity) {
-        // 隐藏状态栏和导航栏
-        val window = 上下文.window // 获取窗口对象
-        WindowCompat.setDecorFitsSystemWindows(window, false) // 设置内容
-        val windowInsetsController =
-            WindowCompat.getInsetsController(window, window.decorView) // 获取控制器对象
-        windowInsetsController.hide(WindowInsetsCompat.Type.systemBars()) // 隐藏状态栏和导航栏
-        windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE // 设置状态栏和导航栏的显示方式
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-            // 兼容处理，例如使用老的API或者第三方库
-            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-            window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN)
-            window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-        }
-    }
-
-    @JvmStatic
-    fun 显示状态栏导航栏(上下文: ComponentActivity) {
-        // 显示状态栏和导航栏
-        val window = 上下文.window // 获取窗口对象
-        WindowCompat.setDecorFitsSystemWindows(window, false)
         // 获取控制器对象
-        val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
-        // 显示状态栏和导航栏
-        windowInsetsController.show(WindowInsetsCompat.Type.systemBars())
-        // 设置状态栏和导航栏的显示方式
-        windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        // 设置状态栏颜色（API 21及以上）
-        window.statusBarColor = Color.TRANSPARENT
+        窗口兼容.取内边距控制器(窗口, 窗口.decorView).apply {
+            this.isAppearanceLightStatusBars = !上下文.是否是深色模式 // 状态栏字体颜色
+            this.isAppearanceLightNavigationBars = !上下文.是否是深色模式 // 导航栏字体颜色
+            this.hide(WindowInsetsCompat.Type.statusBars()) // 隐藏状态栏
+            this.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE // 滑动呼出后再次自动隐藏
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (上下文.是否处于横屏()){
+                ViewCompat.setOnApplyWindowInsetsListener(窗口.decorView) { view, insets ->
+                    val systemBar = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                    view.setPadding(systemBar.left, systemBar.top, systemBar.right, systemBar.bottom)
+                    insets
+                }
+            }else{
+                ViewCompat.setOnApplyWindowInsetsListener(窗口.decorView) { view, insets ->
+                    val displayCutout = insets.getInsets(WindowInsetsCompat.Type.displayCutout())
+                    view.setPadding(displayCutout.left, displayCutout.top, displayCutout.right, displayCutout.bottom)
+                    insets
+                }
+            }
+        }else{
+//            窗口.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+//            窗口.decorView.systemUiVisibility = (
+//                // 沉浸粘性模式：用户滑动后自动重新隐藏
+//                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+//                        // 隐藏状态栏
+//                        or View.SYSTEM_UI_FLAG_FULLSCREEN
+//                        // 布局延伸到系统栏下方（防止布局跳动）
+//                        or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                        or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//                        or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//            )
+            窗口.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+
+            ViewCompat.setOnApplyWindowInsetsListener(窗口.decorView) { view, insets ->
+                val systemBar = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                view.setPadding(systemBar.left, systemBar.top, systemBar.right, systemBar.bottom)
+                insets
+            }
+        }
     }
+
+    //=============================================================
+
+    fun 隐藏导航栏(上下文 : Activity) {
+        隐藏导航栏(上下文, 上下文.window)
+    }
+
+    fun 隐藏导航栏(上下文 : Activity, 窗口 : Window) {
+        窗口兼容.置装饰视图适应系统窗口(窗口, false)
+
+        窗口.statusBarColor = Color.TRANSPARENT // 状态栏透明
+        窗口.navigationBarColor = Color.TRANSPARENT // 导航栏透明
+
+        // 获取控制器对象
+        WindowCompat.getInsetsController(窗口, 窗口.decorView).apply {
+            this.isAppearanceLightNavigationBars = !上下文.是否是深色模式 // 导航栏字体颜色
+            this.hide(WindowInsetsCompat.Type.navigationBars()) // 隐藏导航栏
+            this.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE // 滑动呼出后再次自动隐藏
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (上下文.是否处于横屏()){
+                ViewCompat.setOnApplyWindowInsetsListener(窗口.decorView) { view, insets ->
+                    val systemBar = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                    view.setPadding(systemBar.left, systemBar.top, systemBar.right, systemBar.bottom)
+                    insets
+                }
+            }else{
+                ViewCompat.setOnApplyWindowInsetsListener(窗口.decorView) { view, insets ->
+                    val displayCutout = insets.getInsets(WindowInsetsCompat.Type.displayCutout())
+                    view.setPadding(displayCutout.left, displayCutout.top, displayCutout.right, displayCutout.bottom)
+                    insets
+                }
+            }
+        }else{
+            窗口.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+//            窗口.decorView.systemUiVisibility = (
+//                // 沉浸粘性模式：用户滑动后自动重新隐藏
+//                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+//                        // 隐藏导航栏
+//                        or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//                        // 隐藏状态栏
+//                        or View.SYSTEM_UI_FLAG_FULLSCREEN
+//                        // 布局延伸到系统栏下方（防止布局跳动）
+//                        or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                        or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//                        or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//            )
+
+            ViewCompat.setOnApplyWindowInsetsListener(窗口.decorView) { view, insets ->
+                val systemBar = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                view.setPadding(systemBar.left, systemBar.top, systemBar.right, systemBar.bottom)
+                insets
+            }
+        }
+    }
+
+    //=============================================================
+    //=============================================================
 
     fun 显示状态栏导航栏(上下文: Activity) {
-        // 显示状态栏和导航栏
-        val window = 上下文.window // 获取窗口对象
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+        显示状态栏导航栏(上下文, 上下文.window)
+    }
+
+    fun 显示状态栏导航栏(上下文: Activity, 窗口: Window) {
+        窗口兼容.置装饰视图适应系统窗口(窗口, false)
+
+        窗口.statusBarColor = Color.TRANSPARENT // 状态栏透明
+        窗口.navigationBarColor = Color.TRANSPARENT // 导航栏透明
+
         // 获取控制器对象
-        val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
-        // 显示状态栏和导航栏
-        windowInsetsController.show(WindowInsetsCompat.Type.systemBars())
-        // 设置状态栏和导航栏的显示方式
-        windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        // 设置状态栏颜色（API 21及以上）
-        window.statusBarColor = Color.TRANSPARENT
+        WindowCompat.getInsetsController(窗口, 窗口.decorView).apply {
+            this.isAppearanceLightStatusBars = !上下文.是否是深色模式 // 状态栏字体颜色
+            this.isAppearanceLightNavigationBars = !上下文.是否是深色模式 // 导航栏字体颜色
+            this.show(WindowInsetsCompat.Type.statusBars()) // 显示状态栏
+            this.show(WindowInsetsCompat.Type.navigationBars()) // 显示导航栏
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (上下文.是否处于横屏()) {
+                ViewCompat.setOnApplyWindowInsetsListener(窗口.decorView) { view, insets ->
+                    val systemBar = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                    view.setPadding(systemBar.left, 状态栏沉浸式.取状态栏高度(上下文), systemBar.right, systemBar.bottom)
+                    insets
+                }
+            }else{
+                ViewCompat.setOnApplyWindowInsetsListener(窗口.decorView) { view, insets ->
+                    val displayCutout = insets.getInsets(WindowInsetsCompat.Type.displayCutout())
+                    view.setPadding(displayCutout.left, displayCutout.top, displayCutout.right, displayCutout.bottom)
+                    insets
+                }
+            }
+        }else{
+            ViewCompat.setOnApplyWindowInsetsListener(窗口.decorView) { view, insets ->
+                val systemBar = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                view.setPadding(systemBar.left, systemBar.top, systemBar.right, systemBar.bottom)
+                insets
+            }
+        }
+
     }
 
-    fun 隐藏状态栏(上下文: ComponentActivity) {
-        // 隐藏状态栏
-        val window = 上下文.window // 获取窗口对象
-        WindowCompat.setDecorFitsSystemWindows(window, false) // 设置内容
-        val windowInsetsController =
-            WindowCompat.getInsetsController(window, window.decorView) // 获取控制器对象
-        windowInsetsController.hide(WindowInsetsCompat.Type.statusBars()) // 隐藏状态栏
-        windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+    //=============================================================
+
+    fun 显示状态栏(上下文: Activity) {
+        显示状态栏(上下文, 上下文.window)
     }
 
-    fun 显示状态栏(上下文: ComponentActivity) {
-        // 显示状态栏
-        val window = 上下文.window // 获取窗口对象
-        WindowCompat.setDecorFitsSystemWindows(window, true) // 设置内容
-        val windowInsetsController =
-            WindowCompat.getInsetsController(window, window.decorView) // 获取控制器对象
-        windowInsetsController.show(WindowInsetsCompat.Type.statusBars())
-        windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+    fun 显示状态栏(上下文: Activity, 窗口: Window) {
+        窗口兼容.置装饰视图适应系统窗口(窗口, false)
+
+        窗口.statusBarColor = Color.TRANSPARENT // 状态栏透明
+        窗口.navigationBarColor = Color.TRANSPARENT // 导航栏透明
+
+        // 获取控制器对象
+        WindowCompat.getInsetsController(窗口, 窗口.decorView).apply {
+            this.isAppearanceLightStatusBars = !上下文.是否是深色模式 // 状态栏字体颜色
+            this.isAppearanceLightNavigationBars = !上下文.是否是深色模式 // 导航栏字体颜色
+            this.show(WindowInsetsCompat.Type.statusBars()) // 显示状态栏
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (上下文.是否处于横屏()) {
+                ViewCompat.setOnApplyWindowInsetsListener(窗口.decorView) { view, insets ->
+                    val systemBar = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                    view.setPadding(systemBar.left, 状态栏沉浸式.取状态栏高度(上下文), systemBar.right, systemBar.bottom)
+                    insets
+                }
+            }else{
+                ViewCompat.setOnApplyWindowInsetsListener(窗口.decorView) { view, insets ->
+                    val displayCutout = insets.getInsets(WindowInsetsCompat.Type.displayCutout())
+                    view.setPadding(displayCutout.left, displayCutout.top, displayCutout.right, displayCutout.bottom)
+                    insets
+                }
+            }
+        }else{
+            ViewCompat.setOnApplyWindowInsetsListener(窗口.decorView) { view, insets ->
+                val systemBar = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                view.setPadding(systemBar.left, systemBar.top, systemBar.right, systemBar.bottom)
+                insets
+            }
+        }
+
     }
 
-    fun 隐藏导航栏(上下文: ComponentActivity) {
-        // 隐藏导航栏
-        val window = 上下文.window // 获取窗口对象
-        WindowCompat.setDecorFitsSystemWindows(window, false) // 设置内容
-        val windowInsetsController =
-            WindowCompat.getInsetsController(window, window.decorView) // 获取控制器对象
-        windowInsetsController.hide(WindowInsetsCompat.Type.navigationBars()) // 隐藏导航栏
-        windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE // 设置状态栏和导航栏的显示方式
+    //=============================================================
+
+    fun 显示导航栏(上下文: Activity) {
+        显示导航栏(上下文, 上下文.window)
     }
 
-    fun 显示导航栏(上下文: ComponentActivity) {
-        // 显示导航栏
-        val window = 上下文.window // 获取窗口对象
-        WindowCompat.setDecorFitsSystemWindows(window, true) // 设置内容
-        val windowInsetsController =
-            WindowCompat.getInsetsController(window, window.decorView) // 获取控制器对象
-        windowInsetsController.show(WindowInsetsCompat.Type.navigationBars()) // 显示导航栏
-        windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+    fun 显示导航栏(上下文: Activity, 窗口: Window) {
+        窗口兼容.置装饰视图适应系统窗口(窗口, false)
+
+        窗口.statusBarColor = Color.TRANSPARENT // 状态栏透明
+        窗口.navigationBarColor = Color.TRANSPARENT // 导航栏透明
+
+        // 获取控制器对象
+        WindowCompat.getInsetsController(窗口, 窗口.decorView).apply {
+            this.isAppearanceLightStatusBars = !上下文.是否是深色模式 // 状态栏字体颜色
+            this.isAppearanceLightNavigationBars = !上下文.是否是深色模式 // 导航栏字体颜色
+            this.show(WindowInsetsCompat.Type.navigationBars()) // 显示导航栏
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (上下文.是否处于横屏()) {
+                ViewCompat.setOnApplyWindowInsetsListener(窗口.decorView) { view, insets ->
+                    val systemBar = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                    view.setPadding(systemBar.left, 状态栏沉浸式.取状态栏高度(上下文), systemBar.right, systemBar.bottom)
+                    insets
+                }
+            }else{
+                ViewCompat.setOnApplyWindowInsetsListener(窗口.decorView) { view, insets ->
+                    val displayCutout = insets.getInsets(WindowInsetsCompat.Type.displayCutout())
+                    view.setPadding(displayCutout.left, displayCutout.top, displayCutout.right, displayCutout.bottom)
+                    insets
+                }
+            }
+        }else{
+            ViewCompat.setOnApplyWindowInsetsListener(窗口.decorView) { view, insets ->
+                val systemBar = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                view.setPadding(systemBar.left, systemBar.top, systemBar.right, systemBar.bottom)
+                insets
+            }
+        }
+
     }
 
-    fun 置状态栏颜色(上下文: ComponentActivity, 颜色: Int) {
+    //=============================================================
+    //=============================================================
+
+    fun 置状态栏颜色(上下文: Activity, 颜色: Int) {
         上下文.window.statusBarColor = 颜色
     }
 
-    fun 置状态栏字体颜色为深色模式(上下文: ComponentActivity, 值: Boolean) {
+    //=============================================================
+
+    fun 置状态栏字体颜色为深色模式(上下文: Activity, 值: Boolean) {
         val decorView = 上下文.window.decorView
         if (值) {
             decorView.systemUiVisibility = decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
@@ -190,11 +357,15 @@ object 状态栏沉浸式类 {
         }
     }
 
-    fun 置导航栏颜色(上下文: ComponentActivity, 颜色: Int) {
+    //=============================================================
+
+    fun 置导航栏颜色(上下文: Activity, 颜色: Int) {
         上下文.window.navigationBarColor = 颜色
     }
 
-    fun 置导航栏图标颜色为深色模式(上下文: ComponentActivity, 值: Boolean) {
+    //=============================================================
+
+    fun 置导航栏图标颜色为深色模式(上下文: Activity, 值: Boolean) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val decorView = 上下文.window.decorView
             if (值) {
@@ -205,11 +376,13 @@ object 状态栏沉浸式类 {
         }
     }
 
+    //=============================================================
+
     @SuppressLint("DiscouragedApi", "InternalInsetResource")
-    fun 用资源文件获取导航栏高度(context: Context): Int {
-        val hasMenuKey = ViewConfiguration.get(context).hasPermanentMenuKey()
+    fun 用资源文件获取导航栏高度(上下文: Context): Int {
+        val hasMenuKey = ViewConfiguration.get(上下文).hasPermanentMenuKey()
         if (!hasMenuKey) {
-            val resources = context.resources
+            val resources = 上下文.resources
             val resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
             if (resourceId > 0) {
                 return resources.getDimensionPixelSize(resourceId)
@@ -218,10 +391,11 @@ object 状态栏沉浸式类 {
         return 0
     }
 
+    //=============================================================
 
-    fun 用DisplayCutout获取导航栏高度(activity: Activity): Int {
+    fun 用DisplayCutout获取导航栏高度(上下文: Activity): Int {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            val windowInsets = activity.window.decorView.getRootWindowInsets()
+            val windowInsets = 上下文.window.decorView.getRootWindowInsets()
             if (windowInsets != null) {
                 return windowInsets.systemWindowInsetBottom
             }
@@ -229,18 +403,19 @@ object 状态栏沉浸式类 {
         return 0
     }
 
+    //=============================================================
 
-    var 导航栏高度: Int = 0
-    fun 获取导航栏高度(rootView: View): Int {
-        rootView.getViewTreeObserver().addOnGlobalLayoutListener(
+    fun 获取导航栏高度(根视图: View): Int {
+        var 导航栏高度 = 0
+        根视图.getViewTreeObserver().addOnGlobalLayoutListener(
             object : OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
                     val rect = Rect()
-                    rootView.getWindowVisibleDisplayFrame(rect)
-                    val screenHeight = rootView.getRootView().height
+                    根视图.getWindowVisibleDisplayFrame(rect)
+                    val screenHeight = 根视图.getRootView().height
                     val navigationBarHeight = screenHeight - rect.bottom
                     // 移除监听器
-                    rootView.getViewTreeObserver().removeOnGlobalLayoutListener(this)
+                    根视图.getViewTreeObserver().removeOnGlobalLayoutListener(this)
                     // 使用 navigationBarHeight
                     导航栏高度 = navigationBarHeight
                 }
@@ -248,27 +423,17 @@ object 状态栏沉浸式类 {
         return 导航栏高度
     }
 
-    fun 获取导航栏高度(context: Context): Int {
+    //=============================================================
+
+    fun 获取导航栏高度(上下文: Context): Int {
         //PreferenceManager.getDefaultSharedPreferences(context);
-        val prefs = context.getSharedPreferences("preferences", Context.MODE_PRIVATE)
+        val prefs = 上下文.getSharedPreferences("preferences", Context.MODE_PRIVATE)
         var height = prefs.getInt("navigation_bar_height", -1)
         if (height == -1) {
-            height = calculateNavigationBarHeight(context)
+            height = 用资源文件获取导航栏高度(上下文)
             prefs.edit { putInt("navigation_bar_height", height) }
         }
         return height
     }
 
-    @SuppressLint("DiscouragedApi", "InternalInsetResource")
-    internal fun calculateNavigationBarHeight(context: Context): Int {
-        val hasMenuKey = ViewConfiguration.get(context).hasPermanentMenuKey()
-        if (!hasMenuKey) {
-            val resources = context.resources
-            val resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
-            if (resourceId > 0) {
-                return resources.getDimensionPixelSize(resourceId)
-            }
-        }
-        return 0
-    }
 }

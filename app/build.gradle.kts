@@ -72,7 +72,7 @@ dependencies {
         exclude("com.mysql", "mysql-connector-j")
 
         exclude("com.github.OCNYang.ImmersionBar", "immersionbar-ktx")
-        exclude("com.gitee.zackratos", "UltimateBarX")
+//        exclude("com.gitee.zackratos", "UltimateBarX")
 
         // 如果使用了“media3”的"media3-datasource-okhttp"这个也要注释掉。
         exclude("com.squareup.okhttp3", "okhttp")

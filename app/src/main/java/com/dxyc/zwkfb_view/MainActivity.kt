@@ -1,5 +1,7 @@
 package com.dxyc.zwkfb_view
 
+import android.content.DialogInterface
+import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
@@ -8,19 +10,19 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import 商业.谷歌.安卓.材质.标签.文本
 import 安卓.应用.置内容视图
+import 安卓.应用.警告对话框
 import 安卓.组件.文本
-import 安卓.视图.置内边距
 import 安卓.视图.置单击回调监听事件
 import 安卓.视图.置长按回调监听事件
 import 安卓x.应用兼容包.应用.应用兼容活动
-import 安卓x.核心.视图.取边距
-import 安卓x.核心.视图.窗口边距兼容
-import 安卓x.核心.视图.视图兼容
 import 安卓x.活动.启用边缘到边缘
 import 科特林.应用
 import 自定义.对话框类.材质底部信息对话框
+import 自定义.状态栏类.状态栏沉浸式类
+
 
 class MainActivity : 应用兼容活动() {
+
     private lateinit var binding: ActivityMainBinding
 
 //    lateinit var player: ExoPlayer
@@ -29,15 +31,14 @@ class MainActivity : 应用兼容活动() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         启用边缘到边缘()
+        状态栏沉浸式类.状态栏沉浸设置(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         置内容视图(binding.root)
-        视图兼容.置应用窗口边距回调监听器(binding.main) { 视图, 边距 ->
-            val 系统栏 = 边距.取边距(窗口边距兼容.类型.系统栏())
-            视图.置内边距(系统栏.left, 系统栏.top, 系统栏.right, 系统栏.bottom)
-            边距
-        }
+
         init()
     }
+
+    lateinit var a4 : 材质底部信息对话框
 
     private fun init() {
 //        playerview = findViewById(R.id.playerview)
@@ -82,8 +83,8 @@ class MainActivity : 应用兼容活动() {
 //            }
 //        }
 
-//        val loadingIndicator = 查找视图Id<加载指示器>(R.id.loading_indicator)
-//        loadingIndicator.addView(查找视图Id<Button>(R.id.btn2))
+//        val loadingIndicator = binding.loadingIndicator
+//        loadingIndicator.containerColor = "#FF0000".toColorInt()
 
         binding.btn1.应用{
             文本 = "支持的ABI：${Build.SUPPORTED_ABIS.joinToString()}，\n本进程运行在：${Build.SUPPORTED_ABIS[0]}."
@@ -102,7 +103,6 @@ class MainActivity : 应用兼容活动() {
                     .setTitleText("选择时间")
                     .setPositiveButtonText("确定")
                     .build()
-
                 aa.addOnPositiveButtonClickListener { view ->
                     binding.btn2.文本 = aa.hour.toString() + ":" + aa.minute.toString()
                 }
@@ -128,31 +128,38 @@ class MainActivity : 应用兼容活动() {
 //            player.setMediaSource(App.用网址播放视频("https://gitee.com/dxycw/shuju/raw/master/视频/1.mp4"))
 //            player.play() // 播放视频
 //            }
-
-            val aaa = 材质底部信息对话框()
-                .置标题("标题")
-                .置内容("这是一个对话框")
-                .置按钮方向(材质底部信息对话框.纵向)
-                .置确定按钮单击事件("确定1") { it.dismiss() }
-                .隐藏对话框子窗口状态栏(true)
-
-//                .显示对话框子窗口状态栏()
-            置单击回调监听事件 { aaa.显示(supportFragmentManager, "aaa") }
-
         }
 
         binding.btn4.应用{
-//            val a1 = Dialog(this@MainActivity)
-//            a1.setTitle("标题")
-//            a1.setContentView(
-//                CardView(this@MainActivity).apply {
-//                    radius = 20f
-//                    setContentPadding(20, 20, 20, 20)
-//                    addView(TextView(this@MainActivity).apply { text = "这是一个对话框" })
-//                }
-//            )
+
+            val a0 = 警告对话框.构建器(this@MainActivity)
+                .置标题("下载")
+                .置消息("是否下载") //设置对话框的按钮
+                .置取消按钮("立即下载") { dialog: DialogInterface?, which: Int -> }
+                .置确定按钮("浏览器下载") { dialog: DialogInterface?, which: Int -> }
+                .置忽略按钮("取消") { dialog: DialogInterface?, which: Int ->
+                    dialog!!.dismiss()
+                }
+
             置单击回调监听事件{
-//                a1.show()
+                a0.显示()
+//                player.setMediaSource(App.用网址播放视频("https://gitee.com/dxycw/shuju/raw/master/视频/2.mp4"))
+//                player.play() // 播放视频
+            }
+        }
+
+        binding.btn5.应用 {
+
+            a4 = 材质底部信息对话框()
+                .置标题("标题12")
+                .置内容("这是一个对话框")
+                .置按钮方向(材质底部信息对话框.横向)
+                .置忽略按钮单击事件("忽略1") { it.dismiss() }
+                .置确定按钮单击事件("确定1") { it.dismiss() }
+                .隐藏状态栏导航栏()
+
+            置单击回调监听事件 {
+                a4.显示(supportFragmentManager, "aaa")
 //                player.setMediaSource(App.用网址播放视频("https://gitee.com/dxycw/shuju/raw/master/视频/2.mp4"))
 //                player.play() // 播放视频
             }
@@ -168,6 +175,13 @@ class MainActivity : 应用兼容活动() {
     override fun onDestroy() {
         super.onDestroy()
 //        player.release()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if (!a4.是否显示对话框()){
+            状态栏沉浸式类.状态栏沉浸设置(this)
+        }
     }
 
 }

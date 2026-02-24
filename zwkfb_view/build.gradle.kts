@@ -28,12 +28,6 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
-        }
-    }
-
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -52,6 +46,13 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
+    }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar() // 源码
+            withJavadocJar() // 文档
+        }
     }
 
 }

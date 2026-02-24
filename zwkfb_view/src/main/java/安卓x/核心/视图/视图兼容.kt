@@ -9,8 +9,6 @@ import androidx.core.view.ViewCompat
 
 /**
  * 创建时间：2025年11月18日.
-
- * 版本：0.0.7
  * @author dxyc
  */
 open class 视图兼容 : ViewCompat {

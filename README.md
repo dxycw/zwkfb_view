@@ -40,7 +40,7 @@ dependencyResolutionManagement {
 
 ```groovy
 dependencies {
-    implementation 'com.github.dxycw:zwkfb_view:0.2.7' // 添加 zwkfb_view 依赖
+    implementation 'com.github.dxycw:zwkfb_view:0.2.8' // 添加 zwkfb_view 依赖
 }
 ```
 
@@ -48,7 +48,7 @@ dependencies {
 
 ```kotlin
 dependencies {
-    implementation("com.github.dxycw:zwkfb_view:0.2.7") // 添加 zwkfb_view 依赖
+    implementation("com.github.dxycw:zwkfb_view:0.2.8") // 添加 zwkfb_view 依赖
 }
 ```
 
@@ -234,7 +234,7 @@ android {
 
 ```groovy
 dependencies {
-    implementation 'com.github.dxycw:zwkfb_view:0.2.7'{
+    implementation 'com.github.dxycw:zwkfb_view:0.2.8'{
         exclude group: 'com.mysql', module: 'mysql-connector-j'
         
         exclude group: 'com.github.OCNYang.ImmersionBar', module: 'immersionbar-ktx'
@@ -263,7 +263,7 @@ dependencies {
 
 ```kotlin
 dependencies {
-    implementation("com.github.dxycw:zwkfb_view:0.2.7"){
+    implementation("com.github.dxycw:zwkfb_view:0.2.8"){
         exclude("com.mysql", "mysql-connector-j")
 
         exclude("com.github.OCNYang.ImmersionBar", "immersionbar-ktx")
@@ -291,6 +291,14 @@ dependencies {
 2、如果在你的项目中使用到了以上依赖库，注释掉或在项目中添加需要的依赖库。
 
 # 更新内容
+
+## 0.2.8
+
+* 优化 “状态栏沉浸式”、“材质底部信息对话框”类代码内容；
+* 添加 “安卓.应用.警告对话框”、“安卓x.应用兼容包.应用.警告对话框”类代码；
+* 修改 “窗口边距兼容”改为“窗口内边距兼容”类；
+* 去掉 “材质底部面板对话框碎片”类；
+* 删除 旧版本“bar”文件夹 及 所有“bar”类代码；
 
 ## 0.2.7
 
