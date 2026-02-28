@@ -61,81 +61,31 @@ import androidx.core.widget.TextViewCompat
 import java.util.Locale
 import java.util.function.Consumer
 
-/**
- * 创建时间：2025年11月18日.
- *
- * 描述：文本视图
- *
- * 版本：0.0.7
- * @author dxyc
- */
-@SuppressLint("AppCompatCustomView")
-@RemoteView
-open class 文本视图 : TextView {
-
-    constructor(context: Context?) : this(context , null)
-    constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs,0)
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : this(
-        context, attrs, defStyleAttr,0)
-
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int,
-    ) : super(context, attrs, defStyleAttr, defStyleRes)
-
-//    private var 文本 : CharSequence = ""
-//    private fun init(attrs: AttributeSet?) {
-//        val a = context.obtainStyledAttributes(attrs,R.styleable.文本视图)
-//        文本 = a.getString(R.styleable.文本视图_文本) ?: ""
-//        a.recycle()
+//open class 文本视图 : TextView {
 //
-//        setText(this.文本)
+//    companion object{
+//
+//        /**
+//         * 聚焦搜索结果索引 无
+//         */
+//        @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+//        const val 聚焦_搜索_结果_索引_无 = FOCUSED_SEARCH_RESULT_INDEX_NONE
 //
 //    }
 
-    companion object{
-
-        /**
-         * 文本视图 不会自动调整文字大小（默认情况下）。
-         */
-        @RequiresApi(Build.VERSION_CODES.O)
-        const val 自动_大小_文本_类型_无 = AUTO_SIZE_TEXT_TYPE_NONE
-
-        /**
-         * 文本视图 会同时在水平和垂直方向上缩放文字大小，以适应容器。
-         */
-        @RequiresApi(Build.VERSION_CODES.O)
-        const val 自动_大小_文本_类型_一致 = AUTO_SIZE_TEXT_TYPE_UNIFORM
-
-        /**
-         * 聚焦搜索结果索引 无
-         */
-        @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
-        const val 聚焦_搜索_结果_索引_无 = FOCUSED_SEARCH_RESULT_INDEX_NONE
-
-    }
-
-    interface 编辑器动作监听器 : OnEditorActionListener{
-        override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
-            return 编辑器动作(v, actionId, event)
-        }
-
-        open fun 编辑器动作(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
-            return onEditorAction(v, actionId, event)
-        }
-    }
-
-    enum class 缓冲区类型{
-        正常,可伸缩的,可编辑
-    }
-
-    object 已保存状态{
-        /**
-         * 创建者
-         * @return 创建者
-         */
-        val 创造者 = SavedState.CREATOR
-    }
-
-}
+//    enum class 缓冲区类型{
+//        正常,可伸缩的,可编辑
+//    }
+//
+//    object 已保存状态{
+//        /**
+//         * 创建者
+//         * @return 创建者
+//         */
+//        val 创造者 = SavedState.CREATOR
+//    }
+//
+//}
 
 //==============================================================
 //==============================================================

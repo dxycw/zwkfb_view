@@ -43,6 +43,7 @@ class 图片高级列表框 : 回收视图 {
     ) {
         this.上下文 = 上下文
         this.适配器 = 图片高级列表框适配器(上下文)
+        this.setAdapter(适配器)
         布局参数 = GridLayoutManager(上下文, 列数)
         this.setLayoutManager(布局参数) //列表布局,垂直,必须写
     }

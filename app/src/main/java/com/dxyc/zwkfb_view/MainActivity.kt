@@ -1,22 +1,28 @@
 package com.dxyc.zwkfb_view
 
-import android.content.DialogInterface
 import android.content.res.Configuration
+import android.graphics.Canvas
+import android.graphics.Paint
 import android.os.Build
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
+import android.widget.TextView
 import com.dxyc.zwkfb_view.databinding.ActivityMainBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.textview.MaterialTextView
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import 商业.谷歌.安卓.材质.标签.文本
+import 安卓.图形.画布
 import 安卓.应用.置内容视图
-import 安卓.应用.警告对话框
+import 安卓.组件.吐司
 import 安卓.组件.文本
 import 安卓.视图.置单击回调监听事件
 import 安卓.视图.置长按回调监听事件
 import 安卓x.应用兼容包.应用.应用兼容活动
 import 安卓x.活动.启用边缘到边缘
 import 科特林.应用
+import 自定义.列表类.图片高级列表框
 import 自定义.对话框类.材质底部信息对话框
 import 自定义.状态栏类.状态栏沉浸式类
 
@@ -112,10 +118,8 @@ class MainActivity : 应用兼容活动() {
 
         val a = binding.tabLayout.应用{
             val tabView = getTabAt(0)?.view
-
             // 禁用点击（特殊场景）
 //        tabView!!.isClickable = false
-
             val tabView1 = getTabAt(1)?.view
             getTabAt(1)!!.文本 = "视频21111"
             // 禁用点击（特殊场景）
@@ -131,25 +135,13 @@ class MainActivity : 应用兼容活动() {
         }
 
         binding.btn4.应用{
-
-            val a0 = 警告对话框.构建器(this@MainActivity)
-                .置标题("下载")
-                .置消息("是否下载") //设置对话框的按钮
-                .置取消按钮("立即下载") { dialog: DialogInterface?, which: Int -> }
-                .置确定按钮("浏览器下载") { dialog: DialogInterface?, which: Int -> }
-                .置忽略按钮("取消") { dialog: DialogInterface?, which: Int ->
-                    dialog!!.dismiss()
-                }
-
             置单击回调监听事件{
-                a0.显示()
 //                player.setMediaSource(App.用网址播放视频("https://gitee.com/dxycw/shuju/raw/master/视频/2.mp4"))
 //                player.play() // 播放视频
             }
         }
 
         binding.btn5.应用 {
-
             a4 = 材质底部信息对话框()
                 .置标题("标题12")
                 .置内容("这是一个对话框")
@@ -159,10 +151,18 @@ class MainActivity : 应用兼容活动() {
                 .隐藏状态栏导航栏()
 
             置单击回调监听事件 {
-                a4.显示(supportFragmentManager, "aaa")
+                val aaaaa = BottomSheetDialog(this@MainActivity)
+                aaaaa.setTitle("标题12")
+                aaaaa.setContentView(TextView(this@MainActivity).apply {
+                    文本 = "这是一个对话框"
+                    setPadding(20, 20, 20, 20)
+                })
+                aaaaa.show()
+//                a4.显示(supportFragmentManager, "aaa")
 //                player.setMediaSource(App.用网址播放视频("https://gitee.com/dxycw/shuju/raw/master/视频/2.mp4"))
 //                player.play() // 播放视频
             }
+
         }
 
     }
@@ -179,9 +179,9 @@ class MainActivity : 应用兼容活动() {
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        if (!a4.是否显示对话框()){
+//        if (!a4.是否显示对话框()){
             状态栏沉浸式类.状态栏沉浸设置(this)
-        }
+//        }
     }
 
 }

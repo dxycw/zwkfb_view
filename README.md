@@ -40,7 +40,7 @@ dependencyResolutionManagement {
 
 ```groovy
 dependencies {
-    implementation 'com.github.dxycw:zwkfb_view:0.2.8' // 添加 zwkfb_view 依赖
+    implementation 'com.github.dxycw:zwkfb_view:0.2.9' // 添加 zwkfb_view 依赖
 }
 ```
 
@@ -48,7 +48,7 @@ dependencies {
 
 ```kotlin
 dependencies {
-    implementation("com.github.dxycw:zwkfb_view:0.2.8") // 添加 zwkfb_view 依赖
+    implementation("com.github.dxycw:zwkfb_view:0.2.9") // 添加 zwkfb_view 依赖
 }
 ```
 
@@ -234,7 +234,7 @@ android {
 
 ```groovy
 dependencies {
-    implementation 'com.github.dxycw:zwkfb_view:0.2.8'{
+    implementation 'com.github.dxycw:zwkfb_view:0.2.9'{
         exclude group: 'com.mysql', module: 'mysql-connector-j'
         
         exclude group: 'com.github.OCNYang.ImmersionBar', module: 'immersionbar-ktx'
@@ -263,7 +263,7 @@ dependencies {
 
 ```kotlin
 dependencies {
-    implementation("com.github.dxycw:zwkfb_view:0.2.8"){
+    implementation("com.github.dxycw:zwkfb_view:0.2.9"){
         exclude("com.mysql", "mysql-connector-j")
 
         exclude("com.github.OCNYang.ImmersionBar", "immersionbar-ktx")
@@ -291,6 +291,14 @@ dependencies {
 2、如果在你的项目中使用到了以上依赖库，注释掉或在项目中添加需要的依赖库。
 
 # 更新内容
+
+## 0.2.9
+
+* 修复 “图片高级列表框”组件不能显示列表的Bug；
+* 修改 部分kotlin 代码为java 代码（修复组件不能使用原本代码的bug）；
+* 修改 “上下文”、“意图”、“画布”、“材质文本视图”类；
+* 修改 “对话框接口”接口类；
+* 添加 “上下文”、“意图”、“画布”、“材质文本视图”类添加kotlin扩展函数；
 
 ## 0.2.8
 

@@ -20,4 +20,8 @@ open class 回收视图 : RecyclerView {
         attrs,
         defStyleAttr
     )
+
+//    fun 置适配器(适配器: Adapter<*>?) {
+//        this.adapter = 适配器
+//    }
 }
