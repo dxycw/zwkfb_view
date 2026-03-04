@@ -1,32 +1,10 @@
-@file:Suppress("DEPRECATION")
-
 package 商业.谷歌.安卓.材质.卡片
 
 import android.content.Context
 import android.content.res.ColorStateList
 import android.util.AttributeSet
 import com.google.android.material.card.MaterialCardView
-import 商业.谷歌.安卓.材质.卡片.边框颜色
 
-/**
- * 创建时间：2025年11月24日.
- *
- * 描述：材质卡片视图
- *
- * 版本：0.1.0
- * @author dxyc
- */
-open class 材质卡片视图 : MaterialCardView {
-    constructor(context: Context?) : super(context)
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    )
-}
-
-//======================================================================
 
 /**
  * 描述：边框颜色
@@ -92,7 +70,7 @@ fun MaterialCardView.置边框宽度(边框宽度: Int) =
  * 描述：卡片背景颜色
  *
  * 版本：0.1.1
- *  @param 颜色 颜色
+ *  @param 卡片背景颜色 颜色
  *  @return 颜色 颜色
  */
 var MaterialCardView.卡片背景颜色: ColorStateList
@@ -130,7 +108,7 @@ fun MaterialCardView.置卡片背景颜色(颜色: ColorStateList) =
  * 描述：卡片阴影
  *
  * 版本：0.1.1
- *  @param 阴影 阴影
+ *  @param 卡片阴影 阴影
  *  @return 阴影 阴影
  */
 var MaterialCardView.卡片阴影: Float

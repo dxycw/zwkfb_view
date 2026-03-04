@@ -12,28 +12,6 @@ import com.google.android.material.tabs.TabLayoutMediator
  * 版本：0.1.1
  * @author dxyc
  */
-//open class 标签布局协调器 : TabLayoutMediator {
-//    constructor(
-//        tabLayout: TabLayout,
-//        viewPager: ViewPager2,
-//        tabConfigurationStrategy: TabConfigurationStrategy,
-//    ) : super(tabLayout, viewPager, tabConfigurationStrategy)
-//
-//    constructor(
-//        tabLayout: TabLayout,
-//        viewPager: ViewPager2,
-//        autoRefresh: Boolean,
-//        tabConfigurationStrategy: TabConfigurationStrategy,
-//    ) : super(tabLayout, viewPager, autoRefresh, tabConfigurationStrategy)
-//
-//    constructor(
-//        tabLayout: TabLayout,
-//        viewPager: ViewPager2,
-//        autoRefresh: Boolean,
-//        smoothScroll: Boolean,
-//        tabConfigurationStrategy: TabConfigurationStrategy,
-//    ) : super(tabLayout, viewPager, autoRefresh, smoothScroll, tabConfigurationStrategy)
-//}
 
 //============================================================================
 

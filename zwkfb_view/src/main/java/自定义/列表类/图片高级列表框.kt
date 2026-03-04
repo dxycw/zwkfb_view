@@ -22,8 +22,11 @@ import 自定义.资源类.attr转int
 import 自定义.资源类.int转Drawable
 
 
-class 图片高级列表框 : 回收视图 {
-    private var 上下文: Context? = null
+class 图片高级列表框 @JvmOverloads constructor(
+    val 上下文: Context,
+    val attrs: AttributeSet?,
+    val defStyleAttr: Int = 0,
+) : 回收视图(上下文, attrs, defStyleAttr) {
     private var 布局参数: GridLayoutManager? = null
     private var 适配器: 图片高级列表框适配器? = null
 
@@ -34,14 +37,7 @@ class 图片高级列表框 : 回收视图 {
 
     private var 列数: Int = 3
 
-    constructor(上下文: Context) : this(上下文, null)
-
-    constructor(上下文: Context, attrs: AttributeSet?) : this(上下文, attrs , 0)
-
-    constructor(上下文: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        上下文, attrs, defStyleAttr
-    ) {
-        this.上下文 = 上下文
+    init{
         this.适配器 = 图片高级列表框适配器(上下文)
         this.setAdapter(适配器)
         布局参数 = GridLayoutManager(上下文, 列数)
@@ -76,7 +72,7 @@ class 图片高级列表框 : 回收视图 {
     }
 
     fun 添加项目(图标: Int, 标题: String?) {
-        适配器?.图标?.add(上下文!!.int转Drawable(图标))
+        适配器?.图标?.add(上下文.int转Drawable(图标))
         适配器?.标题?.add(标题)
         适配器!!.刷新()
     }
@@ -107,7 +103,7 @@ class 图片高级列表框 : 回收视图 {
     // 设置单击项目事件
 
     fun 置单击项目事件(项目单击事件: (项目序数: Int) -> Unit) {
-        适配器?.事件 = object : 项目单击事件 {
+        适配器?.单击事件 = object : 项目单击事件 {
             override fun 列表项目单击事件(项目序数: Int) {
                 项目单击事件(项目序数)
             }
@@ -115,23 +111,32 @@ class 图片高级列表框 : 回收视图 {
     }
 
     fun 置单击项目事件(项目单击事件: 项目单击事件?) {
-        适配器?.事件 = object : 项目单击事件 {
-            override fun 列表项目单击事件(项目序数: Int) {
-                项目单击事件?.列表项目单击事件(项目序数)
+        适配器?.单击事件 = 项目单击事件
+    }
+
+    fun 置长按项目事件(项目长按事件: (项目序数: Int) -> Unit) {
+        适配器?.长按事件 = object : 项目长按事件 {
+            override fun 列表项目长按事件(项目序数: Int) {
+                项目长按事件(项目序数)
             }
         }
     }
 
-    private class 图片高级列表框适配器(val 上下文: Context?) : Adapter<viewHolder>() {
-        var 事件: 项目单击事件? = null // 定义接口
+    fun 置长按项目事件(项目长按事件: 项目长按事件?) {
+        适配器?.长按事件 = 项目长按事件
+    }
+
+    private class 图片高级列表框适配器(val 上下文: Context) : Adapter<viewHolder>() {
+        var 单击事件: 项目单击事件? = null // 定义接口
+        var 长按事件: 项目长按事件? = null // 定义接口
+
         val 图标 = ArrayList<Drawable?>()
+        val 标题 = ArrayList<String?>()
 
         var 图标宽度: Int = 50
         var 图标高度: Int = 50
 
         var 是否图片文字变灰效果: Boolean = false
-
-        val 标题 = ArrayList<String?>()
 
         var 标题单行 = false
         var 背景颜色 = Color.TRANSPARENT
@@ -139,18 +144,16 @@ class 图片高级列表框 : 回收视图 {
         var 标题字体颜色 = -1
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
-            val 视图 = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_tpgjlbk, parent, false)
+            val 视图 = LayoutInflater.from(上下文).inflate(R.layout.item_tpgjlbk, parent, false)
             return viewHolder(视图)
         }
 
-        @Suppress("DEPRECATION")
         override fun onBindViewHolder(holder: viewHolder, position: Int) {
-            //
+
             val 项目图标 = 图标[position]
             holder.列表图标.setImageDrawable(项目图标)
             val 布局参数 = LinearLayout.LayoutParams(holder.列表图标.layoutParams)
-            布局参数.width = 上下文!!.dp转px(图标宽度)
+            布局参数.width = 上下文.dp转px(图标宽度)
             布局参数.height = 上下文.dp转px( 图标高度)
             holder.列表图标.setLayoutParams(布局参数)
 
@@ -158,11 +161,10 @@ class 图片高级列表框 : 回收视图 {
             holder.列表标题.text = 项目文本
             holder.列表标题.textSize = 上下文.dp转sp(标题字体大小).toFloat()
             holder.列表标题.setSingleLine(标题单行)
-            if (标题字体颜色 == -1) {
-                holder.列表标题.setTextColor(if (上下文.是否是深色模式) Color.WHITE else Color.BLACK)
-            } else {
-                holder.列表标题.setTextColor(标题字体颜色)
-            }
+            holder.列表标题.setTextColor(
+                if (标题字体颜色 == -1) { if (上下文.是否是深色模式) Color.WHITE else Color.BLACK }
+                else { 标题字体颜色 }
+            )
 
             if (是否图片文字变灰效果) {
                 动画类.变灰效果(holder.itemView)
@@ -173,9 +175,15 @@ class 图片高级列表框 : 回收视图 {
             }
             holder.itemView.setBackgroundColor(背景颜色)
             holder.itemView.setOnClickListener {
-                if (事件 != null) {
-                    事件!!.列表项目单击事件(holder.getAdapterPosition())
+                if (单击事件 != null) {
+                    单击事件!!.列表项目单击事件(holder.getAdapterPosition())
                 }
+            }
+            holder.itemView.setOnLongClickListener {
+                if (长按事件 != null) {
+                    长按事件!!.列表项目长按事件(holder.getAdapterPosition())
+                }
+                true
             }
         }
 
@@ -187,6 +195,7 @@ class 图片高级列表框 : 回收视图 {
         fun 刷新() {
             notifyDataSetChanged()
         }
+
     }
 
     private class viewHolder(项目视图: View) : ViewHolder(项目视图) {
@@ -197,6 +206,10 @@ class 图片高级列表框 : 回收视图 {
 
     interface 项目单击事件 {
         fun 列表项目单击事件(项目序数: Int)
+    }
+
+    interface 项目长按事件 {
+        fun 列表项目长按事件(项目序数: Int)
     }
 
 }

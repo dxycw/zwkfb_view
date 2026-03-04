@@ -40,7 +40,7 @@ dependencyResolutionManagement {
 
 ```groovy
 dependencies {
-    implementation 'com.github.dxycw:zwkfb_view:0.2.9' // 添加 zwkfb_view 依赖
+    implementation 'com.github.dxycw:zwkfb_view:0.3.0' // 添加 zwkfb_view 依赖
 }
 ```
 
@@ -48,7 +48,7 @@ dependencies {
 
 ```kotlin
 dependencies {
-    implementation("com.github.dxycw:zwkfb_view:0.2.9") // 添加 zwkfb_view 依赖
+    implementation("com.github.dxycw:zwkfb_view:0.3.0") // 添加 zwkfb_view 依赖
 }
 ```
 
@@ -234,7 +234,7 @@ android {
 
 ```groovy
 dependencies {
-    implementation 'com.github.dxycw:zwkfb_view:0.2.9'{
+    implementation 'com.github.dxycw:zwkfb_view:0.3.0'{
         exclude group: 'com.mysql', module: 'mysql-connector-j'
         
         exclude group: 'com.github.OCNYang.ImmersionBar', module: 'immersionbar-ktx'
@@ -263,7 +263,7 @@ dependencies {
 
 ```kotlin
 dependencies {
-    implementation("com.github.dxycw:zwkfb_view:0.2.9"){
+    implementation("com.github.dxycw:zwkfb_view:0.3.0"){
         exclude("com.mysql", "mysql-connector-j")
 
         exclude("com.github.OCNYang.ImmersionBar", "immersionbar-ktx")
@@ -291,6 +291,16 @@ dependencies {
 2、如果在你的项目中使用到了以上依赖库，注释掉或在项目中添加需要的依赖库。
 
 # 更新内容
+
+## 0.3.0
+
+* 删除 “图文图高级列表适配器”类，添加 “图文图高级列表框”类；
+* 添加 “图片高级列表框”类添加长按事件；
+* 添加 “图文文高级列表”类组件；
+* 修复 “图文图高级列表”类不能显示的Bug；
+* 修改 kotlin代码为java代码，有“侧滑面板对话框”、“停靠标题栏布局”、“基线布局”、“材质分割线”、“材质单选按钮”、“材质卡片视图”、“可塑形图像视图”、“圆形揭示协调布局”、“圆形揭示卡片视图”、“圆形揭示框架布局”、“圆形揭示相对布局”、“圆形揭示相对布局”、“圆形揭示线性布局”、“圆形揭示网格布局”、“材质复选框”、“材质警告对话框构建器”、“导航栏菜单视图”、“导航栏视图”、“导航栏项视图”、“导航视图”、“导航轨道视图”、“应用栏布局”、“折叠式标题栏布局”、“材质标题栏”、“底部导航视图”、“底部导航栏”、“底部面板对话框”、“底部面板对话框碎片”、“底部面板拖拽把手视图”、“开关材质”、“展开式悬浮操作按钮”、“悬浮操作按钮”、“悬浮工具栏布局”、“材质分割按钮”、“材质按钮”、“材质按钮切换组”、“材质按钮组”、“搜索栏”、“搜索视图”、“文本输入布局”、“文本输入编辑文本”、“材质自动完成文本视图”、“材质样式日期选择对话框”、“材质开关”、“标签布局”、“标签项”、“滑块”、“范围滑块”、“芯片”、“芯片组”、“转换小卡片”、“转换小布局”、“可遮罩框架布局”、“圆形进度指示器”、“线性进度指示器”、“加载指示器”、“提示栏”、“材质时间选择器”类；
+* 删除 用不到的layout文件；
+* 修复 “标签布局”不能添加“com.google.android.material.tabs.TabItem”的Bug；
 
 ## 0.2.9
 

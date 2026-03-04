@@ -6,44 +6,31 @@ import android.widget.LinearLayout
 import com.google.android.material.tabs.TabLayout
 
 
-/**
- * 创建时间：2025年11月24日.
- *
- * 描述：标签布局
- *
- * 版本：0.1.0
- * @author dxyc
- */
-open class 标签布局 : TabLayout {
-    constructor(context: Context) : super(context)
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    )
 
-    /**
-     * 创建时间：2025年11月24日.
-     *
-     * 描述：标签视图
-     *
-     * 版本：0.1.0
-     */
-    inner class 标签视图 : LinearLayout {
-        private var tabView: TabView? = null
-        constructor(context: Context?) : super(context){
-            tabView = TabView(context!!)
-
-            addView(tabView)
-        }
-    }
-
-    open class 标签: Tab{
-        constructor() : super()
-    }
-
-}
+//open class 标签布局 : TabLayout {
+//
+//
+//    /**
+//     * 创建时间：2025年11月24日.
+//     *
+//     * 描述：标签视图
+//     *
+//     * 版本：0.1.0
+//     */
+//    inner class 标签视图 : LinearLayout {
+//        private var tabView: TabView? = null
+//        constructor(context: Context?) : super(context){
+//            tabView = TabView(context!!)
+//
+//            addView(tabView)
+//        }
+//    }
+//
+//    open class 标签: Tab{
+//        constructor() : super()
+//    }
+//
+//}
 
 
 //==========================================================================

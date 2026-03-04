@@ -63,7 +63,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.github.dxycw"
             artifactId = "zwkfb_view"
-            version = "0.2.9"
+            version = "0.3.0"
 
             // 关键：使用 afterEvaluate 获取组件
             afterEvaluate {

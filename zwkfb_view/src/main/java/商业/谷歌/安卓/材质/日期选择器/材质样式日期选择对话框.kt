@@ -4,32 +4,4 @@ import android.annotation.SuppressLint
 import android.content.Context
 import com.google.android.material.datepicker.MaterialStyledDatePickerDialog
 
-/**
- * 创建时间：2025年12月2日.
- *
- * 描述：材质样式日期选择对话框
- *
- * 版本：0.1.5
- * @author dxyc
- */
-@SuppressLint("RestrictedApi")
-open class 材质样式日期选择对话框 : MaterialStyledDatePickerDialog {
-    constructor(context: Context) : super(context)
-    constructor(context: Context, themeResId: Int) : super(context, themeResId)
-    constructor(
-        context: Context,
-        listener: OnDateSetListener?,
-        year: Int,
-        month: Int,
-        dayOfMonth: Int,
-    ) : super(context, listener, year, month, dayOfMonth)
 
-    constructor(
-        context: Context,
-        themeResId: Int,
-        listener: OnDateSetListener?,
-        year: Int,
-        monthOfYear: Int,
-        dayOfMonth: Int,
-    ) : super(context, themeResId, listener, year, monthOfYear, dayOfMonth)
-}

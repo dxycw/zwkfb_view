@@ -8,11 +8,11 @@
     <LinearLayout
         android:id="@+id/lbk"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="10dp"
-        android:gravity="center"
-        tools:ignore="UselessParent">
+        android:padding="5dp"
+        android:gravity="center">
+
         <ImageView
             android:id="@+id/lbtb"
             android:layout_width="50dp"
@@ -25,8 +25,9 @@
             android:gravity="center"
             android:text="列表项"
             android:layout_weight="1"
-            android:padding="5dp"
+            android:layout_margin="5dp"
             tools:ignore="HardcodedText" />
+
     </LinearLayout>
 
 </LinearLayout>
