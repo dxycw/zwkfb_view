@@ -80,7 +80,7 @@ dependencies {
 * androidx.media3:media3-datasource-okhttp:1.8.0 (在0.1.8版本添加 ，[OkHttp](https://github.com/androidx/media))
 * androidx.media3:media3-ui:1.8.0 (在0.1.8版本添加 ，[Media3 UI](https://github.com/androidx/media))
 * com.github.CarGuo.GSYVideoPlayer:gsyvideoplayer:v11.3.0 (在0.1.8版本添加 ，[GSYVideoPlayer](https://github.com/CarGuo/GSYVideoPlayer))
-* com.github.ctiao:dfm:0.9.25 (在0.1.8版本添加 ，[DanmakuFlameMaster](https://github.com/bilibili/DanmakuFlameMaster))
+* com.github.bilibili.DanmakuFlameMaster:DanmakuFlameMaster:0.9.25 (在0.1.8版本添加 ，[DanmakuFlameMaster](https://github.com/bilibili/DanmakuFlameMaster))
 * org.mozilla.geckoview:geckoview-nightly:145.0.20251006095753 (在0.2.1版本添加 ，[Geckoview](https://mozilla.github.io/geckoview/javadoc/mozilla-central/org/mozilla/geckoview/doc-files/CHANGELOG))
 * org.mozilla.geckoview:geckoview-exoplayer2-nightly:145.0.20251006095753 (在0.2.3版本添加)
 * com.mysql:mysql-connector-j:9.5.0 (在0.2.3版本添加)
@@ -250,7 +250,7 @@ dependencies {
         exclude group: "androidx.media3", module: "media3-ui"
 
         exclude group: "com.github.CarGuo.GSYVideoPlayer", module: "gsyvideoplayer"
-        exclude group: "com.github.ctiao", module: "dfm"
+        exclude group: "com.github.bilibili.DanmakuFlameMaster", module: "DanmakuFlameMaster"
 
         // 使用下面库需要 需要添加 “https://maven.mozilla.org/maven2” 仓库，否则不要注释掉，不添加仓库会报错。
         exclude group: "org.mozilla.geckoview", module: "geckoview-nightly"
@@ -279,7 +279,7 @@ dependencies {
         exclude("androidx.media3", "media3-ui")
 
         exclude("com.github.CarGuo.GSYVideoPlayer", "gsyvideoplayer")
-        exclude("com.github.ctiao", "dfm")
+        exclude("com.github.bilibili.DanmakuFlameMaster", "DanmakuFlameMaster")
 
         // 使用下面库需要 需要添加 “https://maven.mozilla.org/maven2” 仓库，否则不要注释掉，不添加仓库会报错。
         exclude("org.mozilla.geckoview", "geckoview-nightly")

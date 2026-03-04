@@ -84,7 +84,7 @@ dependencies {
         exclude("androidx.media3", "media3-ui")
 
         exclude("com.github.CarGuo.GSYVideoPlayer", "gsyvideoplayer")
-        exclude("com.github.ctiao", "dfm")
+        exclude("com.github.bilibili.DanmakuFlameMaster", "DanmakuFlameMaster")
 
         // 使用下面库需要 需要添加 “https://maven.mozilla.org/maven2” 仓库，否则不要注释掉，不添加仓库会报错。
         exclude("org.mozilla.geckoview", "geckoview-nightly")
