@@ -224,8 +224,6 @@ class MainActivity : 应用兼容活动() {
             }
         }
 
-
-
     }
 
     override fun onStop() {

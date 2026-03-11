@@ -48,4 +48,19 @@ public class 警告对话框 extends AlertDialog {
 //        this.setTitle(标题);
 //    }
 
+
+    public static class 构建器 extends AlertDialog.Builder {
+
+        public 构建器(Context 上下文) {
+            super(上下文);
+        }
+
+        public 构建器(Context 上下文, int 主题资源Id) {
+            super(上下文, 主题资源Id);
+        }
+
+
+    }
+
+
 }
