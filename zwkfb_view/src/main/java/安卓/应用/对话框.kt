@@ -22,45 +22,7 @@ import androidx.annotation.LayoutRes
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 
-/**
- * 创建时间：2025年11月27日.
- *
- * 描述：对话框
- * @author dxyc
- */
-open class 对话框 :Dialog{
-    constructor(context: Context) : super(context)
-    constructor(context: Context, cancelable: Boolean, cancelListener: DialogInterface.OnCancelListener?,
-    ) : super(context, cancelable, cancelListener)
-    constructor(context: Context, themeResId: Int) : super(context, themeResId)
 
-    open fun 创建回调(保存实例状态: Bundle?){
-        super.onCreate(保存实例状态)
-    }
-
-    open fun 启动回调(){
-        super.onStart()
-    }
-
-    open fun 停止回调(){
-        super.onStop()
-    }
-
-    //===============================================================
-
-
-    fun 创建(){
-        this.create()
-    }
-
-    fun 显示(){
-        this.show()
-    }
-
-}
-
-
-//===============================================================
 //===============================================================
 
 /**

@@ -54,7 +54,6 @@ android {
             withJavadocJar() // 文档
         }
     }
-
 }
 
 // 关键：使用正确的 publishing 配置
@@ -63,7 +62,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.github.dxycw"
             artifactId = "zwkfb_view"
-            version = "0.3.0"
+            version = "0.3.1"
 
             // 关键：使用 afterEvaluate 获取组件
             afterEvaluate {
@@ -94,7 +93,7 @@ dependencies {
     //=====================================================================
 
     // 数据库 mysql 驱动
-    api("com.mysql:mysql-connector-j:9.5.0")
+    api("mysql:mysql-connector-java:5.1.49")
 
     //=====================================================================
 
@@ -114,7 +113,7 @@ dependencies {
 //    api("androidx.bluetooth:bluetooth:1.0.0-alpha02")
 
     //它本身不是新内核，而是给系统 WebView 增加了新 API，并保证在低版本系统上也能调用，开发者无需自己写版本判断。
-//    api("androidx.webkit:webkit:1.15.0")
+    api("androidx.webkit:webkit:1.15.0")
 
     //=====================================================================
 
@@ -277,7 +276,7 @@ dependencies {
     //=====================================================================
 
     // 二维码
-//    api("com.github.jenly1314:zxing-lite:3.3.0")
+    api("com.github.jenly1314:zxing-lite:3.4.0")
 
     //=====================================================================
 
@@ -328,9 +327,4 @@ dependencies {
 
     //=====================================================================
 
-
-    //=====================================================================
-
-
-    //=====================================================================
 }

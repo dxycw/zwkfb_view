@@ -69,7 +69,9 @@ dependencies {
 
     implementation(project(":zwkfb_view")){
 
-        exclude("com.mysql", "mysql-connector-j")
+        exclude("mysql", "mysql-connector-java")
+
+        exclude("androidx.webkit", "webkit")
 
         exclude("com.github.OCNYang.ImmersionBar", "immersionbar-ktx")
 //        exclude("com.gitee.zackratos", "UltimateBarX")
@@ -90,13 +92,10 @@ dependencies {
         exclude("org.mozilla.geckoview", "geckoview-nightly")
         exclude("org.mozilla.geckoview", "geckoview-exoplayer2-nightly")
 
+        exclude("com.github.jenly1314", "zxing-lite")
+
     }
 
-//    implementation(libs.androidx.core.ktx)
-//    implementation(libs.androidx.appcompat)
-//    implementation(libs.material)
-//    implementation(libs.androidx.activity)
-//    implementation(libs.androidx.constraintlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

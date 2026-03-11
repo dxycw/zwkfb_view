@@ -1,8 +1,15 @@
 package 自定义.网页工具
 
+import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.DownloadManager
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.ActivityInfo
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Rect
 import android.net.Uri
@@ -19,6 +26,10 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.widget.FrameLayout
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import 安卓.组件.吐司
+import 安卓.组件.显示
 import 安卓.网页工具.下载监听器
 import 安卓.网页工具.取浏览器配置
 import 安卓.网页工具.可后退
@@ -28,11 +39,12 @@ import 安卓.网页工具.网页视图客户端
 import 安卓.网页工具.网页配置
 import 安卓.网页工具.置下载监听事件
 import 安卓.视图.置按键回调监听事件
-import 自定义.主题类.主题类
+import 自定义.对话框类.材质浏览器下载对话框
 import 自定义.对话框类.浏览器下载对话框
 import 自定义.状态栏类.状态栏沉浸式
 import 自定义.状态栏类.状态栏沉浸式类
 import 自定义.系统类.是否为平板
+import 自定义.系统类.是否是深色模式
 
 
 /**
@@ -50,7 +62,35 @@ fun WebView.浏览器视频是否全屏(): Boolean {
 
 //================================================================================
 
+private var 外部存储权限 = 0
 
+
+fun 取外部存储权限(): Int {
+    return 外部存储权限
+}
+
+
+private var 下载网址1: String? = null
+private var 用户代理1: String? = null
+private var 内容处理1: String? = null
+private var 文件类型1: String? = null
+
+
+fun 取下载网址(): String? {
+    return 下载网址1
+}
+
+fun 取用户代理(): String? {
+    return 用户代理1
+}
+
+fun 取内容处理(): String? {
+    return 内容处理1
+}
+
+fun 取文件类型(): String? {
+    return 文件类型1
+}
 
 
 @SuppressLint("SetJavaScriptEnabled")
@@ -61,8 +101,8 @@ fun WebView.默认配置(上下文: Activity, 网页第三方链接头: ArrayLis
     置网页跳转拦截事件(object : 网页跳转拦截事件请求{
         override fun 网页跳转拦截(浏览器: WebView?, 请求: WebResourceRequest?): Boolean {
             val url = 请求!!.url.toString()
-            网页链接头 = arrayListOf("snssdk1128://", "baiduboxapp://", "baiduboxlite://", "baiduhaokan://",
-                "market://", "bilibili://", "wvhzpj://", "freereader://", "mttbrowser://", "baiduhaokan://", "sohunews://")
+            网页链接头 = arrayListOf("snssdk1128://", "baiduboxapp://", "baiduboxlite://", "baiduhaokan://", "market://",
+                "bilibili://", "wvhzpj://", "freereader://", "mttbrowser://", "baiduhaokan://", "sohunews://",)
             // 检查URL是否以http或https开头
             for (值 in 网页链接头) {
                 if (url.startsWith(值)) {
@@ -122,9 +162,8 @@ fun WebView.默认配置(上下文: Activity, 网页第三方链接头: ArrayLis
             decor.addView(视图, FrameLayout.LayoutParams(-1, -1))
 
             上下文.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) //横屏
-            状态栏沉浸式.初始化沉浸式(上下文).状态栏导航栏透明().状态栏字体图标自动深色模式(!主题类.是否是深色模式(上下文))
-                .导航栏图标自动深色模式(!主题类.是否是深色模式(上下文)).刷新()
-            状态栏沉浸式类.隐藏状态栏导航栏(上下文)
+            状态栏沉浸式.初始化沉浸式(上下文).状态栏导航栏透明().状态栏字体图标自动深色模式(!上下文.是否是深色模式)
+                .导航栏图标自动深色模式(!上下文.是否是深色模式).隐藏状态栏导航栏().刷新()
         }
     })
     置隐藏自定义视图事件(object : 隐藏自定义视图事件 {
@@ -140,11 +179,9 @@ fun WebView.默认配置(上下文: Activity, 网页第三方链接头: ArrayLis
             网页视频回调!!.onCustomViewHidden() //隐藏自定义视图
             网页视频回调 = null
 
-            上下文.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED) //默认
-            状态栏沉浸式.初始化沉浸式(上下文).状态栏导航栏透明().状态栏字体图标自动深色模式(!主题类.是否是深色模式(上下文))
-                .导航栏图标自动深色模式(!主题类.是否是深色模式(上下文)).刷新()
-
-            状态栏沉浸式类.显示状态栏导航栏(上下文)
+            上下文.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED) //竖屏
+            状态栏沉浸式.初始化沉浸式(上下文).状态栏导航栏透明().状态栏字体图标自动深色模式(!上下文.是否是深色模式)
+                .导航栏图标自动深色模式(!上下文.是否是深色模式).显示状态栏导航栏().刷新()
         }
     })
     置按键回调监听事件(View.OnKeyListener { v, 键值, 事件 ->
@@ -154,19 +191,39 @@ fun WebView.默认配置(上下文: Activity, 网页第三方链接头: ArrayLis
         }
         false
     })
-    置下载监听事件(object :下载监听器 {
-        override fun 开始下载回调(
-            url: String?,
-            userAgent: String?,
-            contentDisposition: String?,
-            mimetype: String?,
-            contentLength: Long,
-        ) {
-//            网址: String?, 用户代理: String?, 内容处理: String?, 文件类型: String?, 内容长度: Long
-            super.开始下载回调(url, userAgent, contentDisposition, mimetype, contentLength)
-            浏览器下载对话框(上下文, url, userAgent!!, contentDisposition!!, mimetype!!)
+    置下载监听事件(object : 下载监听器 {
+
+        private val 下载完成广播: BroadcastReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                val id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+                // 可以在这里处理下载完成后的逻辑，例如提示用户等
+                吐司.制作文本(context, "下载完成", 吐司.短).显示()
+            }
         }
 
+        @SuppressLint("UnspecifiedRegisterReceiverFlag")
+        override fun 开始下载回调(网址: String?, 用户代理: String?, 内容处置: String?, 媒体类型: String?, 内容长度: Long) {
+            浏览器下载对话框(上下文, url, 用户代理!!, 内容处置!!, 媒体类型!!)
+            下载网址1 = 网址
+            用户代理1 = 用户代理
+            内容处理1 = 内容处置
+            文件类型1 = 媒体类型
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+                //高版本不用权限，直接下载
+                材质浏览器下载对话框(上下文, 网址!!, 用户代理, 内容处置, 媒体类型)
+            }else{
+                if (ContextCompat.checkSelfPermission(上下文, WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(上下文, arrayOf(WRITE_EXTERNAL_STORAGE),
+                        外部存储权限)
+                } else {
+                    // 权限已授予，可以执行下载操作
+                    材质浏览器下载对话框(上下文, 网址!!, 用户代理, 内容处置, 媒体类型)
+                    上下文.registerReceiver(下载完成广播, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
+                }
+            }
+        }
     })
 
     val 网页设置 = this.取浏览器配置()

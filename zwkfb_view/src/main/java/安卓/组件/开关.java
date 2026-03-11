@@ -1,0 +1,34 @@
+package 安卓.组件;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.util.AttributeSet;
+import android.widget.Switch;
+
+/**
+ * 创建时间：2025年11月19日.
+ * <p>
+ * 描述：开关
+ * @author dxyc
+ */
+@SuppressLint("UseSwitchCompatOrMaterialCode")
+public class 开关 extends Switch {
+
+    public 开关(Context 上下文) {
+        super(上下文);
+    }
+
+    public 开关(Context 上下文, AttributeSet 属性) {
+        super(上下文, 属性);
+    }
+
+    public 开关(Context 上下文, AttributeSet 属性, int 默认样式属性) {
+        super(上下文, 属性, 默认样式属性);
+    }
+
+    public 开关(Context 上下文, AttributeSet 属性, int 默认样式属性, int 默认样式资源) {
+        super(上下文, 属性, 默认样式属性, 默认样式资源);
+    }
+
+
+}
