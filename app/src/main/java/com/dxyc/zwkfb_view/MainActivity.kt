@@ -155,7 +155,7 @@ class MainActivity : 应用兼容活动() {
         菜单列表框3.置单击项目事件 {项目序数: Int ->
             when (项目序数) {
                 0 -> {
-                    吐司.制作文本(this, "功能开发中...", 吐司.短).show()
+                    吐司.制作文本(this, "功能开发中...", 吐司.长度_短).show()
 //                    上下文.startActivity(Intent(上下文, 工具主窗口::class.java))
                 }
                 1 -> {
@@ -178,7 +178,7 @@ class MainActivity : 应用兼容活动() {
         菜单列表框3.置长按项目事件 {项目序数: Int ->
             when (项目序数) {
                 0 -> {
-                    吐司.制作文本(this, "长按...", 吐司.短).show()
+                    吐司.制作文本(this, "长按...", 吐司.长度_短).show()
 //                    上下文.startActivity(Intent(上下文, 工具主窗口::class.java))
                 }
                 1 -> {
@@ -203,7 +203,7 @@ class MainActivity : 应用兼容活动() {
         菜单列表框3.置单击按钮事件 {项目序数: Int ->
             when (项目序数) {
                 0 -> {
-                    吐司.制作文本(this, "单击按钮...", 吐司.短).show()
+                    吐司.制作文本(this, "单击按钮...", 吐司.长度_短).show()
 //                    上下文.startActivity(Intent(上下文, 工具主窗口::class.java))
                 }
                 1 -> {
