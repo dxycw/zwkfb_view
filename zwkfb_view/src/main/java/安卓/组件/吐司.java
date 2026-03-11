@@ -16,7 +16,7 @@ public class 吐司 extends Toast {
     }
 
     /**
-     * 描述：短
+     * 描述：长度_短
      */
     public static final int 长度_短 = Toast.LENGTH_SHORT;
     /**

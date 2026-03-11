@@ -24,9 +24,9 @@ object 下载器 {
             request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, 文件名)
             val downloadManager = 上下文.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
             downloadManager.enqueue(request)
-            吐司.制作文本(上下文,"开始下载", 吐司.短).显示()
+            吐司.制作文本(上下文,"开始下载", 吐司.长度_短).显示()
         } catch (e: Exception) {
-            吐司.制作文本(上下文, "下载失败：$e", 吐司.短).显示()
+            吐司.制作文本(上下文, "下载失败：$e", 吐司.长度_短).显示()
         }
 
     }

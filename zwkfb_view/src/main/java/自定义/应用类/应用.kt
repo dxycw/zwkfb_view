@@ -265,13 +265,13 @@ fun Context.安装APK(文件名: String) {
             文件名
         )
         if (!file.exists()) {
-            吐司.制作文本(this, "APK文件不存在", 吐司.短).显示()
+            吐司.制作文本(this, "APK文件不存在", 吐司.长度_短).显示()
             return
         }
         // 检查安装权限
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (!包管理器.canRequestPackageInstalls()) {
-                吐司.制作文本(this, "请在设置中允许安装未知应用", 吐司.长).显示()
+                吐司.制作文本(this, "请在设置中允许安装未知应用", 吐司.长度_短).显示()
                 // 可以引导用户到设置页面
                 try {
                     val intent = Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
@@ -289,7 +289,7 @@ fun Context.安装APK(文件名: String) {
                 try {
                     FileProvider.getUriForFile(this, "${包名}.fileprovider", file)
                 } catch (e: Exception) {
-                    吐司.制作文本(this, "文件提供者配置错误，请检查 AndroidManifest.xml", 吐司.长).显示()
+                    吐司.制作文本(this, "文件提供者配置错误，请检查 AndroidManifest.xml", 吐司.长度_短).显示()
                     return
                 }
             } else {
@@ -304,14 +304,14 @@ fun Context.安装APK(文件名: String) {
         val resolveInfo = 包管理器.queryIntentActivities(installIntent, PackageManager.MATCH_DEFAULT_ONLY)
         if (resolveInfo.isNotEmpty()) {
             startActivity(installIntent)
-            吐司.制作文本(this, "正在启动安装程序...", 吐司.短).显示()
+            吐司.制作文本(this, "正在启动安装程序...", 吐司.长度_短).显示()
         } else {
-            吐司.制作文本(this, "未找到APK安装程序", 吐司.短).显示()
+            吐司.制作文本(this, "未找到APK安装程序", 吐司.长度_短).显示()
         }
     } catch (e: SecurityException) {
-        吐司.制作文本(this, "权限不足，请检查存储权限", 吐司.短).显示()
+        吐司.制作文本(this, "权限不足，请检查存储权限", 吐司.长度_短).显示()
     } catch (e: Exception) {
-        吐司.制作文本(this, "安装失败：${e.message}", 吐司.短).显示()
+        吐司.制作文本(this, "安装失败：${e.message}", 吐司.长度_短).显示()
     }
 }
 

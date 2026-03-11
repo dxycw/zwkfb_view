@@ -197,7 +197,7 @@ fun WebView.默认配置(上下文: Activity, 网页第三方链接头: ArrayLis
             override fun onReceive(context: Context, intent: Intent) {
                 val id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
                 // 可以在这里处理下载完成后的逻辑，例如提示用户等
-                吐司.制作文本(context, "下载完成", 吐司.短).显示()
+                吐司.制作文本(context, "下载完成", 吐司.长度_短).显示()
             }
         }
 
