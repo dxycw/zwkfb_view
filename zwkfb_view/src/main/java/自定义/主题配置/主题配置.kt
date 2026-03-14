@@ -4,3 +4,6 @@ import android.content.Context
 
 val Context.强调色: Int
     get() = 主题存储.强调色(this)
+
+val Context.背景色: Int
+    get() = 主题存储.背景色(this)

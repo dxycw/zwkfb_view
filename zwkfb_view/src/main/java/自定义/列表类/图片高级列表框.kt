@@ -15,11 +15,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import zwkfb.view.R
 import 安卓x.回收视图.组件.回收视图
 import 自定义.动画类.动画类
-import 自定义.系统类.dp转px
-import 自定义.系统类.dp转sp
-import 自定义.系统类.是否是深色模式
-import 自定义.资源类.attr转int
-import 自定义.资源类.int转Drawable
+import 自定义.主题类.是否是深色模式
+import 自定义.系统类.屏幕类
+import 自定义.资源类.资源类
 
 
 class 图片高级列表框 @JvmOverloads constructor(
@@ -72,7 +70,7 @@ class 图片高级列表框 @JvmOverloads constructor(
     }
 
     fun 添加项目(图标: Int, 标题: String?) {
-        适配器?.图标?.add(上下文.int转Drawable(图标))
+        适配器?.图标?.add(资源类.int转Drawable(上下文,图标))
         适配器?.标题?.add(标题)
         适配器!!.刷新()
     }
@@ -153,13 +151,13 @@ class 图片高级列表框 @JvmOverloads constructor(
             val 项目图标 = 图标[position]
             holder.列表图标.setImageDrawable(项目图标)
             val 布局参数 = LinearLayout.LayoutParams(holder.列表图标.layoutParams)
-            布局参数.width = 上下文.dp转px(图标宽度)
-            布局参数.height = 上下文.dp转px( 图标高度)
+            布局参数.width = 屏幕类.dp转px(上下文,图标宽度)
+            布局参数.height = 屏幕类.dp转px(上下文,图标高度)
             holder.列表图标.setLayoutParams(布局参数)
 
             val 项目文本 = 标题[position]
             holder.列表标题.text = 项目文本
-            holder.列表标题.textSize = 上下文.dp转sp(标题字体大小).toFloat()
+            holder.列表标题.textSize = 屏幕类.dp转sp(上下文,标题字体大小).toFloat()
             holder.列表标题.setSingleLine(标题单行)
             holder.列表标题.setTextColor(
                 if (标题字体颜色 == -1) { if (上下文.是否是深色模式) Color.WHITE else Color.BLACK }
@@ -170,7 +168,7 @@ class 图片高级列表框 @JvmOverloads constructor(
                 动画类.变灰效果(holder.itemView)
             } else {
                 holder.列表框.setBackgroundResource(
-                    上下文.attr转int(android.R.attr.selectableItemBackground)
+                    资源类.attr转int(上下文,android.R.attr.selectableItemBackground)
                 )
             }
             holder.itemView.setBackgroundColor(背景颜色)

@@ -5,36 +5,31 @@ import android.os.Build
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import com.dxyc.zwkfb_view.databinding.ActivityMainBinding
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
-import 安卓.应用.置内容视图
 import 安卓.组件.吐司
 import 安卓.组件.文本
 import 安卓.视图.置单击回调监听事件
 import 安卓.视图.置长按回调监听事件
-import 安卓x.应用兼容包.应用.应用兼容活动
-import 安卓x.活动.启用边缘到边缘
 import 科特林.应用
+import 自定义.基础类.基础应用兼容活动
 import 自定义.对话框类.材质底部信息对话框
 import 自定义.状态栏类.状态栏沉浸式类
 
+class MainActivity : 基础应用兼容活动<ActivityMainBinding>() {
 
-class MainActivity : 应用兼容活动() {
+//    private lateinit var binding: ActivityMainBinding
 
-    private lateinit var binding: ActivityMainBinding
-
-//    lateinit var player: ExoPlayer
+    //    lateinit var player: ExoPlayer
 //    lateinit var playerview: PlayerView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        启用边缘到边缘()
+    override val 视图组件 by lazy { ActivityMainBinding.inflate(layoutInflater) }
+
+    override fun 活动创建完成(保存数据状态: Bundle?) {
+        super.活动创建完成(保存数据状态)
         状态栏沉浸式类.状态栏沉浸设置(this)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        置内容视图(binding.root)
         init()
+
     }
 
     private fun init() {
@@ -83,11 +78,11 @@ class MainActivity : 应用兼容活动() {
 //        val loadingIndicator = binding.loadingIndicator
 //        loadingIndicator.containerColor = "#FF0000".toColorInt()
 
-        binding.tv1.应用{
+        视图组件.tv1.应用{
             文本 = "支持的ABI：${Build.SUPPORTED_ABIS.joinToString()}，\n本进程运行在：${Build.SUPPORTED_ABIS[0]}."
         }
 
-        binding.btn2.应用{
+        视图组件.btn2.应用{
             val aa = MaterialTimePicker.Builder()
                 .setTimeFormat(TimeFormat.CLOCK_24H) // 商业.谷歌.安卓.材质.时间选择器.时间格式.CLOCK_12H
                 .setHour(12)
@@ -96,7 +91,7 @@ class MainActivity : 应用兼容活动() {
                 .setPositiveButtonText("确定")
                 .build()
             aa.addOnPositiveButtonClickListener {
-                binding.btn2.文本 = aa.hour.toString() + ":" + aa.minute.toString()
+                视图组件.btn2.文本 = aa.hour.toString() + ":" + aa.minute.toString()
             }
 
             置单击回调监听事件{
@@ -108,7 +103,7 @@ class MainActivity : 应用兼容活动() {
             }
         }
 
-        val a = binding.tabLayout.应用{
+        val a = 视图组件.tabLayout.应用{
 ////            val tabView = getTabAt(0)?.view
 //            // 禁用点击（特殊场景）
 ////        tabView!!.isClickable = false
@@ -118,7 +113,7 @@ class MainActivity : 应用兼容活动() {
 ////        tabView1!!.isClickable = false
         }
 
-        binding.tv3.应用 {
+        视图组件.tv3.应用 {
             文本 = "标签数量：${a.tabCount}"
 //            置单击回调监听事件{
 //            player.setMediaSource(App.用网址播放视频("https://gitee.com/dxycw/shuju/raw/master/视频/1.mp4"))
@@ -126,7 +121,7 @@ class MainActivity : 应用兼容活动() {
 //            }
         }
 
-        binding.btn4.应用{
+        视图组件.btn4.应用{
             val a4 = 材质底部信息对话框()
                 .置标题("标题12")
                 .置内容("这是一个对话框")
@@ -141,7 +136,7 @@ class MainActivity : 应用兼容活动() {
             }
         }
 
-        val 菜单列表框3 = binding.zCddhkLbk3
+        val 菜单列表框3 = 视图组件.zCddhkLbk3
         菜单列表框3.置图标宽高(25, 25)
 //        菜单列表框2.置项目单击效果(图片高级列表框.整体变灰效果)
 //        菜单列表框2.置列数(5)
@@ -155,7 +150,7 @@ class MainActivity : 应用兼容活动() {
         菜单列表框3.置单击项目事件 {项目序数: Int ->
             when (项目序数) {
                 0 -> {
-                    吐司.制作文本(this, "功能开发中...", 吐司.长度_短).show()
+                    吐司.制作文本(this, "功能开发中...", 吐司.长度_短).显示()
 //                    上下文.startActivity(Intent(上下文, 工具主窗口::class.java))
                 }
                 1 -> {
@@ -178,7 +173,7 @@ class MainActivity : 应用兼容活动() {
         菜单列表框3.置长按项目事件 {项目序数: Int ->
             when (项目序数) {
                 0 -> {
-                    吐司.制作文本(this, "长按...", 吐司.长度_短).show()
+                    吐司.制作文本(this, "长按...", 吐司.长度_短).显示()
 //                    上下文.startActivity(Intent(上下文, 工具主窗口::class.java))
                 }
                 1 -> {
@@ -223,6 +218,7 @@ class MainActivity : 应用兼容活动() {
                 }
             }
         }
+
 
     }
 

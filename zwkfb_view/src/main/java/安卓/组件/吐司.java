@@ -1,6 +1,8 @@
 package 安卓.组件;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.view.View;
 import android.widget.Toast;
 
 /**
@@ -28,15 +30,21 @@ public class 吐司 extends Toast {
     /**
      * 描述：制作文本
      */
-    public static Toast 制作文本(Context 上下文, int 资源Id, int 持续时间) {
-        return Toast.makeText(上下文, 资源Id, 持续时间);
+    @SuppressLint("ShowToast")
+    public static 吐司 制作文本(Context 上下文, int 资源Id, int 持续时间) {
+        吐司 结果 = new 吐司(上下文);
+        结果.setView(Toast.makeText(上下文, 资源Id, 持续时间).getView());
+        return 结果;
     }
 
     /**
      * 描述：制作文本
      */
-    public static Toast 制作文本(Context 上下文, CharSequence 文本, int 持续时间) {
-        return Toast.makeText(上下文, 文本, 持续时间);
+    @SuppressLint("ShowToast")
+    public static 吐司 制作文本(Context 上下文, CharSequence 文本, int 持续时间) {
+        吐司 结果 = new 吐司(上下文);
+        结果.setView(Toast.makeText(上下文, 文本, 持续时间).getView());
+        return 结果;
     }
 
 
@@ -97,5 +105,42 @@ public class 吐司 extends Toast {
 //            吐司对话框.置持续时间(显示时间)
 //            return 吐司对话框
 //        }
+
+
+    public void 置文本(int 资源Id){
+        this.setText(资源Id);
+    }
+
+    public void 置文本(CharSequence 文本){
+        this.setText(文本);
+    }
+
+    public void 显示(){
+        this.show();
+    }
+
+    public void 取消(){
+        this.cancel();
+    }
+
+
+    public void 置视图(View 视图){
+        this.setView(视图);
+    }
+
+    public View 取视图(){
+        return this.getView();
+    }
+
+    public void 置持续时间(int 持续时间){
+        this.setDuration(持续时间);
+    }
+
+    public int 取持续时间(){
+        return this.getDuration();
+    }
+
+
+
 
 }

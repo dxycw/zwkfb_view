@@ -5,17 +5,8 @@ import androidx.annotation.Px
 import androidx.core.view.setPadding
 
 
-/**
- * 创建时间：2025年11月24日.
- *
- * 版本：0.1.0
- * @author dxyc
- */
-
 
 /**
- * 版本：0.1.0
- *
  * 描述：设置内边距。
  * @param 大小 大小。
  */

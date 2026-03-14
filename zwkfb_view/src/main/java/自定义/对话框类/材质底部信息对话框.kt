@@ -19,10 +19,8 @@ import zwkfb.view.R
 import 商业.谷歌.安卓.材质.底部面板.底部面板对话框碎片
 import 自定义.状态栏类.状态栏沉浸式
 import 自定义.状态栏类.状态栏沉浸式类
-import 自定义.系统类.dp转px
-import 自定义.系统类.是否为手机
-import 自定义.系统类.是否处于横屏
-import 自定义.系统类.获取用户屏幕高度
+import 自定义.系统类.屏幕类
+import 自定义.系统类.系统类
 
 class 材质底部信息对话框 : 底部面板对话框碎片(){
 
@@ -132,8 +130,8 @@ class 材质底部信息对话框 : 底部面板对话框碎片(){
 
     private fun 更新界面状态() {
         滑动条?.visibility = 滑动条可视
-        滑动条?.layoutParams?.width = requireActivity().dp转px(滑动条宽度)
-        滑动条?.layoutParams?.height = requireActivity().dp转px(滑动条高度)
+        滑动条?.layoutParams?.width = 屏幕类.dp转px(requireActivity(),滑动条宽度)
+        滑动条?.layoutParams?.height = 屏幕类.dp转px(requireActivity(),滑动条高度)
         滑动条?.setCardBackgroundColor(滑动条背景颜色)
 
         标题栏?.text = 标题
@@ -430,17 +428,17 @@ class 材质底部信息对话框 : 底部面板对话框碎片(){
         底部面板行为 = BottomSheetBehavior.from<View>(底部面板视图!!)
 
         if (默认配置) {
-            val 屏幕高度 = requireActivity().获取用户屏幕高度()
+            val 屏幕高度 = 屏幕类.取用户屏幕高度(requireActivity())
             val 状态栏高度 = 状态栏沉浸式.取状态栏高度(requireActivity())
             val 导航栏高度 = 状态栏沉浸式.取导航栏高度(requireActivity())
             val 默认边距 = 10
 
             底部面板行为!!.apply {
                 maxHeight = when {
-                    requireActivity().是否为手机() -> {
+                    系统类.是否为手机(requireActivity()) -> {
                         when {
-                            requireActivity().是否处于横屏() -> 屏幕高度 - 状态栏高度 - 默认边距
-                            状态栏沉浸式.是否是手势(requireActivity()) -> 屏幕高度 - 状态栏高度 - 默认边距
+                            系统类.是否处于横屏(requireActivity()) -> 屏幕高度 - 状态栏高度 - 默认边距
+                            状态栏沉浸式.是否手势(requireActivity()) -> 屏幕高度 - 状态栏高度 - 默认边距
                             else -> 屏幕高度 - 状态栏高度 - 导航栏高度 - 默认边距
                         }
                     }

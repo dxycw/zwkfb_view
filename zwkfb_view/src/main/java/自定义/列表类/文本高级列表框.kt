@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import zwkfb.view.R
 import 安卓x.回收视图.组件.回收视图
 import 自定义.动画类.动画类
-import 自定义.资源类.attr转int
+import 自定义.资源类.资源类
 
 
 class 文本高级列表框 : 回收视图 {
@@ -138,7 +138,7 @@ class 文本高级列表框 : 回收视图 {
                 动画类.变灰效果(holder.itemView)
             } else {
                 holder.列表框.setBackgroundResource(
-                    上下文!!.attr转int(android.R.attr.selectableItemBackground)
+                    资源类.attr转int(上下文!!,android.R.attr.selectableItemBackground)
                 )
             }
 

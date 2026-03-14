@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package 安卓.网页工具
 
 import android.annotation.SuppressLint
@@ -55,454 +53,439 @@ import androidx.annotation.RequiresApi
 import java.util.concurrent.Executor
 import java.util.function.Consumer
 
-/**
- * 创建时间：2025年12月16日.
 
- * 版本：0.2.0
- * @author dxyc
- */
-open class 网页视图 : WebView {
-    constructor(context: Context) : super(context)
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context, attrs, defStyleAttr)
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, privateBrowsing: Boolean,
-    ) : super(context, attrs, defStyleAttr, privateBrowsing)
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int,
-    ) : super(context, attrs, defStyleAttr, defStyleRes)
-
-    /**
-     * 描述："网页视图传输"类
-     */
-    open inner class 网页视图传输: WebViewTransport {
-        constructor() : super()
-
-        /**
-         * 描述："取网页视图"函数
-         */
-        override fun getWebView(): WebView? {
-            return 取网页视图()
-        }
-
-        /**
-         * 描述："置网页视图"函数
-         * @param webview 网页视图
-         */
-        override fun setWebView(webview: WebView?) {
-            置网页视图(webview)
-        }
-
-        /**
-         * 描述："取网页视图"函数
-         */
-        fun 取网页视图(): WebView? = super.getWebView()
-        /**
-         * 描述："置网页视图"函数
-         * @param 网页视图 网页视图
-         */
-        fun 置网页视图(网页视图: WebView?) = super.setWebView(网页视图)
-
-    }
-    /**
-     * 描述："查找监听器"接口
-     */
-    interface 查找监听器 : FindListener{
-        /**
-         * 描述："收到查找结果"函数
-         * @param activeMatchOrdinal 活动匹配序数
-         * @param numberOfMatches 匹配数量
-         * @param isDoneCounting 是否完成计数
-         */
-        override fun onFindResultReceived(
-            activeMatchOrdinal: Int, numberOfMatches: Int, isDoneCounting: Boolean
-        ) {
-            收到查找结果(activeMatchOrdinal, numberOfMatches, isDoneCounting)
-        }
-        /**
-         * 描述："收到查找结果"函数
-         * @param 活动匹配序数 活动匹配序数
-         * @param 匹配数量 匹配数量
-         * @param 是否完成计数 是否完成计数
-         */
-        fun 收到查找结果(活动匹配序数: Int, 匹配数量: Int, 是否完成计数: Boolean){}
-    }
-
-    /**
-     * 描述："视觉状态回调"类
-     */
-    open class 视觉状态回调 : VisualStateCallback{
-        constructor() : super()
-        /**
-         * 描述："完成回调"函数
-         * @param requestId 请求ID
-         */
-        override fun onComplete(requestId: Long) {
-            完成回调(requestId)
-        }
-
-        /**
-         * 描述："完成回调"函数
-         * @param 请求Id 请求ID
-         */
-        open fun 完成回调(请求Id : Long) {}
-
-    }
-
-    companion object{
-        /**
-         * 描述："清除客户端证书首选项()"函数
-         * @param 被清除时 被清除时
-         */
-        fun 清除客户端证书首选项(被清除时: Runnable) =
-            clearClientCertPreferences(被清除时)
-
-        /**
-         * 描述："启动安全浏览()"函数,仅支持Android 8.1及更高版本使用
-         * @param 上下文 上下文
-         * @param 回调 回调
-         */
-        @RequiresApi(Build.VERSION_CODES.O_MR1)
-        fun 启动安全浏览(上下文: Context, 回调: ValueCallback<Boolean>) =
-            startSafeBrowsing(上下文,回调)
-
-        /**
-         * 描述："置安全浏览白名单列表()"函数,仅支持Android 8.1及更高版本使用
-         * @param 白名单 白名单
-         * @param 回调 回调
-         */
-        @RequiresApi(Build.VERSION_CODES.O_MR1)
-        fun 置安全浏览白名单列表(白名单: List<String>, 回调: ValueCallback<Boolean>) =
-            setSafeBrowsingWhitelist(白名单, 回调)
-
-        /**
-         * 描述："取安全浏览隐私政策网址()"函数,仅支持Android 8.1及更高版本使用
-         */
-        @RequiresApi(Build.VERSION_CODES.O_MR1)
-        fun 取安全浏览隐私政策网址(): Uri = getSafeBrowsingPrivacyPolicyUrl()
-
-        /**
-         * 描述："启用慢速整文档绘制()"函数
-         */
-        fun 启用慢速整文档绘制() = enableSlowWholeDocumentDraw()
-
-        /**
-         * 描述："置网页内容调试启用()"函数
-         * @param 启用 启用
-         */
-        fun 置网页内容调试启用(启用: Boolean) = setWebContentsDebuggingEnabled(启用)
-
-        /**
-         * 描述：“置数据目录后缀()”,仅支持Android 9及更高版本使用"函数
-         * @param 后缀 后缀
-         */
-        @RequiresApi(Build.VERSION_CODES.P)
-        fun 置数据目录后缀(后缀: String) = setDataDirectorySuffix(后缀)
-
-        /**
-         * 描述："禁用网页视图()"函数,仅支持Android 9及更高版本使用
-         */
-        @RequiresApi(Build.VERSION_CODES.P)
-        fun 禁用网页视图() = disableWebView()
-
-
-        /**
-         * 描述："渲染器_优先级_已放弃"常量,仅支持Android 8.0及更高版本使用
-         * @return 渲染器优先级
-         */
-        @RequiresApi(Build.VERSION_CODES.O)
-        const val 渲染器_优先级_已放弃: Int = RENDERER_PRIORITY_WAIVED
-
-        /**
-         * 描述："渲染器_优先级_绑定"常量,仅支持Android 8.0及更高版本使用
-         * @return 渲染器优先级
-         */
-        @RequiresApi(Build.VERSION_CODES.O)
-        const val 渲染器_优先级_绑定: Int = RENDERER_PRIORITY_BOUND
-
-        /**
-         * 描述："渲染器_优先级_重要"常量,仅支持Android 8.0及更高版本使用
-         * @return 渲染器优先级
-         */
-        @RequiresApi(Build.VERSION_CODES.O)
-        const val 渲染器_优先级_重要: Int = RENDERER_PRIORITY_IMPORTANT
-
-        /**
-         * 描述："取网页视图类加载器()"函数,仅支持Android 9.0及更高版本使用
-         * @return 类加载器 类加载器
-         */
-        @RequiresApi(Build.VERSION_CODES.P)
-        fun 取网页视图类加载器():ClassLoader = getWebViewClassLoader()
-
-        /**
-         * 描述："取当前网页视图包()"函数,仅支持Android 8.0及更高版本使用
-         * @return 包信息 包信息
-         */
-        @RequiresApi(Build.VERSION_CODES.O)
-        fun 取当前网页视图包(): PackageInfo? = getCurrentWebViewPackage()
-
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onChildViewAdded(parent: View?, child: View?) {
-        super.onChildViewAdded(parent, child)
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onChildViewRemoved(parent: View?, child: View?) {
-        super.onChildViewRemoved(parent, child)
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onGlobalFocusChanged(oldFocus: View?, newFocus: View?) {
-        super.onGlobalFocusChanged(oldFocus, newFocus)
-    }
-
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-    }
-
-    override fun setOverScrollMode(mode: Int) {
-        super.setOverScrollMode(mode)
-    }
-
-    override fun setScrollBarStyle(style: Int) {
-        super.setScrollBarStyle(style)
-    }
-
-    override fun computeHorizontalScrollRange(): Int {
-        return super.computeHorizontalScrollRange()
-    }
-
-    override fun computeHorizontalScrollOffset(): Int {
-        return super.computeHorizontalScrollOffset()
-    }
-
-    override fun computeVerticalScrollRange(): Int {
-        return super.computeVerticalScrollRange()
-    }
-    override fun computeVerticalScrollOffset(): Int {
-        return super.computeVerticalScrollOffset()
-    }
-
-    override fun computeVerticalScrollExtent(): Int {
-        return super.computeVerticalScrollExtent()
-    }
-
-    override fun computeScroll() {
-        super.computeScroll()
-    }
-
-    override fun onHoverEvent(event: MotionEvent?): Boolean {
-        return super.onHoverEvent(event)
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        return super.onTouchEvent(event)
-    }
-
-    override fun onGenericMotionEvent(event: MotionEvent?): Boolean {
-        return super.onGenericMotionEvent(event)
-    }
-
-    override fun onTrackballEvent(event: MotionEvent?): Boolean {
-        return super.onTrackballEvent(event)
-    }
-
-    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        return super.onKeyDown(keyCode, event)
-    }
-
-    override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
-        return super.onKeyUp(keyCode, event)
-    }
-
-    override fun onKeyMultiple(keyCode: Int, repeatCount: Int, event: KeyEvent?): Boolean {
-        return super.onKeyMultiple(keyCode, repeatCount, event)
-    }
-
-    override fun getAccessibilityNodeProvider(): AccessibilityNodeProvider? {
-        return super.getAccessibilityNodeProvider()
-    }
-
-    override fun shouldDelayChildPressedState(): Boolean {
-        return super.shouldDelayChildPressedState()
-    }
-
-    override fun getAccessibilityClassName(): CharSequence? {
-        return super.getAccessibilityClassName()
-    }
-
-    override fun onProvideVirtualStructure(structure: ViewStructure?) {
-        super.onProvideVirtualStructure(structure)
-    }
-
-
-    override fun onProvideAutofillVirtualStructure(structure: ViewStructure?, flags: Int) {
-        super.onProvideAutofillVirtualStructure(structure, flags)
-    }
-
-    override fun onProvideContentCaptureStructure(structure: ViewStructure, flags: Int) {
-        super.onProvideContentCaptureStructure(structure, flags)
-    }
-
-
-    override fun autofill(values: SparseArray<AutofillValue?>) {
-        super.autofill(values)
-    }
-
-    override fun isVisibleToUserForAutofill(virtualId: Int): Boolean {
-        return super.isVisibleToUserForAutofill(virtualId)
-    }
-
-    override fun onCreateVirtualViewTranslationRequests(
-        virtualIds: LongArray,
-        supportedFormats: IntArray,
-        requestsCollector: Consumer<ViewTranslationRequest?>
-    ) {
-        super.onCreateVirtualViewTranslationRequests(
-            virtualIds,
-            supportedFormats,
-            requestsCollector
-        )
-    }
-
-    override fun dispatchCreateViewTranslationRequest(
-        viewIds: Map<AutofillId?, LongArray?>,
-        supportedFormats: IntArray,
-        capability: TranslationCapability?,
-        requests: List<ViewTranslationRequest?>
-    ) {
-        super.dispatchCreateViewTranslationRequest(viewIds, supportedFormats, capability, requests)
-    }
-
-    override fun onVirtualViewTranslationResponses(response: LongSparseArray<ViewTranslationResponse?>) {
-        super.onVirtualViewTranslationResponses(response)
-    }
-
-    override fun onOverScrolled(scrollX: Int, scrollY: Int, clampedX: Boolean, clampedY: Boolean) {
-        super.onOverScrolled(scrollX, scrollY, clampedX, clampedY)
-    }
-
-    override fun onWindowVisibilityChanged(visibility: Int) {
-        super.onWindowVisibilityChanged(visibility)
-    }
-
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-    }
-
-    override fun performLongClick(): Boolean {
-        return super.performLongClick()
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration?) {
-        super.onConfigurationChanged(newConfig)
-    }
-
-    override fun onCreateInputConnection(outAttrs: EditorInfo?): InputConnection? {
-        return super.onCreateInputConnection(outAttrs)
-    }
-
-    override fun onDragEvent(event: DragEvent?): Boolean {
-        return super.onDragEvent(event)
-    }
-
-    override fun onVisibilityChanged(changedView: View, visibility: Int) {
-        super.onVisibilityChanged(changedView, visibility)
-    }
-
-
-    override fun onWindowFocusChanged(hasWindowFocus: Boolean) {
-        super.onWindowFocusChanged(hasWindowFocus)
-    }
-
-
-    override fun onFocusChanged(focused: Boolean, direction: Int, previouslyFocusedRect: Rect?) {
-        super.onFocusChanged(focused, direction, previouslyFocusedRect)
-    }
-
-
-    override fun onSizeChanged(w: Int, h: Int, ow: Int, oh: Int) {
-        super.onSizeChanged(w, h, ow, oh)
-    }
-
-
-    override fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int) {
-        super.onScrollChanged(l, t, oldl, oldt)
-    }
-
-    override fun dispatchKeyEvent(event: KeyEvent?): Boolean {
-        return super.dispatchKeyEvent(event)
-    }
-
-    override fun requestFocus(direction: Int, previouslyFocusedRect: Rect?): Boolean {
-        return super.requestFocus(direction, previouslyFocusedRect)
-    }
-
-
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-    }
-
-
-    override fun requestChildRectangleOnScreen(
-        child: View,
-        rect: Rect?,
-        immediate: Boolean
-    ): Boolean {
-        return super.requestChildRectangleOnScreen(child, rect, immediate)
-    }
-
-    override fun setBackground(background: Drawable?) {
-        super.setBackground(background)
-    }
-
-    override fun setBackgroundResource(resId: Int) {
-        super.setBackgroundResource(resId)
-    }
-
-    override fun setLayerType(layerType: Int, paint: Paint?) {
-        super.setLayerType(layerType, paint)
-    }
-
-    override fun dispatchDraw(canvas: Canvas) {
-        super.dispatchDraw(canvas)
-    }
-
-    override fun onStartTemporaryDetach() {
-        super.onStartTemporaryDetach()
-    }
-
-
-    override fun onFinishTemporaryDetach() {
-        super.onFinishTemporaryDetach()
-    }
-
-    override fun getHandler(): Handler? {
-        return super.getHandler()
-    }
-
-    override fun findFocus(): View? {
-        return super.findFocus()
-    }
-
-    override fun onCheckIsTextEditor(): Boolean {
-        return super.onCheckIsTextEditor()
-    }
-
-
-    override fun onApplyWindowInsets(insets: WindowInsets?): WindowInsets? {
-        return super.onApplyWindowInsets(insets)
-    }
-
-    override fun onResolvePointerIcon(event: MotionEvent, pointerIndex: Int): PointerIcon? {
-        return super.onResolvePointerIcon(event, pointerIndex)
-    }
-
-}
+//open class 网页视图 : WebView {
+//
+//    /**
+//     * 描述："网页视图传输"类
+//     */
+//    open inner class 网页视图传输: WebViewTransport {
+//        constructor() : super()
+//
+//        /**
+//         * 描述："取网页视图"函数
+//         */
+//        override fun getWebView(): WebView? {
+//            return 取网页视图()
+//        }
+//
+//        /**
+//         * 描述："置网页视图"函数
+//         * @param webview 网页视图
+//         */
+//        override fun setWebView(webview: WebView?) {
+//            置网页视图(webview)
+//        }
+//
+//        /**
+//         * 描述："取网页视图"函数
+//         */
+//        fun 取网页视图(): WebView? = super.getWebView()
+//        /**
+//         * 描述："置网页视图"函数
+//         * @param 网页视图 网页视图
+//         */
+//        fun 置网页视图(网页视图: WebView?) = super.setWebView(网页视图)
+//
+//    }
+//    /**
+//     * 描述："查找监听器"接口
+//     */
+//    interface 查找监听器 : FindListener{
+//        /**
+//         * 描述："收到查找结果"函数
+//         * @param activeMatchOrdinal 活动匹配序数
+//         * @param numberOfMatches 匹配数量
+//         * @param isDoneCounting 是否完成计数
+//         */
+//        override fun onFindResultReceived(
+//            activeMatchOrdinal: Int, numberOfMatches: Int, isDoneCounting: Boolean
+//        ) {
+//            收到查找结果(activeMatchOrdinal, numberOfMatches, isDoneCounting)
+//        }
+//        /**
+//         * 描述："收到查找结果"函数
+//         * @param 活动匹配序数 活动匹配序数
+//         * @param 匹配数量 匹配数量
+//         * @param 是否完成计数 是否完成计数
+//         */
+//        fun 收到查找结果(活动匹配序数: Int, 匹配数量: Int, 是否完成计数: Boolean){}
+//    }
+//
+//    /**
+//     * 描述："视觉状态回调"类
+//     */
+//    open class 视觉状态回调 : VisualStateCallback{
+//        constructor() : super()
+//        /**
+//         * 描述："完成回调"函数
+//         * @param requestId 请求ID
+//         */
+//        override fun onComplete(requestId: Long) {
+//            完成回调(requestId)
+//        }
+//
+//        /**
+//         * 描述："完成回调"函数
+//         * @param 请求Id 请求ID
+//         */
+//        open fun 完成回调(请求Id : Long) {}
+//
+//    }
+//
+//    companion object{
+//        /**
+//         * 描述："清除客户端证书首选项()"函数
+//         * @param 被清除时 被清除时
+//         */
+//        fun 清除客户端证书首选项(被清除时: Runnable) =
+//            clearClientCertPreferences(被清除时)
+//
+//        /**
+//         * 描述："启动安全浏览()"函数,仅支持Android 8.1及更高版本使用
+//         * @param 上下文 上下文
+//         * @param 回调 回调
+//         */
+//        @RequiresApi(Build.VERSION_CODES.O_MR1)
+//        fun 启动安全浏览(上下文: Context, 回调: ValueCallback<Boolean>) =
+//            startSafeBrowsing(上下文,回调)
+//
+//        /**
+//         * 描述："置安全浏览白名单列表()"函数,仅支持Android 8.1及更高版本使用
+//         * @param 白名单 白名单
+//         * @param 回调 回调
+//         */
+//        @RequiresApi(Build.VERSION_CODES.O_MR1)
+//        fun 置安全浏览白名单列表(白名单: List<String>, 回调: ValueCallback<Boolean>) =
+//            setSafeBrowsingWhitelist(白名单, 回调)
+//
+//        /**
+//         * 描述："取安全浏览隐私政策网址()"函数,仅支持Android 8.1及更高版本使用
+//         */
+//        @RequiresApi(Build.VERSION_CODES.O_MR1)
+//        fun 取安全浏览隐私政策网址(): Uri = getSafeBrowsingPrivacyPolicyUrl()
+//
+//        /**
+//         * 描述："启用慢速整文档绘制()"函数
+//         */
+//        fun 启用慢速整文档绘制() = enableSlowWholeDocumentDraw()
+//
+//        /**
+//         * 描述："置网页内容调试启用()"函数
+//         * @param 启用 启用
+//         */
+//        fun 置网页内容调试启用(启用: Boolean) = setWebContentsDebuggingEnabled(启用)
+//
+//        /**
+//         * 描述：“置数据目录后缀()”,仅支持Android 9及更高版本使用"函数
+//         * @param 后缀 后缀
+//         */
+//        @RequiresApi(Build.VERSION_CODES.P)
+//        fun 置数据目录后缀(后缀: String) = setDataDirectorySuffix(后缀)
+//
+//        /**
+//         * 描述："禁用网页视图()"函数,仅支持Android 9及更高版本使用
+//         */
+//        @RequiresApi(Build.VERSION_CODES.P)
+//        fun 禁用网页视图() = disableWebView()
+//
+//
+//        /**
+//         * 描述："渲染器_优先级_已放弃"常量,仅支持Android 8.0及更高版本使用
+//         * @return 渲染器优先级
+//         */
+//        @RequiresApi(Build.VERSION_CODES.O)
+//        const val 渲染器_优先级_已放弃: Int = RENDERER_PRIORITY_WAIVED
+//
+//        /**
+//         * 描述："渲染器_优先级_绑定"常量,仅支持Android 8.0及更高版本使用
+//         * @return 渲染器优先级
+//         */
+//        @RequiresApi(Build.VERSION_CODES.O)
+//        const val 渲染器_优先级_绑定: Int = RENDERER_PRIORITY_BOUND
+//
+//        /**
+//         * 描述："渲染器_优先级_重要"常量,仅支持Android 8.0及更高版本使用
+//         * @return 渲染器优先级
+//         */
+//        @RequiresApi(Build.VERSION_CODES.O)
+//        const val 渲染器_优先级_重要: Int = RENDERER_PRIORITY_IMPORTANT
+//
+//        /**
+//         * 描述："取网页视图类加载器()"函数,仅支持Android 9.0及更高版本使用
+//         * @return 类加载器 类加载器
+//         */
+//        @RequiresApi(Build.VERSION_CODES.P)
+//        fun 取网页视图类加载器():ClassLoader = getWebViewClassLoader()
+//
+//        /**
+//         * 描述："取当前网页视图包()"函数,仅支持Android 8.0及更高版本使用
+//         * @return 包信息 包信息
+//         */
+//        @RequiresApi(Build.VERSION_CODES.O)
+//        fun 取当前网页视图包(): PackageInfo? = getCurrentWebViewPackage()
+//
+//    }
+//
+//    @Deprecated("Deprecated in Java")
+//    override fun onChildViewAdded(parent: View?, child: View?) {
+//        super.onChildViewAdded(parent, child)
+//    }
+//
+//    @Deprecated("Deprecated in Java")
+//    override fun onChildViewRemoved(parent: View?, child: View?) {
+//        super.onChildViewRemoved(parent, child)
+//    }
+//
+//    @Deprecated("Deprecated in Java")
+//    override fun onGlobalFocusChanged(oldFocus: View?, newFocus: View?) {
+//        super.onGlobalFocusChanged(oldFocus, newFocus)
+//    }
+//
+//    override fun onAttachedToWindow() {
+//        super.onAttachedToWindow()
+//    }
+//
+//    override fun setOverScrollMode(mode: Int) {
+//        super.setOverScrollMode(mode)
+//    }
+//
+//    override fun setScrollBarStyle(style: Int) {
+//        super.setScrollBarStyle(style)
+//    }
+//
+//    override fun computeHorizontalScrollRange(): Int {
+//        return super.computeHorizontalScrollRange()
+//    }
+//
+//    override fun computeHorizontalScrollOffset(): Int {
+//        return super.computeHorizontalScrollOffset()
+//    }
+//
+//    override fun computeVerticalScrollRange(): Int {
+//        return super.computeVerticalScrollRange()
+//    }
+//    override fun computeVerticalScrollOffset(): Int {
+//        return super.computeVerticalScrollOffset()
+//    }
+//
+//    override fun computeVerticalScrollExtent(): Int {
+//        return super.computeVerticalScrollExtent()
+//    }
+//
+//    override fun computeScroll() {
+//        super.computeScroll()
+//    }
+//
+//    override fun onHoverEvent(event: MotionEvent?): Boolean {
+//        return super.onHoverEvent(event)
+//    }
+//
+//    @SuppressLint("ClickableViewAccessibility")
+//    override fun onTouchEvent(event: MotionEvent?): Boolean {
+//        return super.onTouchEvent(event)
+//    }
+//
+//    override fun onGenericMotionEvent(event: MotionEvent?): Boolean {
+//        return super.onGenericMotionEvent(event)
+//    }
+//
+//    override fun onTrackballEvent(event: MotionEvent?): Boolean {
+//        return super.onTrackballEvent(event)
+//    }
+//
+//    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+//        return super.onKeyDown(keyCode, event)
+//    }
+//
+//    override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
+//        return super.onKeyUp(keyCode, event)
+//    }
+//
+//    override fun onKeyMultiple(keyCode: Int, repeatCount: Int, event: KeyEvent?): Boolean {
+//        return super.onKeyMultiple(keyCode, repeatCount, event)
+//    }
+//
+//    override fun getAccessibilityNodeProvider(): AccessibilityNodeProvider? {
+//        return super.getAccessibilityNodeProvider()
+//    }
+//
+//    override fun shouldDelayChildPressedState(): Boolean {
+//        return super.shouldDelayChildPressedState()
+//    }
+//
+//    override fun getAccessibilityClassName(): CharSequence? {
+//        return super.getAccessibilityClassName()
+//    }
+//
+//    override fun onProvideVirtualStructure(structure: ViewStructure?) {
+//        super.onProvideVirtualStructure(structure)
+//    }
+//
+//
+//    override fun onProvideAutofillVirtualStructure(structure: ViewStructure?, flags: Int) {
+//        super.onProvideAutofillVirtualStructure(structure, flags)
+//    }
+//
+//    override fun onProvideContentCaptureStructure(structure: ViewStructure, flags: Int) {
+//        super.onProvideContentCaptureStructure(structure, flags)
+//    }
+//
+//
+//    override fun autofill(values: SparseArray<AutofillValue?>) {
+//        super.autofill(values)
+//    }
+//
+//    override fun isVisibleToUserForAutofill(virtualId: Int): Boolean {
+//        return super.isVisibleToUserForAutofill(virtualId)
+//    }
+//
+//    override fun onCreateVirtualViewTranslationRequests(
+//        virtualIds: LongArray,
+//        supportedFormats: IntArray,
+//        requestsCollector: Consumer<ViewTranslationRequest?>
+//    ) {
+//        super.onCreateVirtualViewTranslationRequests(
+//            virtualIds,
+//            supportedFormats,
+//            requestsCollector
+//        )
+//    }
+//
+//    override fun dispatchCreateViewTranslationRequest(
+//        viewIds: Map<AutofillId?, LongArray?>,
+//        supportedFormats: IntArray,
+//        capability: TranslationCapability?,
+//        requests: List<ViewTranslationRequest?>
+//    ) {
+//        super.dispatchCreateViewTranslationRequest(viewIds, supportedFormats, capability, requests)
+//    }
+//
+//    override fun onVirtualViewTranslationResponses(response: LongSparseArray<ViewTranslationResponse?>) {
+//        super.onVirtualViewTranslationResponses(response)
+//    }
+//
+//    override fun onOverScrolled(scrollX: Int, scrollY: Int, clampedX: Boolean, clampedY: Boolean) {
+//        super.onOverScrolled(scrollX, scrollY, clampedX, clampedY)
+//    }
+//
+//    override fun onWindowVisibilityChanged(visibility: Int) {
+//        super.onWindowVisibilityChanged(visibility)
+//    }
+//
+//    override fun onDraw(canvas: Canvas) {
+//        super.onDraw(canvas)
+//    }
+//
+//    override fun performLongClick(): Boolean {
+//        return super.performLongClick()
+//    }
+//
+//    override fun onConfigurationChanged(newConfig: Configuration?) {
+//        super.onConfigurationChanged(newConfig)
+//    }
+//
+//    override fun onCreateInputConnection(outAttrs: EditorInfo?): InputConnection? {
+//        return super.onCreateInputConnection(outAttrs)
+//    }
+//
+//    override fun onDragEvent(event: DragEvent?): Boolean {
+//        return super.onDragEvent(event)
+//    }
+//
+//    override fun onVisibilityChanged(changedView: View, visibility: Int) {
+//        super.onVisibilityChanged(changedView, visibility)
+//    }
+//
+//
+//    override fun onWindowFocusChanged(hasWindowFocus: Boolean) {
+//        super.onWindowFocusChanged(hasWindowFocus)
+//    }
+//
+//
+//    override fun onFocusChanged(focused: Boolean, direction: Int, previouslyFocusedRect: Rect?) {
+//        super.onFocusChanged(focused, direction, previouslyFocusedRect)
+//    }
+//
+//
+//    override fun onSizeChanged(w: Int, h: Int, ow: Int, oh: Int) {
+//        super.onSizeChanged(w, h, ow, oh)
+//    }
+//
+//
+//    override fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int) {
+//        super.onScrollChanged(l, t, oldl, oldt)
+//    }
+//
+//    override fun dispatchKeyEvent(event: KeyEvent?): Boolean {
+//        return super.dispatchKeyEvent(event)
+//    }
+//
+//    override fun requestFocus(direction: Int, previouslyFocusedRect: Rect?): Boolean {
+//        return super.requestFocus(direction, previouslyFocusedRect)
+//    }
+//
+//
+//    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+//        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+//    }
+//
+//
+//    override fun requestChildRectangleOnScreen(
+//        child: View,
+//        rect: Rect?,
+//        immediate: Boolean
+//    ): Boolean {
+//        return super.requestChildRectangleOnScreen(child, rect, immediate)
+//    }
+//
+//    override fun setBackground(background: Drawable?) {
+//        super.setBackground(background)
+//    }
+//
+//    override fun setBackgroundResource(resId: Int) {
+//        super.setBackgroundResource(resId)
+//    }
+//
+//    override fun setLayerType(layerType: Int, paint: Paint?) {
+//        super.setLayerType(layerType, paint)
+//    }
+//
+//    override fun dispatchDraw(canvas: Canvas) {
+//        super.dispatchDraw(canvas)
+//    }
+//
+//    override fun onStartTemporaryDetach() {
+//        super.onStartTemporaryDetach()
+//    }
+//
+//
+//    override fun onFinishTemporaryDetach() {
+//        super.onFinishTemporaryDetach()
+//    }
+//
+//    override fun getHandler(): Handler? {
+//        return super.getHandler()
+//    }
+//
+//    override fun findFocus(): View? {
+//        return super.findFocus()
+//    }
+//
+//    override fun onCheckIsTextEditor(): Boolean {
+//        return super.onCheckIsTextEditor()
+//    }
+//
+//
+//    override fun onApplyWindowInsets(insets: WindowInsets?): WindowInsets? {
+//        return super.onApplyWindowInsets(insets)
+//    }
+//
+//    override fun onResolvePointerIcon(event: MotionEvent, pointerIndex: Int): PointerIcon? {
+//        return super.onResolvePointerIcon(event, pointerIndex)
+//    }
+//
+//}
 
 //======================================================================
 //======================================================================

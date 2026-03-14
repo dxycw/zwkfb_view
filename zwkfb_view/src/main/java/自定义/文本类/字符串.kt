@@ -4,8 +4,7 @@ import android.annotation.SuppressLint
 import kotlin.text.replace
 import kotlin.text.trim
 
-fun String.去除HTML标签(): String
-        = replace(Regex("<[^>]+>"), "").trim()
+fun String.去除HTML标签(): String = replace(Regex("<[^>]+>"), "").trim()
 
 
 /**

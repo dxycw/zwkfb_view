@@ -16,9 +16,8 @@ import com.google.android.material.R
 import com.google.android.material.button.MaterialButton
 import 安卓x.回收视图.组件.回收视图
 import 自定义.动画类.动画类
-import 自定义.系统类.dp转px
-import 自定义.资源类.attr转int
-import 自定义.资源类.int转Drawable
+import 自定义.系统类.屏幕类
+import 自定义.资源类.资源类
 
 class 图文文高级列表 @JvmOverloads constructor(
     val 上下文: Context,
@@ -42,7 +41,7 @@ class 图文文高级列表 @JvmOverloads constructor(
     }
 
     fun 添加项目(图标: Int = -1, 标题: String?, 按钮: String? = null) {
-        适配器?.图标?.add(if (图标 == -1) null else 上下文.int转Drawable(图标))
+        适配器?.图标?.add(if (图标 == -1) null else 资源类.int转Drawable(上下文,图标))
         适配器?.标题?.add(标题)
         适配器?.按钮?.add(按钮)
         适配器!!.刷新()
@@ -196,9 +195,9 @@ class 图文文高级列表 @JvmOverloads constructor(
                 holder.列表图标.visibility = VISIBLE
                 holder.列表图标.setImageDrawable(项目图标)
                 val 图标布局参数 = LinearLayout.LayoutParams(holder.列表图标.layoutParams)
-                图标布局参数.width = 上下文.dp转px(图标宽度)
-                图标布局参数.height = 上下文.dp转px( 图标高度)
-                图标布局参数.setMargins(上下文.dp转px(15))
+                图标布局参数.width = 屏幕类.dp转px(上下文,图标宽度)
+                图标布局参数.height = 屏幕类.dp转px(上下文,图标高度)
+                图标布局参数.setMargins(屏幕类.dp转px(上下文,15))
                 holder.列表图标.setLayoutParams(图标布局参数)
             }else{
                 holder.列表图标.visibility = GONE
@@ -212,7 +211,7 @@ class 图文文高级列表 @JvmOverloads constructor(
             标题布局参数.width = LinearLayout.LayoutParams.MATCH_PARENT
             标题布局参数.height = LinearLayout.LayoutParams.WRAP_CONTENT
             if (项目图标 == null) {
-                标题布局参数.setMargins(上下文.dp转px(15))
+                标题布局参数.setMargins(屏幕类.dp转px(上下文,15))
             }
             holder.列表标题.setLayoutParams(标题布局参数)
 
@@ -223,8 +222,8 @@ class 图文文高级列表 @JvmOverloads constructor(
                 holder.列表按钮.textSize = 12f
                 val 按钮布局参数 = LinearLayout.LayoutParams(holder.列表按钮.layoutParams)
 //                按钮布局参数.width = 上下文.dp转px(80)
-                按钮布局参数.height = 上下文.dp转px(40)
-                按钮布局参数.marginEnd = 上下文.dp转px(15)
+                按钮布局参数.height = 屏幕类.dp转px(上下文,40)
+                按钮布局参数.marginEnd = 屏幕类.dp转px(上下文,15)
                 holder.列表按钮.setLayoutParams(按钮布局参数)
                 动画类.变灰效果(holder.列表按钮)
                 holder.列表按钮.setOnClickListener { v: View? ->
@@ -276,17 +275,17 @@ class 图文文高级列表 @JvmOverloads constructor(
             )
             orientation = LinearLayout.HORIZONTAL
             setBackgroundResource(
-                项目视图.context.attr转int(android.R.attr.selectableItemBackground)
+                资源类.attr转int(项目视图.context, android.R.attr.selectableItemBackground)
             )
             gravity = Gravity.CENTER
         }
 
         var 列表图标 = ImageView(项目视图.context).apply {
             val 图标布局参数 = LinearLayout.LayoutParams(
-                项目视图.context.dp转px(25),
-                项目视图.context.dp转px(25)
+                屏幕类.dp转px(项目视图.context,25),
+                屏幕类.dp转px(项目视图.context,25)
             )
-            图标布局参数.setMargins(项目视图.context.dp转px(15))
+            图标布局参数.setMargins(屏幕类.dp转px(项目视图.context,15))
             layoutParams = 图标布局参数
         }
         var 列表标题 = TextView(项目视图.context).apply {

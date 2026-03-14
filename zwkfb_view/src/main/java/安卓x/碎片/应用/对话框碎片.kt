@@ -5,16 +5,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 
-/**
- * 创建时间：2025年11月27日.
- *
- * 描述：对话框碎片
- * @author dxyc
- */
-open class 对话框碎片 :DialogFragment{
-    constructor() : super()
-    constructor(contentLayoutId: Int) : super(contentLayoutId)
-}
+
 
 //======================================================================
 
