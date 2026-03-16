@@ -4,8 +4,12 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowInsets;
+import android.view.WindowManager;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
@@ -13,6 +17,7 @@ import androidx.annotation.FloatRange;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
@@ -24,6 +29,11 @@ import com.gyf.immersionbar.NotchCallback;
 import com.gyf.immersionbar.OnBarListener;
 import com.gyf.immersionbar.OnKeyboardListener;
 import com.gyf.immersionbar.OnNavigationBarListener;
+
+import java.util.Objects;
+
+import 安卓.操作系统.构建;
+import 自定义.主题类.主题类;
 
 public class 状态栏沉浸式 {
 
@@ -1834,6 +1844,173 @@ public class 状态栏沉浸式 {
         return this;
     }
 
+
+    //==============================================================================================
+    //==============================================================================================
+
+    @SuppressLint("StaticFieldLeak")
+    private static View 根视图;
+
+    @SuppressLint("ResourceType")
+    public static void 是否隐藏状态栏导航栏(Activity 上下文, boolean 是否隐藏, boolean 自动深色, boolean 深色颜色) {
+        // 获取根视图
+        根视图 = 上下文.findViewById(android.R.id.content);
+        状态栏沉浸式 沉浸设置 = 状态栏沉浸式.初始沉浸式(上下文);
+        if (是否隐藏) {
+            沉浸设置.隐藏栏(BarHide.FLAG_HIDE_BAR);
+            沉浸设置.全屏(true);
+            沉浸设置.透明栏();
+            沉浸设置.状态栏深色字体(自动深色);
+            沉浸设置.导航栏深色图标(自动深色);
+            沉浸设置.初始化();
+
+            if (状态栏沉浸式.是否手势(上下文)) { //有
+                //隐藏状态栏和导航栏
+                上下文.getWindow().getDecorView().setSystemUiVisibility(
+                        (View.SYSTEM_UI_FLAG_LAYOUT_STABLE // 让内容在状态栏和导航栏之间留白
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION // 让内容显示在状态栏和导航栏之间
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN // 让内容显示在状态栏和导航栏后面
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // 隐藏导航栏
+                        //| View.SYSTEM_UI_FLAG_FULLSCREEN // 隐藏状态栏
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+                    ); // 保持沉浸模式，即使用户交互也不会退出
+            }
+            上下文.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            // 设置 OnApplyWindowInsetsListener
+            根视图.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+                @NonNull
+                @Override
+                public WindowInsets onApplyWindowInsets(@NonNull View v, @NonNull WindowInsets insets) {
+                    // 处理底部导航栏的内边距
+                    v.setPadding(0, 0, 0, 0);
+                    insets.consumeSystemWindowInsets();
+                    return insets;
+                }
+            });
+        } else {
+            沉浸设置.隐藏栏(BarHide.FLAG_SHOW_BAR);
+            if (状态栏沉浸式.是否手势(上下文)) { //有
+                if (自动深色) {
+                    沉浸设置.状态栏深色字体(!主题类.是否是深色模式(上下文));
+//                    沉浸设置.导航栏深色图标(!主题类.是否是深色模式(上下文));
+                    if (Objects.equals(Build.MANUFACTURER, "Xiaomi")) { //制造商
+                        沉浸设置.透明栏();
+                        沉浸设置.导航栏深色图标(!主题类.是否是深色模式(上下文));
+                    } else {
+                        if (主题类.是否是深色模式(上下文)) {
+                            沉浸设置.导航栏颜色("#000000");
+                        } else {
+                            沉浸设置.导航栏颜色("#ffffff");
+                        }
+                    }
+                } else {
+                    沉浸设置.状态栏深色字体(深色颜色);
+                    if (深色颜色) {
+                        沉浸设置.导航栏颜色(Color.WHITE);
+                    } else {
+                        沉浸设置.导航栏颜色(Color.BLACK);
+                    }
+                }
+            } else { //没有
+                if (自动深色) {
+                    沉浸设置.状态栏深色字体(!主题类.是否是深色模式(上下文));
+                    沉浸设置.导航栏深色图标(!主题类.是否是深色模式(上下文));
+                } else {
+                    沉浸设置.状态栏深色字体(深色颜色);
+                    沉浸设置.导航栏深色图标(深色颜色);
+                }
+            }
+            沉浸设置.初始化();
+
+            // 设置 OnApplyWindowInsetsListener
+            根视图.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+                @NonNull
+                @Override
+                public WindowInsets onApplyWindowInsets(@NonNull View v, @NonNull WindowInsets insets) {
+                    // 处理底部导航栏的内边距
+                    v.setPadding(0, insets.getSystemWindowInsetTop(), 0, insets.getSystemWindowInsetBottom());
+                    insets.consumeSystemWindowInsets();
+                    return insets;
+                }
+            });
+        }
+    }
+
+
+    public static void 刷新是否隐藏状态栏导航栏布局(){
+        ViewCompat.requestApplyInsets(根视图);
+    }
+
+    public static void 修复对话框子窗口导航栏遮盖问题(Activity 上下文, Fragment 对话框子窗口上下文) {
+        状态栏沉浸式 沉浸设置 = 状态栏沉浸式.初始沉浸式(对话框子窗口上下文);
+        沉浸设置.透明栏();
+        if (状态栏沉浸式.是否手势(上下文)) { //有
+            if (Objects.equals(Build.MANUFACTURER, "Xiaomi")) {
+                沉浸设置.导航栏深色图标(!主题类.是否是深色模式(上下文));
+            } else {
+                if (主题类.是否是深色模式(上下文)) {
+                    沉浸设置.导航栏颜色("#000000");
+                } else {
+                    沉浸设置.导航栏颜色("#ffffff");
+                }
+            }
+        } else { //没有
+            沉浸设置.导航栏深色图标(!主题类.是否是深色模式(上下文)); // 设置导航栏图标为深色
+        }
+        沉浸设置.初始化();
+    }
+
+    //==============================================================================================
+    //==============================================================================================
+
+
+    public static void 隐藏对话框子窗口状态栏(Activity 活动, boolean 状态栏字体图标自动深色模式) {
+        状态栏沉浸式.初始沉浸式(活动).透明栏().隐藏栏(BarHide.FLAG_HIDE_STATUS_BAR).状态栏深色字体(状态栏字体图标自动深色模式).初始化();
+    }
+
+    public static void 显示对话框子窗口状态栏(Activity 活动, boolean 状态栏字体图标自动深色模式) {
+        状态栏沉浸式.初始沉浸式(活动).透明栏().隐藏栏(BarHide.FLAG_SHOW_BAR).状态栏深色字体(状态栏字体图标自动深色模式).初始化();
+    }
+
+    public static void 隐藏对话框子窗口状态栏(Fragment 碎片, boolean 状态栏字体图标自动深色模式) {
+        状态栏沉浸式.初始沉浸式(碎片).透明栏().隐藏栏(BarHide.FLAG_HIDE_STATUS_BAR).状态栏深色字体(状态栏字体图标自动深色模式).初始化();
+    }
+
+    public static void 显示对话框子窗口状态栏(Fragment 碎片, boolean 状态栏字体图标自动深色模式) {
+        状态栏沉浸式.初始沉浸式(碎片).透明栏().隐藏栏(BarHide.FLAG_SHOW_BAR).状态栏深色字体(状态栏字体图标自动深色模式).初始化();
+    }
+
+    public static void 隐藏对话框子窗口状态栏(android.app.Fragment 碎片, boolean 状态栏字体图标自动深色模式) {
+        状态栏沉浸式.初始沉浸式(碎片).透明栏().隐藏栏(BarHide.FLAG_HIDE_STATUS_BAR).状态栏深色字体(状态栏字体图标自动深色模式).初始化();
+    }
+
+    public static void 显示对话框子窗口状态栏(android.app.Fragment 碎片, boolean 状态栏字体图标自动深色模式) {
+        状态栏沉浸式.初始沉浸式(碎片).透明栏().隐藏栏(BarHide.FLAG_SHOW_BAR).状态栏深色字体(状态栏字体图标自动深色模式).初始化();
+    }
+
+    public static void 隐藏对话框子窗口状态栏(DialogFragment 对话框碎片, boolean 状态栏字体图标自动深色模式) {
+        状态栏沉浸式.初始沉浸式(对话框碎片).透明栏().隐藏栏(BarHide.FLAG_HIDE_STATUS_BAR).状态栏深色字体(状态栏字体图标自动深色模式).初始化();
+    }
+
+    public static void 显示对话框子窗口状态栏(DialogFragment 对话框碎片, boolean 状态栏字体图标自动深色模式) {
+        状态栏沉浸式.初始沉浸式(对话框碎片).透明栏().隐藏栏(BarHide.FLAG_SHOW_BAR).状态栏深色字体(状态栏字体图标自动深色模式).初始化();
+    }
+
+    public static void 隐藏对话框子窗口状态栏(android.app.DialogFragment 对话框碎片, boolean 状态栏字体图标自动深色模式) {
+        状态栏沉浸式.初始沉浸式(对话框碎片).透明栏().隐藏栏(BarHide.FLAG_HIDE_STATUS_BAR).状态栏深色字体(状态栏字体图标自动深色模式).初始化();
+    }
+
+    public static void 显示对话框子窗口状态栏(android.app.DialogFragment 对话框碎片, boolean 状态栏字体图标自动深色模式) {
+        状态栏沉浸式.初始沉浸式(对话框碎片).透明栏().隐藏栏(BarHide.FLAG_SHOW_BAR).状态栏深色字体(状态栏字体图标自动深色模式).初始化();
+    }
+
+    public static void 隐藏对话框子窗口状态栏(Activity 活动, Dialog 对话框, boolean 状态栏字体图标自动深色模式) {
+        状态栏沉浸式.初始沉浸式(活动, 对话框).透明栏().隐藏栏(BarHide.FLAG_HIDE_STATUS_BAR).状态栏深色字体(状态栏字体图标自动深色模式).初始化();
+    }
+
+    public static void 显示对话框子窗口状态栏(Activity 活动, Dialog 对话框, boolean 状态栏字体图标自动深色模式) {
+        状态栏沉浸式.初始沉浸式(活动, 对话框).透明栏().隐藏栏(BarHide.FLAG_SHOW_BAR).状态栏深色字体(状态栏字体图标自动深色模式).初始化();
+    }
 
 
 }

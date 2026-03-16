@@ -4,6 +4,8 @@ import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
+import android.widget.TextView
+import android.widget.Toast
 import com.dxyc.zwkfb_view.databinding.ActivityMainBinding
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
@@ -13,7 +15,8 @@ import 安卓.视图.置单击回调监听事件
 import 安卓.视图.置长按回调监听事件
 import 科特林.应用
 import 自定义.基础类.基础应用兼容活动
-import 自定义.对话框类.材质底部信息对话框
+import 自定义.对话框类.材质底部面板信息对话框
+import 自定义.活动类.注册返回键按下事件
 import 自定义.状态栏类.状态栏沉浸式类
 
 class MainActivity : 基础应用兼容活动<ActivityMainBinding>() {
@@ -29,7 +32,6 @@ class MainActivity : 基础应用兼容活动<ActivityMainBinding>() {
         super.活动创建完成(保存数据状态)
         状态栏沉浸式类.状态栏沉浸设置(this)
         init()
-
     }
 
     private fun init() {
@@ -104,13 +106,13 @@ class MainActivity : 基础应用兼容活动<ActivityMainBinding>() {
         }
 
         val a = 视图组件.tabLayout.应用{
-////            val tabView = getTabAt(0)?.view
-//            // 禁用点击（特殊场景）
-////        tabView!!.isClickable = false
-////            val tabView1 = getTabAt(1)?.view
-////            getTabAt(1)!!.文本 = "视频21111"
-//            // 禁用点击（特殊场景）
-////        tabView1!!.isClickable = false
+//            val tabView = getTabAt(0)?.view
+            // 禁用点击（特殊场景）
+//        tabView!!.isClickable = false
+//            val tabView1 = getTabAt(1)?.view
+//            getTabAt(1)!!.文本 = "视频21111"
+            // 禁用点击（特殊场景）
+//        tabView1!!.isClickable = false
         }
 
         视图组件.tv3.应用 {
@@ -122,10 +124,10 @@ class MainActivity : 基础应用兼容活动<ActivityMainBinding>() {
         }
 
         视图组件.btn4.应用{
-            val a4 = 材质底部信息对话框()
+            val a4 = 材质底部面板信息对话框()
                 .置标题("标题12")
                 .置内容("这是一个对话框")
-                .置按钮方向(材质底部信息对话框.横向)
+                .置按钮方向(材质底部面板信息对话框.横向)
                 .置忽略按钮单击事件("忽略1") { it.dismiss() }
                 .置确定按钮单击事件("确定1") { it.dismiss() }
                 .隐藏状态栏导航栏()
@@ -136,17 +138,18 @@ class MainActivity : 基础应用兼容活动<ActivityMainBinding>() {
             }
         }
 
+
         val 菜单列表框3 = 视图组件.zCddhkLbk3
         菜单列表框3.置图标宽高(25, 25)
 //        菜单列表框2.置项目单击效果(图片高级列表框.整体变灰效果)
 //        菜单列表框2.置列数(5)
         菜单列表框3.添加项目(zwkfb.view.R.drawable.ic_zhuti, "工具", "下载")
-        菜单列表框3.添加项目(zwkfb.view.R.drawable.ic_wode, "阅读", "下载")
-        菜单列表框3.添加项目(zwkfb.view.R.drawable.ic_yingyong, "视频", "下载")
-        菜单列表框3.添加项目(zwkfb.view.R.drawable.ic_caidan, "音乐", "下载")
-        菜单列表框3.添加项目(zwkfb.view.R.drawable.ic_caidan, "应用", "下载")
-        菜单列表框3.添加项目(zwkfb.view.R.drawable.ic_wode, "深色模式")
-        菜单列表框3.添加项目(null, "深色模式", "下载")
+//        菜单列表框3.添加项目(zwkfb.view.R.drawable.ic_wode, "阅读", "下载")
+//        菜单列表框3.添加项目(zwkfb.view.R.drawable.ic_yingyong, "视频", "下载")
+//        菜单列表框3.添加项目(zwkfb.view.R.drawable.ic_caidan, "音乐", "下载")
+//        菜单列表框3.添加项目(zwkfb.view.R.drawable.ic_caidan, "应用", "下载")
+//        菜单列表框3.添加项目(zwkfb.view.R.drawable.ic_wode, "深色模式")
+//        菜单列表框3.添加项目(null, "深色模式", "下载")
         菜单列表框3.置单击项目事件 {项目序数: Int ->
             when (项目序数) {
                 0 -> {
@@ -198,7 +201,7 @@ class MainActivity : 基础应用兼容活动<ActivityMainBinding>() {
         菜单列表框3.置单击按钮事件 {项目序数: Int ->
             when (项目序数) {
                 0 -> {
-                    吐司.制作文本(this, "单击按钮...", 吐司.长度_短).show()
+                    吐司.制作文本(this, "单击按钮...", 吐司.长度_短).显示()
 //                    上下文.startActivity(Intent(上下文, 工具主窗口::class.java))
                 }
                 1 -> {
@@ -217,6 +220,39 @@ class MainActivity : 基础应用兼容活动<ActivityMainBinding>() {
 //                    设置模块.切换主题模式(上下文)
                 }
             }
+        }
+
+
+        val 文本高级列表框 = 视图组件.zCddhkLbk2
+        文本高级列表框.添加项目( "工具")
+        文本高级列表框.添加项目("阅读")
+        文本高级列表框.置单击项目事件 {项目序数: Int ->
+            when (项目序数) {
+                0 -> {
+                    吐司.制作文本(this, "功能开发中...", 吐司.长度_短).显示()
+//                    上下文.startActivity(Intent(上下文, 工具主窗口::class.java))
+                }
+                1 -> {
+//                    上下文.startActivity(Intent(上下文, 阅读主窗口::class.java))
+                }
+                2 -> {
+//                    上下文.startActivity(Intent(上下文, 视频主窗口::class.java))
+                }
+                3 -> {
+//                    上下文.startActivity(Intent(上下文, 音乐主窗口::class.java))
+                }
+                4 -> {
+//                    上下文.startActivity(Intent(上下文, 应用主窗口::class.java))
+                }
+                5 -> {
+//                    设置模块.切换主题模式(上下文)
+                }
+            }
+        }
+
+
+        注册返回键按下事件{
+            finish()
         }
 
 

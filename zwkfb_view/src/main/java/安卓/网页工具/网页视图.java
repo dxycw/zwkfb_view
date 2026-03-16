@@ -1,11 +1,15 @@
 package 安卓.网页工具;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.webkit.DownloadListener;
 import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
 
 /**
  * 创建时间：2025年12月16日.
@@ -34,6 +38,17 @@ public class 网页视图 extends WebView {
     public 网页视图(@NonNull Context 上下文, @Nullable AttributeSet 属性, int 默认样式属性, int 默认样式资源) {
         super(上下文, 属性, 默认样式属性, 默认样式资源);
     }
+
+
+
+    public void 置下载监听器(@Nullable DownloadListener 下载监听器) {
+        this.setDownloadListener(下载监听器);
+    }
+
+    public void 默认配置(Activity 上下文, @Nullable ArrayList<String> 网页第三方链接头) {
+
+    }
+
 
 
 }

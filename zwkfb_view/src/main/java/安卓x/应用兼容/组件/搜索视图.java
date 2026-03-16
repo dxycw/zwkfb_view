@@ -25,4 +25,33 @@ public class 搜索视图 extends SearchView {
         super(上下文, 属性, 默认样式属性);
     }
 
+    //======================================================================
+
+    public interface 查询文本回调监听事件{
+        boolean 查询文本提交回调(String 查询);
+        boolean 查询文本改变回调(String 文本);
+    }
+
+    //======================================================================
+//    private 查询文本回调监听事件 查询文本回调监听事件1 = null;
+
+    //======================================================================
+    public void 置查询文本回调监听事件(查询文本回调监听事件 事件) {
+        setOnQueryTextListener(new OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+//                查询文本回调监听事件1.查询文本提交回调(query);
+                return 事件.查询文本提交回调(query);
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+//                查询文本回调监听事件1.查询文本改变回调(newText);
+                return 事件.查询文本改变回调(newText);
+            }
+        });
+//        查询文本回调监听事件1 = 事件;
+    }
+
+
 }

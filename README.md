@@ -40,7 +40,7 @@ dependencyResolutionManagement {
 
 ```groovy
 dependencies {
-    implementation 'com.github.dxycw:zwkfb_view:0.3.2' // 添加 zwkfb_view 依赖
+    implementation 'com.github.dxycw:zwkfb_view:0.3.3' // 添加 zwkfb_view 依赖
 }
 ```
 
@@ -48,7 +48,7 @@ dependencies {
 
 ```kotlin
 dependencies {
-    implementation("com.github.dxycw:zwkfb_view:0.3.2") // 添加 zwkfb_view 依赖
+    implementation("com.github.dxycw:zwkfb_view:0.3.3") // 添加 zwkfb_view 依赖
 }
 ```
 
@@ -92,6 +92,18 @@ dependencies {
 如果使用混淆并且使用了“MySQL”、“Geckoview”依赖库，请查看[打包体积压缩](%E6%89%93%E5%8C%85%E4%BD%93%E7%A7%AF%E5%8E%8B%E7%BC%A9.md)。
 
 # 更新内容
+
+## 0.3.3
+
+* 修复 Android高版本使用 `吐司.制作文本(上下文, 文本, 持续时间).显示()` 闪退的Bug；
+* 添加 “安卓x.应用兼容.应用.警告对话框”、“安卓.应用.警告对话框”类的代码；
+* 修改 “材质底部信息对话框”类为“材质底部面板信息对话框”类；
+* 修改 “搜索框”类为“搜索栏（带图标）”类；
+* 修改 “回弹嵌套滚动视图”类为“阻尼回弹嵌套滚动视图”类；
+* 修改 “回弹框架布局”类为“阻尼回弹框架布局”类；
+* 修改 kotlin代码为java代码，有“材质底部面板信息对话框”、“搜索栏”、“文本高级列表框”、“阻尼回弹嵌套滚动视图”、“阻尼回弹框架布局”、“基础碎片状态适配器”、“图文文高级列表”、“图片高级列表框”类；
+* 优化 “状态栏沉浸式”代码函数；
+* 修改 “网页视图”类的基本方法代码位置，列如：“默认配置()”方法，改在“自定义.网络类.网页视图”类中可以使用；
 
 ## 0.3.2
 

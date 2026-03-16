@@ -23,4 +23,14 @@
         </attr>
     </declare-styleable>
 
+
+
+    <declare-styleable name="DampingReboundFrameLayout">
+        <attr name="orientation">
+            <enum name="portrait" value="1" />
+            <enum name="landscape" value="2" />
+        </attr>
+    </declare-styleable>
+
+
 </resources>

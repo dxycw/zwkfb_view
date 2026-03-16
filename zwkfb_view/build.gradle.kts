@@ -4,7 +4,6 @@ plugins {
 }
 
 android {
-
     signingConfigs {
         create("release") {
             storeFile = file("../key.jks")
@@ -62,7 +61,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.github.dxycw"
             artifactId = "zwkfb_view"
-            version = "0.3.2"
+            version = "0.3.3"
 
             // 关键：使用 afterEvaluate 获取组件
             afterEvaluate {
