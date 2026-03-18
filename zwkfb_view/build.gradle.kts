@@ -61,7 +61,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.github.dxycw"
             artifactId = "zwkfb_view"
-            version = "0.3.3"
+            version = "0.3.4"
 
             // 关键：使用 afterEvaluate 获取组件
             afterEvaluate {
@@ -72,27 +72,23 @@ publishing {
 }
 
 dependencies {
-    api("androidx.core:core-ktx:1.17.0") // 核心ktx库
+    api("androidx.core:core-ktx:1.18.0") // 核心ktx库
+
     api("androidx.appcompat:appcompat:1.7.1") // appcompat库
-    api("com.google.android.material:material:1.14.0-alpha09") // material库
-    api("androidx.activity:activity:1.12.2") // activity库
+    api("com.google.android.material:material:1.14.0-alpha10") // material库
+    api("androidx.activity:activity:1.13.0") // activity库
     api("androidx.constraintlayout:constraintlayout:2.2.1") // 约束布局库
     api("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0") // 下拉刷新库
 
     //=====================================================================
 
-    api("com.google.firebase:firebase-crashlytics-buildtools:3.0.6") // firebase crashlytics 构建工具
+//    api("com.google.firebase:firebase-crashlytics-buildtools:3.0.6") // firebase crashlytics 构建工具
 
     //=====================================================================
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    //=====================================================================
-
-    // 数据库 mysql 驱动
-    api("mysql:mysql-connector-java:5.1.49")
 
     //=====================================================================
 
@@ -113,6 +109,11 @@ dependencies {
 
     //它本身不是新内核，而是给系统 WebView 增加了新 API，并保证在低版本系统上也能调用，开发者无需自己写版本判断。
     api("androidx.webkit:webkit:1.15.0")
+
+    //=====================================================================
+
+    // 数据库 mysql 驱动
+    api("mysql:mysql-connector-java:5.1.49")
 
     //=====================================================================
 
@@ -146,81 +147,82 @@ dependencies {
 
     //=====================================================================
 
+    val media3Version = "1.10.0-rc01"
     // 使用 ExoPlayer 播放媒体 核心库
-    api("androidx.media3:media3-exoplayer:1.8.0")
+    api("androidx.media3:media3-exoplayer:$media3Version")
 
 //    // 支持使用 ExoPlayer 播放 DASH
-//    api("androidx.media3:media3-exoplayer-dash:1.8.0")
+//    api("androidx.media3:media3-exoplayer-dash:$media3Version")
 //    // 支持使用 ExoPlayer 播放 HLS
-//    api("androidx.media3:media3-exoplayer-hls:1.8.0")
+//    api("androidx.media3:media3-exoplayer-hls:$media3Version")
 //    // 支持 ExoPlayer 的 SmoothStreaming 播放
-//    api("androidx.media3:media3-exoplayer-smoothstreaming:1.8.0")
+//    api("androidx.media3:media3-exoplayer-smoothstreaming:$media3Version")
 //    // 支持使用 ExoPlayer 进行 RTSP 播放
-//    api("androidx.media3:media3-exoplayer-rtsp:1.8.0")
+//    api("androidx.media3:media3-exoplayer-rtsp:$media3Version")
 //    // 要在 ExoPlayer 中支持 MIDI 播放
-//    api("androidx.media3:media3-exoplayer-midi:1.8.0")
+//    api("androidx.media3:media3-exoplayer-midi:$media3Version")
 //    // 使用 ExoPlayer 结合互动媒体广告 SDK 插入广告
-//    api("androidx.media3:media3-exoplayer-ima:1.8.0")
+//    api("androidx.media3:media3-exoplayer-ima:$media3Version")
 //
 //    // 使用 Cronet 网络堆栈加载数据
-//    api("androidx.media3:media3-datasource-cronet:1.8.0")
+//    api("androidx.media3:media3-datasource-cronet:$media3Version")
     // 使用 OkHttp 网络堆栈加载数据  网络数据源
-    api("androidx.media3:media3-datasource-okhttp:1.8.0")
+    api("androidx.media3:media3-datasource-okhttp:$media3Version")
 //    // 使用 librtmp 加载数据
-//    api("androidx.media3:media3-datasource-rtmp:1.8.0")
+//    api("androidx.media3:media3-datasource-rtmp:$media3Version")
 //
 //    // 使用 Compose 构建媒体播放界面
-//    api("androidx.media3:media3-ui-compose:1.8.0")
+//    api("androidx.media3:media3-ui-compose:$media3Version")
     // 用于使用 Views 构建媒体播放 UI的功能。 UI 控制条（可选，但建议带上）
-    api("androidx.media3:media3-ui:1.8.0")
+    api("androidx.media3:media3-ui:$media3Version")
     // 用于使用 Jetpack Compose 构建媒体播放 UI的功能。
-//    api("androidx.media3:media3-ui-compose:1.8.0")
+//    api("androidx.media3:media3-ui-compose:$media3Version")
 //    // 用于使用 Jetpack Leanback 库为 Android TV 构建媒体播放 UI的功能。
-//    api("androidx.media3:media3-ui-leanback:1.8.0")
+//    api("androidx.media3:media3-ui-leanback:$media3Version")
 //
 //    // 用于公开和控制媒体会话的功能。
-//    api("androidx.media3:media3-session:1.8.0")
+//    api("androidx.media3:media3-session:$media3Version")
 //
 //    // 用于从媒体容器中提取数据的功能。 支持常见容器（mp4/mkv/ts...）
-//    api("androidx.media3:media3-extractor:1.8.0")
+//    api("androidx.media3:media3-extractor:$media3Version")
 //
 //    // 用于与 Cast（投屏）集成的功能。
-//    api("androidx.media3:media3-cast:1.8.0")
+//    api("androidx.media3:media3-cast:$media3Version")
 //
 //    // 用于使用 Jetpack WorkManager 调度 ExoPlayer 的后台操作的功能。
-//    api("androidx.media3:media3-exoplayer-workmanager:1.8.0")
+//    api("androidx.media3:media3-exoplayer-workmanager:$media3Version")
 //
 //    // 用于转换媒体文件的功能。
-//    api("androidx.media3:media3-transformer:1.8.0")
+//    api("androidx.media3:media3-transformer:$media3Version")
 //
 //    // 用于在视频帧上应用特效的功能。
-//    api("androidx.media3:media3-effect:1.8.0")
+//    api("androidx.media3:media3-effect:$media3Version")
 //
 //    // 用于混流（muxing）媒体文件的功能。
-//    api("androidx.media3:media3-muxer:1.8.0")
+//    api("androidx.media3:media3-muxer:$media3Version")
 
     // 用于测试媒体组件（包括 ExoPlayer 组件）的实用工具
-//    api("androidx.media3:media3-test-utils:1.8.0") // 不行
+//    api("androidx.media3:media3-test-utils:$media3Version") // 不行
     // 通过 Robolectric 测试媒体组件（包括 ExoPlayer 组件）的实用工具
-//    api("androidx.media3:media3-test-utils-robolectric:1.8.0") // 不行
+//    api("androidx.media3:media3-test-utils-robolectric:$media3Version") // 不行
 
 //    // 读写媒体容器的通用功能
-//    api("androidx.media3:media3-container:1.8.0")
+//    api("androidx.media3:media3-container:$media3Version")
 //    // 媒体数据库组件的通用功能
-//    api("androidx.media3:media3-database:1.8.0")
+//    api("androidx.media3:media3-database:$media3Version")
 //    // 媒体解码器的通用功能
-//    api("androidx.media3:media3-decoder:1.8.0")
+//    api("androidx.media3:media3-decoder:$media3Version")
 //    // 加载数据的通用功能
-//    api("androidx.media3:media3-datasource:1.8.0")
+//    api("androidx.media3:media3-datasource:$media3Version")
 //    // 跨多个媒体库使用的通用功能
-//    api("androidx.media3:media3-common:1.8.0")
+//    api("androidx.media3:media3-common:$media3Version")
 //    // Kotlin 专用通用功能
-//    api("androidx.media3:media3-common-ktx:1.8.0")
+//    api("androidx.media3:media3-common-ktx:$media3Version")
 
     //=====================================================================
 
     // GSYVideoPlayer 播放器
-    api("com.github.CarGuo.GSYVideoPlayer:gsyvideoplayer:v11.3.0")
+    api("com.github.CarGuo.GSYVideoPlayer:gsyvideoplayer:v12.0.0")
 
     //=====================================================================
 
@@ -275,7 +277,7 @@ dependencies {
     //=====================================================================
 
     // 二维码
-    api("com.github.jenly1314:zxing-lite:3.4.0")
+    api("com.github.jenly1314:zxing-lite:3.4.1")
 
     //=====================================================================
 
@@ -323,7 +325,5 @@ dependencies {
 
     //=====================================================================
 
-
-    //=====================================================================
 
 }

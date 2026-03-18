@@ -40,7 +40,7 @@ dependencyResolutionManagement {
 
 ```groovy
 dependencies {
-    implementation 'com.github.dxycw:zwkfb_view:0.3.3' // 添加 zwkfb_view 依赖
+    implementation 'com.github.dxycw:zwkfb_view:0.3.4' // 添加 zwkfb_view 依赖
 }
 ```
 
@@ -48,7 +48,7 @@ dependencies {
 
 ```kotlin
 dependencies {
-    implementation("com.github.dxycw:zwkfb_view:0.3.3") // 添加 zwkfb_view 依赖
+    implementation("com.github.dxycw:zwkfb_view:0.3.4") // 添加 zwkfb_view 依赖
 }
 ```
 
@@ -60,13 +60,12 @@ dependencies {
 
 ## 官方依赖库
 
-* androidx.core:core-ktx:1.17.0 
+* androidx.core:core-ktx:1.18.0
 * androidx.appcompat:appcompat:1.7.1 
-* com.google.android.material:material:1.13.0 
-* androidx.activity:activity:1.12.2
+* com.google.android.material:material:1.14.0-alpha10 ([material](https://github.com/material-components/material-components-android))
+* androidx.activity:activity:1.13.0
 * androidx.constraintlayout:constraintlayout:2.2.1 
 * androidx.swiperefreshlayout:swiperefreshlayout:1.2.0
-* com.google.firebase:firebase-crashlytics-buildtools:3.0.6 
 * androidx.webkit:webkit:1.15.0
 
 ## 其他依赖库
@@ -77,21 +76,35 @@ dependencies {
 * com.squareup.okhttp3:okhttp:5.3.2 ([OkHttp](https://square.github.io/okhttp/))
 * com.google.code.gson:gson:2.13.2 ([Gson](https://github.com/google/gson))
 * io.noties.markwon:core:4.6.2 ([Markwon](https://github.com/noties/Markwon))
-* androidx.media3:media3-exoplayer:1.8.0 ([ExoPlayer](https://github.com/androidx/media))
-* androidx.media3:media3-datasource-okhttp:1.8.0 ([OkHttp](https://github.com/androidx/media))
-* androidx.media3:media3-ui:1.8.0 ([Media3 UI](https://github.com/androidx/media))
-* com.github.CarGuo.GSYVideoPlayer:gsyvideoplayer:v11.3.0 ([GSYVideoPlayer](https://github.com/CarGuo/GSYVideoPlayer))
+* androidx.media3:media3-exoplayer:1.10.0-rc01 ([ExoPlayer](https://github.com/androidx/media))
+* androidx.media3:media3-datasource-okhttp:1.10.0-rc01 ([OkHttp](https://github.com/androidx/media))
+* androidx.media3:media3-ui:1.10.0-rc01 ([Media3 UI](https://github.com/androidx/media))
+* com.github.CarGuo.GSYVideoPlayer:gsyvideoplayer:v12.0.0 ([GSYVideoPlayer](https://github.com/CarGuo/GSYVideoPlayer))
 * com.github.bilibili.DanmakuFlameMaster:DanmakuFlameMaster:0.9.25 ([DanmakuFlameMaster](https://github.com/bilibili/DanmakuFlameMaster))
 * org.mozilla.geckoview:geckoview-nightly:145.0.20251006095753 ([Geckoview](https://mozilla.github.io/geckoview/javadoc/mozilla-central/org/mozilla/geckoview/doc-files/CHANGELOG))
 * org.mozilla.geckoview:geckoview-exoplayer2-nightly:145.0.20251006095753 ([Geckoview](https://mozilla.github.io/geckoview/javadoc/mozilla-central/org/mozilla/geckoview/doc-files/CHANGELOG))
 * mysql:mysql-connector-java:5.1.49 ([MySQL Connector Java](https://mvnrepository.com/artifact/mysql/mysql-connector-java))
-* com.github.jenly1314:zxing-lite:3.4.0 ([ZXing Lite](https://github.com/jenly1314/ZXingLite))
+* com.github.jenly1314:zxing-lite:3.4.1 ([ZXing Lite](https://github.com/jenly1314/ZXingLite))
 
 # 打包体积压缩
 
 如果使用混淆并且使用了“MySQL”、“Geckoview”依赖库，请查看[打包体积压缩](%E6%89%93%E5%8C%85%E4%BD%93%E7%A7%AF%E5%8E%8B%E7%BC%A9.md)。
 
 # 更新内容
+
+## 0.3.4
+
+* 修复 “自定义.系统类.文件类.取Assets文件()”方法只显示第一行的Bug；
+* 修复 “网页视图”类的“默认配置()”方法使用后“今日头条”、“QQ”登录、“微博”、“搜狗”显示不能加载的Bug；
+* 更新 androidx.core:core-ktx依赖库为1.18.0；
+* 更新 com.google.android.material:material依赖库为1.14.0-alpha10；
+* 更新 androidx.activity:activity依赖库为1.13.0；
+* 更新 androidx.media3:media3-exoplayer依赖库为1.10.0-rc01；
+* 更新 androidx.media3:media3-datasource-okhttp依赖库为1.10.0-rc01；
+* 更新 androidx.media3:media3-ui依赖库为1.10.0-rc01；
+* 更新 com.github.CarGuo.GSYVideoPlayer:gsyvideoplayer依赖库为v12.0.0；
+* 更新 com.github.jenly1314:zxing-lite依赖库为3.4.1
+* 删除 com.google.firebase:firebase-crashlytics-buildtools依赖库；
 
 ## 0.3.3
 
@@ -135,4 +148,4 @@ dependencies {
 
 # 老版本更新内容
 
-* [0.2.x系列版本](0.2%E7%B3%BB%E5%88%97%E7%89%88%E6%9C%AC.md)
+* [0.2.x系列版本.md](%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9/0.2.x%E7%B3%BB%E5%88%97%E7%89%88%E6%9C%AC.md)

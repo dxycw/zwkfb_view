@@ -34,25 +34,18 @@ public class 文件类 {
     //==================================================================================
 
     //读文件
-    public static String 取Assets文件(Context 上下文, String fileName) {
+    public static String 取Assets文件(Context 上下文, String 文件名) {
         StringBuilder returnString = new StringBuilder();
-        InputStream fIn = null;
-        InputStreamReader isr = null;
-        BufferedReader input = null;
         try {
-            fIn = 上下文.getResources().getAssets().open(fileName, Context.MODE_PRIVATE);
-            isr = new InputStreamReader(fIn);
-            input = new BufferedReader(isr);
-            String line = input.readLine();
-            while (input.readLine() != null) {
-                returnString.append(line);
-                returnString.append('\n');
+            BufferedReader reader = new BufferedReader(new InputStreamReader(上下文.getAssets().open(文件名, Context.MODE_PRIVATE)));
+
+            String line = reader.readLine();
+            while (reader.readLine() != null) {
+                returnString.append(line).append('\n');
             }
-            input.close();
-            isr.close();
-            fIn.close();
+            reader.close();
         } catch (IOException e) {
-            Toast.makeText(上下文, e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(上下文, "读取失败: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
         return returnString.toString();
     }

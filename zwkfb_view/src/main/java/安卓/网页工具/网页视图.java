@@ -45,9 +45,6 @@ public class 网页视图 extends WebView {
         this.setDownloadListener(下载监听器);
     }
 
-    public void 默认配置(Activity 上下文, @Nullable ArrayList<String> 网页第三方链接头) {
-
-    }
 
 
 

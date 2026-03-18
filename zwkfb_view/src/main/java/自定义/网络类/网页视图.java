@@ -123,19 +123,20 @@ public class 网页视图 extends 安卓.网页工具.网页视图{
         final View[] 网页视频控件 = {null};
         final WebChromeClient.CustomViewCallback[] 网页视频回调 = {null};
         this.置网页跳转拦截事件((网页跳转拦截事件请求) (网页视图, 请求) -> {
-            String url = 请求.getUrl().toString();
-            网页链接头.add("snssdk1128://");
+            String url = String.valueOf(请求.getUrl());
+            网页链接头.add("snssdk1128://"); //
+            网页链接头.add("snssdk143://"); // 今日头条
             网页链接头.add("baiduboxapp://");
             网页链接头.add("baiduboxlite://");
             网页链接头.add("baiduhaokan://");
             网页链接头.add("market://");
-            网页链接头.add("bilibili://");
+            网页链接头.add("bilibili://"); // 哔哩哔哩
             网页链接头.add("sohunews://");
             网页链接头.add("wvhzpj://");
             网页链接头.add("freereader://");
-            网页链接头.add("mttbrowser://");
-            网页链接头.add("baiduhaokan://");
-            网页链接头.add("sohunews://");
+            网页链接头.add("mttbrowser://"); // 搜狗
+            网页链接头.add("wtloginmqq://"); // QQ
+            网页链接头.add("sinaweibo://"); // 微博
 
             // 检查URL是否以http或https开头
             for (String 值 : 网页链接头) {
@@ -287,7 +288,6 @@ public class 网页视图 extends 安卓.网页工具.网页视图{
         可用Cookie(); //启用Cookie
     }
 
-
     private void 可用Cookie() {
         CookieManager instance = CookieManager.getInstance();
         instance.setAcceptCookie(true);
@@ -297,9 +297,7 @@ public class 网页视图 extends 安卓.网页工具.网页视图{
     //================================================================================
 
     public void 修复浏览器弹出键盘输入框位置的Bug(Activity 上下文, View 浏览器底部导航栏, View 浏览器进度条) {
-
         WebView webView = this;
-
         // 设置 Activity 的软键盘模式为 adjustResize
         上下文.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         // 监听布局变化

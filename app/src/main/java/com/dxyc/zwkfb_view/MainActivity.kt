@@ -4,8 +4,6 @@ import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
-import android.widget.TextView
-import android.widget.Toast
 import com.dxyc.zwkfb_view.databinding.ActivityMainBinding
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
@@ -16,7 +14,6 @@ import 安卓.视图.置长按回调监听事件
 import 科特林.应用
 import 自定义.基础类.基础应用兼容活动
 import 自定义.对话框类.材质底部面板信息对话框
-import 自定义.活动类.注册返回键按下事件
 import 自定义.状态栏类.状态栏沉浸式类
 
 class MainActivity : 基础应用兼容活动<ActivityMainBinding>() {
@@ -222,7 +219,6 @@ class MainActivity : 基础应用兼容活动<ActivityMainBinding>() {
             }
         }
 
-
         val 文本高级列表框 = 视图组件.zCddhkLbk2
         文本高级列表框.添加项目( "工具")
         文本高级列表框.添加项目("阅读")
@@ -248,11 +244,6 @@ class MainActivity : 基础应用兼容活动<ActivityMainBinding>() {
 //                    设置模块.切换主题模式(上下文)
                 }
             }
-        }
-
-
-        注册返回键按下事件{
-            finish()
         }
 
 
