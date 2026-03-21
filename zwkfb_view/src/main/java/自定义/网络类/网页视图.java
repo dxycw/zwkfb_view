@@ -41,22 +41,16 @@ import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import com.gyf.immersionbar.BarHide;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import 安卓.组件.吐司;
 import 安卓.网页工具.下载监听器;
-import 安卓.网页工具.网页配置;
 import 自定义.主题类.主题类;
 import 自定义.对话框类.对话框类;
 import 自定义.状态栏类.状态栏沉浸式;
@@ -171,7 +165,6 @@ public class 网页视图 extends 安卓.网页工具.网页视图{
             return false;
         });
         this.置下载监听器(new 下载监听器() {
-
             private final BroadcastReceiver 下载完成广播 = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
@@ -179,7 +172,6 @@ public class 网页视图 extends 安卓.网页工具.网页视图{
                     // 可以在这里处理下载完成后的逻辑，例如提示用户等
                     吐司.制作文本(context, "下载完成", 吐司.长度_短).显示();
                 }
-
             };
             @SuppressLint("UnspecifiedRegisterReceiverFlag")
             @Override
@@ -210,7 +202,7 @@ public class 网页视图 extends 安卓.网页工具.网页视图{
         WebSettings 网页设置 = this.getSettings();
         网页设置.setJavaScriptEnabled(true); //启用 JavaScript 支持。
         // 设置User-Agent
-        网页设置.setUserAgentString( (系统类.是否为平板(上下文))? 网页配置.Windows.INSTANCE.get夸克UA() : 网页配置.Android.INSTANCE.get夸克UA());
+        网页设置.setUserAgentString( (系统类.是否为平板(上下文))? 网页配置.Windows.夸克UA : 网页配置.Android.夸克UA);
         网页设置.setUseWideViewPort(true); //启用支持自定义窗口。
         网页设置.setLoadWithOverviewMode(true);  //启用支持内容大小。
         网页设置.setDomStorageEnabled(true);  //启用 DOM 存储。

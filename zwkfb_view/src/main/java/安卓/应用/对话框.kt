@@ -8,7 +8,6 @@ import android.content.DialogInterface
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
-import android.os.Bundle
 import android.os.Message
 import android.view.LayoutInflater
 import android.view.SearchEvent
@@ -22,8 +21,6 @@ import androidx.annotation.LayoutRes
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 
-
-//===============================================================
 
 /**
  * 描述：取上下文
@@ -40,14 +37,14 @@ fun Dialog.取操作栏() : ActionBar? = this.getActionBar()
 //===============================================================
 
 /**
- * 描述：置所属活动
+ * 描述：置所有者活动
  */
-fun Dialog.置所属活动(活动 : Activity)  = this.setOwnerActivity(活动)
+fun Dialog.置所有者活动(活动 : Activity)  = this.setOwnerActivity(活动)
 
 /**
- * 描述：取所属活动
+ * 描述：取所有者活动
  */
-fun Dialog.取所属活动() : Activity? = this.getOwnerActivity()
+fun Dialog.取所有者活动() : Activity? = this.getOwnerActivity()
 
 //===============================================================
 
@@ -87,20 +84,6 @@ fun Dialog.关闭() = this.dismiss()
 //===============================================================
 
 /**
- * 描述：保存实例状态回调
- */
-fun Dialog.保存实例状态回调(): Bundle = this.onSaveInstanceState()
-
-//===============================================================
-
-/**
- * 描述：恢复实例状态
- */
-fun Dialog.恢复实例状态(保存实例状态: Bundle) = this.onRestoreInstanceState(保存实例状态)
-
-//===============================================================
-
-/**
  * 描述：取窗口
  */
 fun Dialog.取窗口(): Window? = this.getWindow()
@@ -108,176 +91,140 @@ fun Dialog.取窗口(): Window? = this.getWindow()
 //===============================================================
 
 /**
- * 创建时间：2025年12月6日.
- *
  * 描述：取当前焦点
- *
- * 版本：0.1.6
  */
 fun Dialog.取当前焦点(): View? = this.getCurrentFocus()
 
 //===============================================================
 
 /**
- * 创建时间：2025年12月6日.
- *
  * 描述：查找视图Id
- *
- * 版本：0.1.6
  */
 fun <T : View> Dialog.查找视图Id(@IdRes id: Int): T? = this.findViewById<T>(id)
 
 //===============================================================
 
 /**
- * 创建时间：2025年12月6日.
- *
- * 描述：需要视图ID,仅支持Android 9及以上使用
- *
- * 版本：0.1.6
+ * 描述：需要查找视图Id,仅支持Android 9及以上使用
  */
 @RequiresApi(Build.VERSION_CODES.P)
-fun <T : View> Dialog.需要视图Id(@IdRes id: Int): T = this.requireViewById<T>(id)
+fun <T : View> Dialog.需要查找视图Id(@IdRes id: Int): T = this.requireViewById<T>(id)
 
 //===============================================================
 
 /**
- * 创建时间：2025年12月6日.
- *
  * 描述：置内容视图
- *
- * 版本：0.1.6
  */
 fun Dialog.置内容视图(@LayoutRes 布局资源Id :Int) = this.setContentView(布局资源Id)
 
 /**
- * 创建时间：2025年12月6日.
- *
  * 描述：置内容视图
- *
- * 版本：0.1.6
  */
 fun Dialog.置内容视图(视图 :View) = this.setContentView(视图)
 
 /**
- * 创建时间：2025年12月6日.
- *
  * 描述：置内容视图
- *
- * 版本：0.1.6
  */
 fun Dialog.置内容视图(视图 :View, 参数 : ViewGroup.LayoutParams) = this.setContentView(视图,参数)
 
 //===============================================================
 
 /**
- * 创建时间：2025年12月6日.
- *
  * 描述：添加内容视图
- *
- * 版本：0.1.6
  */
 fun Dialog.添加内容视图(视图 :View, 参数 : ViewGroup.LayoutParams) = this.addContentView(视图,参数)
 
 //===============================================================
 
 /**
- * 创建时间：2025年12月6日.
- *
  * 描述：置标题
- *
- * 版本：0.1.6
  */
 fun Dialog.置标题(标题 : CharSequence) = this.setTitle(标题)
 
 /**
- * 创建时间：2025年12月6日.
- *
  * 描述：置标题
- *
- * 版本：0.1.6
  */
 fun Dialog.置标题(@StringRes 标题Id :Int) = this.setTitle(标题Id)
 
 //===============================================================
 
+fun Dialog.打开选项菜单() {
+    this.openOptionsMenu()
+}
+
+fun Dialog.关闭选项菜单() {
+    this.closeOptionsMenu()
+}
+
+fun Dialog.无效使选项菜单() {
+    this.invalidateOptionsMenu()
+}
+
+//===============================================================
+
+fun Dialog.注册上下文菜单(视图: View) {
+    this.registerForContextMenu(视图)
+}
+
+fun Dialog.取消注册上下文菜单(视图: View) {
+    this.unregisterForContextMenu(视图)
+}
+
+fun Dialog.打开上下文菜单(视图: View) {
+    this.openContextMenu(视图)
+}
+
+//===============================================================
+
 /**
- * 创建时间：2025年12月6日.
- *
  * 描述：取搜索事件
- *
- * 版本：0.1.6
  */
 fun Dialog.取搜索事件() :SearchEvent? = this.getSearchEvent()
 
 //===============================================================
 
 /**
- * 创建时间：2025年12月6日.
- *
- * 描述：拿按键事件
- *
- * 版本：0.1.6
+ * 描述：接收按键事
  */
-fun Dialog.拿按键事件(取 :Boolean) = this.takeKeyEvents(取)
+fun Dialog.接收按键事(取 :Boolean) = this.takeKeyEvents(取)
 
 //===============================================================
 
 /**
- * 创建时间：2025年12月6日.
- *
  * 描述：请求窗口特性
- *
- * 版本：0.1.6
  */
 fun Dialog.请求窗口特性(特性Id :Int) :Boolean = this.requestWindowFeature(特性Id)
 
 //===============================================================
 
 /**
- * 创建时间：2025年12月6日.
- *
- * 描述：置特性图形资源
- *
- * 版本：0.1.6
+ * 描述：置特性可绘制资源
  */
-fun Dialog.置特性图形资源(特性Id :Int, @DrawableRes 资源Id :Int) = this.setFeatureDrawableResource(特性Id,资源Id)
+fun Dialog.置特性可绘制资源(特性Id :Int, @DrawableRes 资源Id :Int) = this.setFeatureDrawableResource(特性Id,资源Id)
+
+/**
+ * 描述：置特性可绘制网址
+ */
+fun Dialog.置特性可绘制网址(特性Id :Int, uri : Uri) = this.setFeatureDrawableUri(特性Id,uri)
 
 /**
  * 创建时间：2025年12月6日.
  *
- * 描述：置特性图形Uri
+ * 描述：置特性可绘制
  *
  * 版本：0.1.6
  */
-fun Dialog.置特性图形Uri(特性Id :Int, uri : Uri) = this.setFeatureDrawableUri(特性Id,uri)
+fun Dialog.置特性可绘制(特性Id :Int, 图形 : Drawable) = this.setFeatureDrawable(特性Id,图形)
 
 /**
- * 创建时间：2025年12月6日.
- *
- * 描述：置特性图形
- *
- * 版本：0.1.6
+ * 描述：置特性可绘制透明度
  */
-fun Dialog.置特性图形(特性Id :Int, 图形 : Drawable) = this.setFeatureDrawable(特性Id,图形)
-
-/**
- * 创建时间：2025年12月6日.
- *
- * 描述：置特性图形透明度
- *
- * 版本：0.1.6
- */
-fun Dialog.置特性图形透明度(特性Id :Int, 透明度 : Int) = this.setFeatureDrawableAlpha(特性Id,透明度)
+fun Dialog.置特性可绘制透明度(特性Id :Int, 透明度 : Int) = this.setFeatureDrawableAlpha(特性Id,透明度)
 
 //===============================================================
 
 /**
- * 创建时间：2025年12月6日.
- *
  * 描述：取布局填充器
- *
- * 版本：0.1.6
  */
 fun Dialog.取布局填充器(): LayoutInflater = this.getLayoutInflater()
 
@@ -300,7 +247,7 @@ fun Dialog.置取消触摸外部(取消 : Boolean) = this.setCanceledOnTouchOuts
 /**
  * 描述：置可取消监听器
  */
-fun Dialog.置可取消监听器(监听器 : DialogInterface.OnCancelListener?) = this.setOnCancelListener(监听器)
+fun Dialog.置取消监听器(监听器 : DialogInterface.OnCancelListener?) = this.setOnCancelListener(监听器)
 
 //===============================================================
 
@@ -326,8 +273,6 @@ fun Dialog.置显示监听器(监听器 : DialogInterface.OnShowListener?) = thi
 //===============================================================
 
 /**
- * 创建时间：2025年12月6日.
- *
  * 描述：置关闭消息
  */
 fun Dialog.置关闭消息(信息 : Message) = this.setDismissMessage(信息)
@@ -335,15 +280,11 @@ fun Dialog.置关闭消息(信息 : Message) = this.setDismissMessage(信息)
 //===============================================================
 
 /**
- * 创建时间：2025年12月6日.
- *
  * 描述：置音量控制流
  */
 fun Dialog.置音量控制流(流类型 : Int) = this.setVolumeControlStream(流类型)
 
 /**
- * 创建时间：2025年12月6日.
- *
  * 描述：取音量控制流
  */
 fun Dialog.取音量控制流() : Int = this.getVolumeControlStream()
@@ -351,8 +292,6 @@ fun Dialog.取音量控制流() : Int = this.getVolumeControlStream()
 //===============================================================
 
 /**
- * 创建时间：2025年12月6日.
- *
  * 描述：置按键监听器
  */
 fun Dialog.置按键监听器(监听器 : DialogInterface.OnKeyListener?) = this.setOnKeyListener(监听器)
@@ -360,11 +299,9 @@ fun Dialog.置按键监听器(监听器 : DialogInterface.OnKeyListener?) = this
 //===============================================================
 
 /**
- * 创建时间：2025年12月6日.
- *
- * 描述：取返回事件调度器,仅支持Android 13及以上使用
+ * 描述：取返回调用调度器,仅支持Android 13及以上使用
  */
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-fun Dialog.取返回事件调度器(): OnBackInvokedDispatcher = this.getOnBackInvokedDispatcher()
+fun Dialog.取返回调用调度器(): OnBackInvokedDispatcher = this.getOnBackInvokedDispatcher()
 
 //===============================================================

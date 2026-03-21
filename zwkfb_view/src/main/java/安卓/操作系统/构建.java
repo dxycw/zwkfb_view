@@ -59,12 +59,10 @@ public class 构建 extends Build {
     public static final String 型号 = Build.MODEL;
 
     /** "设备主系统级芯片（SOC）的制造商。 */
-    @RequiresApi(api = Build.VERSION_CODES.S)
-    public static final String SOC_制造商 = Build.SOC_MANUFACTURER;
+    public static final String SOC_制造商 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ? Build.SOC_MANUFACTURER :Build.UNKNOWN;
 
     /** 设备主系统级芯片（SOC）的型号名称。 */
-    @RequiresApi(api = Build.VERSION_CODES.S)
-    public static final String SOC_型号 = Build.SOC_MODEL;
+    public static final String SOC_型号 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ? Build.SOC_MODEL :Build.UNKNOWN;;
 
     /** 系统引导加载程序的版本号。 */
     public static final String 引导程序 = Build.BOOTLOADER;
@@ -72,10 +70,8 @@ public class 构建 extends Build {
 
     /**
      * 无线电固件版本号。
-     * @deprecated 当此类被初始化时，无线电固件版本通常不可用，导致该字符串显示为空或“未知”值。
-     * 使用 {@link #getRadioVersion} 代替.
+     * @deprecated 当此类被初始化时，无线电固件版本通常不可用，导致该字符串显示为空或“未知”值。使用 {@link #getRadioVersion} 代替.
      */
-    @Deprecated
     public static final String 收音机 = Build.RADIO;
 
 
@@ -84,12 +80,10 @@ public class 构建 extends Build {
 
 
     /**
-     * 硬件的SKU（来自内核命令行）。
-     * <p>
+     * 硬件的SKU（来自内核命令行）。<p>
      * SKU由引导加载程序报告以配置系统软件功能。如果引导加载程序未提供任何值，将报告为 {@link #未知}.
      */
-    @RequiresApi(api = Build.VERSION_CODES.S)
-    public static final String SKU = Build.SKU;
+    public static final String SKU = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ? Build.SKU :Build.UNKNOWN;
 
 
     /**
@@ -100,8 +94,7 @@ public class 构建 extends Build {
      * 在制造商对相同设计生产多种变体的情况下，ODM SKU 可能会对应同一系统 SKU 的多个变体。例如，相同的版本可能会
      * 以物理键盘和/或显示硬件的不同变化发布，每种变化对应不同的 ODM SKU。
      */
-    @RequiresApi(api = Build.VERSION_CODES.S)
-    public static final String ODM_SKU = Build.ODM_SKU;
+    public static final String ODM_SKU = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ? Build.ODM_SKU :Build.UNKNOWN;
 
 
 
@@ -144,12 +137,12 @@ public class 构建 extends Build {
 
 
     /** 各种版本字符串 */
-    public static class 版本 extends VERSION{
+    public static class 版本 extends Build.VERSION{
 
         /**
          * 底层源代码控制用于表示此构建的内部值。例如，Perforce变更列表编号或Git哈希值。
          */
-        public static final String 内部版本号 = VERSION.INCREMENTAL;
+        public static final String 内部版本号 = Build.VERSION.INCREMENTAL;
 
 
         /**
@@ -157,161 +150,164 @@ public class 构建 extends Build {
          * <p>
          * 此字段是一个不透明字符串。不要假设其值具有任何特定结构，也不要假设来自不同版本的RELEASE值可以以某种方式排序。
          */
-        public static final String 发布版本 = VERSION.RELEASE;
+        public static final String 发布版本 = Build.VERSION.RELEASE;
 
 
         /**
-         * The version string.  May be {@link #发布版本} or {@link #CODENAME} if
+         * The version string.  May be {@link #发布版本} or {@link #开发代号 } if
          * not a final release build.
          */
-        @RequiresApi(api = VERSION_CODES.R)
-        public static final String 发布版本_或_开发代号 = VERSION.RELEASE_OR_CODENAME;
+        public static final String 发布版本_或_开发代号 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+                ? Build.VERSION.RELEASE_OR_CODENAME
+                : Build.VERSION.RELEASE;
 
         /**
-         * The version string we show to the user; may be {@link #RELEASE} or
+         * The version string we show to the user; may be {@link #发布版本} or
          * a descriptive string if not a final release build.
          */
-        @RequiresApi(api = VERSION_CODES.TIRAMISU)
-        public static final String 发布版本_或_预览_显示屏 = VERSION.RELEASE_OR_PREVIEW_DISPLAY;
+        public static final String 发布版本_或_预览_显示屏 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+            ?Build.VERSION.RELEASE_OR_PREVIEW_DISPLAY
+                : Build.VERSION.RELEASE;
 
 
         /**
          * The base OS build the product is based on.
          */
-        public static final String 基础_OS = VERSION.BASE_OS;
+        public static final String 基础_OS = Build.VERSION.BASE_OS;
 
         /**
          * The user-visible security patch level. This value represents the date when the device
          * most recently applied a security patch.
          */
-        public static final String 安全_补丁 = VERSION.SECURITY_PATCH;
+        public static final String 安全_补丁 = Build.VERSION.SECURITY_PATCH;
 
-        @RequiresApi(api = VERSION_CODES.S)
-        public static final int 媒体_性能_类 = VERSION.MEDIA_PERFORMANCE_CLASS;
+        public static final int 媒体_性能_类 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+            ? Build.VERSION.MEDIA_PERFORMANCE_CLASS
+            : 0;
 
 
-        public static final String SDK = VERSION.SDK;
-
-        @SuppressLint("AnnotateVersionCheck")
-        public static final int SDK_整数 = VERSION.SDK_INT;
+        public static final String SDK = Build.VERSION.SDK;
 
         @SuppressLint("AnnotateVersionCheck")
-        public static final int SDK_整数_全 = VERSION.SDK_INT_FULL;
+        public static final int SDK_整数 = Build.VERSION.SDK_INT;
 
-        public static final int 预览_SDK_整数 = VERSION.PREVIEW_SDK_INT;
+        @SuppressLint("AnnotateVersionCheck")
+        public static final int SDK_整数_全 = Build.VERSION.SDK_INT_FULL;
 
-        public static final String 开发代号 = VERSION.CODENAME;
+        public static final int 预览_SDK_整数 = Build.VERSION.PREVIEW_SDK_INT;
+
+        public static final String 开发代号 = Build.VERSION.CODENAME;
     }
 
-    public static class 版本_代码 extends VERSION_CODES {
+    public static class 版本_代码 extends Build.VERSION_CODES{
 
         /**
          * 当前开发构建的魔数版本号，尚未转为正式版本。
          * <p>
          * 此值必须与 VMRuntime.SDK_VERSION_CUR_DEVELOPMENT 匹配
          */
-        public static final int 当前_开发版本 = VERSION_CODES.CUR_DEVELOPMENT;
+        public static final int 当前_开发版本 = Build.VERSION_CODES.CUR_DEVELOPMENT;
 
         /**
          * Android 1 版本
          */
-        public static final int Sdk1 = VERSION_CODES.BASE;
+        public static final int Sdk1 = Build.VERSION_CODES.BASE;
         /**
          * Android 1.1 版本
          */
-        public static final int Sdk2 = VERSION_CODES.BASE_1_1;
+        public static final int Sdk2 = Build.VERSION_CODES.BASE_1_1;
         /**
          * Android 1.5 版本
          */
-        public static final int Sdk3 = VERSION_CODES.CUPCAKE;
+        public static final int Sdk3 = Build.VERSION_CODES.CUPCAKE;
         /**
          * Android 1.6 版本
          */
-        public static final int Sdk4 = VERSION_CODES.DONUT;
+        public static final int Sdk4 = Build.VERSION_CODES.DONUT;
         /**
          * Android 2.0 版本
          */
-        public static final int Sdk5 = VERSION_CODES.ECLAIR;
+        public static final int Sdk5 = Build.VERSION_CODES.ECLAIR;
         /**
          * Android 2.0.1 版本
          */
-        public static final int Sdk6 = VERSION_CODES.ECLAIR_0_1;
+        public static final int Sdk6 = Build.VERSION_CODES.ECLAIR_0_1;
         /**
          * Android 2.1 版本
          */
-        public static final int Sdk7 = VERSION_CODES.ECLAIR_MR1;
+        public static final int Sdk7 = Build.VERSION_CODES.ECLAIR_MR1;
         /**
          * Android 2.2 版本
          */
-        public static final int Sdk8 = VERSION_CODES.FROYO;
+        public static final int Sdk8 = Build.VERSION_CODES.FROYO;
         /**
          * Android 2.3 版本
          */
-        public static final int Sdk9 = VERSION_CODES.GINGERBREAD;
+        public static final int Sdk9 = Build.VERSION_CODES.GINGERBREAD;
         /**
          * Android 2.3.3 版本
          */
-        public static final int Sdk10 = VERSION_CODES.GINGERBREAD_MR1;
+        public static final int Sdk10 = Build.VERSION_CODES.GINGERBREAD_MR1;
         /**
          * Android 3 版本
          */
-        public static final int Sdk11 = VERSION_CODES.HONEYCOMB;
+        public static final int Sdk11 = Build.VERSION_CODES.HONEYCOMB;
         /**
          * Android 3.1 版本
          */
-        public static final int Sdk12 = VERSION_CODES.HONEYCOMB_MR1;
+        public static final int Sdk12 = Build.VERSION_CODES.HONEYCOMB_MR1;
         /**
          * Android 3.2 版本
          */
-        public static final int Sdk13 = VERSION_CODES.HONEYCOMB_MR2;
+        public static final int Sdk13 = Build.VERSION_CODES.HONEYCOMB_MR2;
         /**
          * Android 4 版本
          */
-        public static final int Sdk14 = VERSION_CODES.ICE_CREAM_SANDWICH;
+        public static final int Sdk14 = Build.VERSION_CODES.ICE_CREAM_SANDWICH;
         /**
          * Android 4.03 版本
          */
-        public static final int Sdk15 = VERSION_CODES.ICE_CREAM_SANDWICH_MR1;
+        public static final int Sdk15 = Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1;
         /**
          * Android 4.1 版本
          */
-        public static final int Sdk16 = VERSION_CODES.JELLY_BEAN;
+        public static final int Sdk16 = Build.VERSION_CODES.JELLY_BEAN;
         /**
          * Android 4.2 版本
          */
-        public static final int Sdk17 = VERSION_CODES.JELLY_BEAN_MR1;
+        public static final int Sdk17 = Build.VERSION_CODES.JELLY_BEAN_MR1;
         /**
          * Android 4.3 版本
          */
-        public static final int Sdk18 = VERSION_CODES.JELLY_BEAN_MR2;
+        public static final int Sdk18 = Build.VERSION_CODES.JELLY_BEAN_MR2;
         /**
          * Android 4.4 版本
          */
-        public static final int Sdk19 = VERSION_CODES.KITKAT;
+        public static final int Sdk19 = Build.VERSION_CODES.KITKAT;
         /**
          * Android 4.4W 版本
          */
-        public static final int Sdk20 = VERSION_CODES.KITKAT_WATCH;
+        public static final int Sdk20 = Build.VERSION_CODES.KITKAT_WATCH;
         /**
          * Android 5 版本
          */
-        public static final int Sdk21 = VERSION_CODES.LOLLIPOP;
+        public static final int Sdk21 = Build.VERSION_CODES.LOLLIPOP;
         /**
          * Android 5.1 版本
          */
-        public static final int Sdk22 = VERSION_CODES.LOLLIPOP_MR1;
+        public static final int Sdk22 = Build.VERSION_CODES.LOLLIPOP_MR1;
         /**
          * Android 6 版本
          */
-        public static final int Sdk23 = VERSION_CODES.M;
+        public static final int Sdk23 = Build.VERSION_CODES.M;
         /**
          * Android 7 版本
          */
-        public static final int Sdk24 = VERSION_CODES.N;
+        public static final int Sdk24 = Build.VERSION_CODES.N;
         /**
          * Android 7.1 版本
          */
-        public static final int Sdk25 = VERSION_CODES.N_MR1;
+        public static final int Sdk25 = Build.VERSION_CODES.N_MR1;
         /**
          * Android 8 版本
          */
@@ -319,44 +315,45 @@ public class 构建 extends Build {
         /**
          * Android 8.1 版本
          */
-        public static final int Sdk27 = VERSION_CODES.O_MR1;
+        public static final int Sdk27 = Build.VERSION_CODES.O_MR1;
         /**
          * Android 9 版本
          */
-        public static final int Sdk28 = VERSION_CODES.P;
+        public static final int Sdk28 = Build.VERSION_CODES.P;
         /**
          * Android 10 版本
          */
-        public static final int Sdk29 = VERSION_CODES.Q;
+        public static final int Sdk29 = Build.VERSION_CODES.Q;
         /**
          * Android 11 版本
          */
-        public static final int Sdk30 = VERSION_CODES.R;
+        public static final int Sdk30 = Build.VERSION_CODES.R;
         /**
          * Android 12 版本
          */
-        public static final int Sdk31 = VERSION_CODES.S;
+        public static final int Sdk31 = Build.VERSION_CODES.S;
         /**
          * Android 12 L 版本
          */
-        public static final int Sdk32 = VERSION_CODES.S_V2;
+        public static final int Sdk32 = Build.VERSION_CODES.S_V2;
         /**
          * Android 13 版本
          */
-        public static final int Sdk33 = VERSION_CODES.TIRAMISU;
+        public static final int Sdk33 = Build.VERSION_CODES.TIRAMISU;
         /**
          * Android 14 版本
          */
-        public static final int Sdk34 = VERSION_CODES.UPSIDE_DOWN_CAKE;
+        public static final int Sdk34 = Build.VERSION_CODES.UPSIDE_DOWN_CAKE;
         /**
          * Android 15 版本
          */
-        public static final int Sdk35 = VERSION_CODES.VANILLA_ICE_CREAM;
+        public static final int Sdk35 = Build.VERSION_CODES.VANILLA_ICE_CREAM;
         /**
          * Android 16 版本
          */
-        public static final int Sdk36 = VERSION_CODES.BAKLAVA;
+        public static final int Sdk36 = Build.VERSION_CODES.BAKLAVA;
     }
+
 
 
     public static class 版本_代码_全 {

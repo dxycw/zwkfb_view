@@ -1,17 +1,27 @@
 package com.dxyc.zwkfb_view
 
+import android.app.Dialog
+import android.app.MediaRouteButton
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.view.HapticFeedbackConstants
 import android.view.SurfaceHolder
+import android.view.View
+import android.widget.TextView
+import android.widget.Toast
 import androidx.core.net.toUri
 import com.dxyc.zwkfb_view.databinding.ActivityMainBinding
 import com.google.android.material.timepicker.TimeFormat
 import 商业.谷歌.安卓.材质.时间选择器.材质时间选择器
 import 安卓.媒体.媒体播放器
+import 安卓.应用.列表碎片
+import 安卓.应用.媒体路由按钮
+import 安卓.应用.对话框
+import 安卓.操作系统.构建
 import 安卓.组件.吐司
 import 安卓.组件.文本
+import 安卓.视图.内边距下
 import 安卓.视图.置单击回调监听事件
 import 安卓.视图.置长按回调监听事件
 import 安卓x.应用兼容.应用.应用兼容活动
@@ -197,6 +207,7 @@ class MainActivity : 应用兼容活动() {
 
 
     }
+
 
     private var mediaPlayer:媒体播放器? = null
     

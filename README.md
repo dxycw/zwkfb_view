@@ -40,7 +40,7 @@ dependencyResolutionManagement {
 
 ```groovy
 dependencies {
-    implementation 'com.github.dxycw:zwkfb_view:0.3.5' // 添加 zwkfb_view 依赖
+    implementation 'com.github.dxycw:zwkfb_view:0.3.6' // 添加 zwkfb_view 依赖
 }
 ```
 
@@ -48,7 +48,7 @@ dependencies {
 
 ```kotlin
 dependencies {
-    implementation("com.github.dxycw:zwkfb_view:0.3.5") // 添加 zwkfb_view 依赖
+    implementation("com.github.dxycw:zwkfb_view:0.3.6") // 添加 zwkfb_view 依赖
 }
 ```
 
@@ -91,6 +91,12 @@ dependencies {
 如果使用混淆并且使用了“MySQL”、“Geckoview”依赖库，请查看[打包体积压缩](%E6%89%93%E5%8C%85%E4%BD%93%E7%A7%AF%E5%8E%8B%E7%BC%A9.md)。
 
 # 更新内容
+
+## 0.3.6
+
+* 修复 “构建”类使用后闪退的Bug；
+* 添加 “列表碎片”、“媒体路由按钮”、“对话框”、“对话框碎片”类的所有函数代码；
+* 添加 “列表碎片”、“媒体路由按钮”、“对话框”、“对话框碎片”类添加kotlin的函数代码；
 
 ## 0.3.5
 
