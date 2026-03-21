@@ -25,7 +25,6 @@ public class 基础碎片状态适配器 extends 碎片状态适配器 {
     }
 
 
-
     private ArrayList<Fragment> 数据 = new ArrayList<>();
 
     public 基础碎片状态适配器(@NonNull FragmentActivity 碎片活动, ArrayList<Fragment> 数据){
@@ -46,12 +45,9 @@ public class 基础碎片状态适配器 extends 碎片状态适配器 {
         return new Fragment();
     }
 
-
     @Override
     public int getItemCount() {
         return 数据.size();
     }
-
-
 
 }

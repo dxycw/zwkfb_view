@@ -1,7 +1,5 @@
 package 自定义.系统类;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
@@ -35,19 +33,16 @@ public class 文件类 {
 
     //读文件
     public static String 取Assets文件(Context 上下文, String 文件名) {
-        StringBuilder returnString = new StringBuilder();
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(上下文.getAssets().open(文件名, Context.MODE_PRIVATE)));
-
-            String line = reader.readLine();
-            while (reader.readLine() != null) {
-                returnString.append(line).append('\n');
+        StringBuilder sb = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(上下文.getAssets().open(文件名)))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append('\n');
             }
-            reader.close();
         } catch (IOException e) {
             Toast.makeText(上下文, "读取失败: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
-        return returnString.toString();
+        return sb.toString();
     }
 
     public static String 从Assets加载JS文件(Context 上下文, String fileName) {

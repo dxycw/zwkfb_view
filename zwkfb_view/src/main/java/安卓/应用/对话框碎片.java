@@ -2,6 +2,9 @@ package 安卓.应用;
 
 import android.app.DialogFragment;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+
 /**
  * 创建时间：2025年11月27日.
  * <p>

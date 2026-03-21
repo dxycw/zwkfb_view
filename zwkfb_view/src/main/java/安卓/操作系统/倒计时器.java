@@ -15,4 +15,33 @@ public abstract class 倒计时器 extends CountDownTimer {
     }
 
 
+    public synchronized final void 取消() {
+        this.cancel();
+    }
+
+    public synchronized final CountDownTimer 启动() {
+        return this.start();
+    }
+
+    /**
+     * 回调按固定间隔触发。
+     * @param millisUntilFinished 直到完成所需的时间
+     */
+    @Override
+    public void onTick(long millisUntilFinished) {
+        计时回调(millisUntilFinished);
+    }
+
+    /**
+     * 时间到时触发回调。
+     */
+    @Override
+    public void onFinish() {
+        完成回调();
+    }
+
+    public abstract void 计时回调(long 剩余毫秒);
+
+    public abstract void 完成回调();
+
 }

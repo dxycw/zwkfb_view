@@ -40,7 +40,7 @@ dependencyResolutionManagement {
 
 ```groovy
 dependencies {
-    implementation 'com.github.dxycw:zwkfb_view:0.3.4' // 添加 zwkfb_view 依赖
+    implementation 'com.github.dxycw:zwkfb_view:0.3.5' // 添加 zwkfb_view 依赖
 }
 ```
 
@@ -48,7 +48,7 @@ dependencies {
 
 ```kotlin
 dependencies {
-    implementation("com.github.dxycw:zwkfb_view:0.3.4") // 添加 zwkfb_view 依赖
+    implementation("com.github.dxycw:zwkfb_view:0.3.5") // 添加 zwkfb_view 依赖
 }
 ```
 
@@ -92,6 +92,15 @@ dependencies {
 
 # 更新内容
 
+## 0.3.5
+
+* 修复 本版本彻底修复“自定义.系统类.文件类.取Assets文件()”方法只显示第一行的Bug；
+* 修复 本版本彻底修复“网页视图”类的“默认配置()”方法使用后“今日头条”、“QQ”登录、“微博”、“搜狗”显示不能加载的Bug；
+* 删除 “基础应用兼容活动”和“基础碎片”类；
+* 删除 手机不能使用的组件；
+* 添加 “吐司”、“构建”、“倒计时器”、“媒体播放器”类的所有函数代码；
+* 优化 “材质时间选择器”类代码；
+
 ## 0.3.4
 
 * 修复 “自定义.系统类.文件类.取Assets文件()”方法只显示第一行的Bug；
@@ -103,7 +112,7 @@ dependencies {
 * 更新 androidx.media3:media3-datasource-okhttp依赖库为1.10.0-rc01；
 * 更新 androidx.media3:media3-ui依赖库为1.10.0-rc01；
 * 更新 com.github.CarGuo.GSYVideoPlayer:gsyvideoplayer依赖库为v12.0.0；
-* 更新 com.github.jenly1314:zxing-lite依赖库为3.4.1
+* 更新 com.github.jenly1314:zxing-lite依赖库为3.4.1；
 * 删除 com.google.firebase:firebase-crashlytics-buildtools依赖库；
 
 ## 0.3.3

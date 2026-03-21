@@ -41,6 +41,7 @@ import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -50,6 +51,8 @@ import androidx.core.content.ContextCompat;
 import com.gyf.immersionbar.BarHide;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import 安卓.组件.吐司;
 import 安卓.网页工具.下载监听器;
@@ -119,66 +122,17 @@ public class 网页视图 extends 安卓.网页工具.网页视图{
 
     @SuppressLint("SetJavaScriptEnabled")
     public void 默认配置(Activity 上下文, ArrayList<String> 网页第三方链接头) {
-        ArrayList<String> 网页链接头 = new ArrayList<>();
         final View[] 网页视频控件 = {null};
         final WebChromeClient.CustomViewCallback[] 网页视频回调 = {null};
         this.置网页跳转拦截事件((网页跳转拦截事件请求) (网页视图, 请求) -> {
-            String url = String.valueOf(请求.getUrl());
-            网页链接头.add("snssdk1128://"); //
-            网页链接头.add("snssdk143://"); // 今日头条
-            网页链接头.add("baiduboxapp://");
-            网页链接头.add("baiduboxlite://");
-            网页链接头.add("baiduhaokan://");
-            网页链接头.add("market://");
-            网页链接头.add("bilibili://"); // 哔哩哔哩
-            网页链接头.add("sohunews://");
-            网页链接头.add("wvhzpj://");
-            网页链接头.add("freereader://");
-            网页链接头.add("mttbrowser://"); // 搜狗
-            网页链接头.add("wtloginmqq://"); // QQ
-            网页链接头.add("sinaweibo://"); // 微博
-
-            // 检查URL是否以http或https开头
-            for (String 值 : 网页链接头) {
-                if (url.startsWith(值)) {
-                    try {
-                        //判断是否有应用，如果有运行此代码
-                        // 上面的参数中，url对应文件下载地址，mimetype对应下载文件的MIME类型
-//                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));//创建 Intent
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);// 设置启动模式
-//                    上下文.startActivity(intent);// 启动 Intent
-                        return true;
-                    } catch (Exception e) { // 捕获异常
-                        //判断是否有应用，如果没有运行此代码
-
-//                    if (!url.startsWith("market://") || !url.startsWith("freereader://")){
-//                        new 对话框.构建器(上下文)
-//                                .置标题("提示").置内容("是否打开外部应用")
-//                                .setPositiveButton("确定", (dialog, which) -> {
-//                                    //if (!公用设置.打开应用商店(上下文)){
-//                                    //if (url.startsWith("baiduhaokan://")){
-//                                    //    view.loadUrl("http://xbox.m.baidu.com/mo/home");
-//                                    //}//else if (url.startsWith("wvhzpj://") ){
-//                                    //    view.loadUrl("https://www.csdn.net/apps/download/");
-//                                    //}
-//
-//                                    //Toast.makeText(上下文, String.valueOf(公用设置.是否是下载链接(url)), Toast.LENGTH_SHORT).show();
-//                                    // }
-//                                })
-//                                .setPositiveButton("取消", (dialog, which) -> {
-//                                    dialog.dismiss();
-//                                })
-//                                .show();
-//                    }
-
-                        return true;
-                    }
-                } else {
-                    return false;
-                }
-            }
-            return false;
+            String url = 请求.getUrl().toString();
+            return 防止网页跳转拦截(url);
         });
+
+//        this.置网页跳转拦截事件((网页跳转拦截事件网址) (网页视图, 网址) -> {
+//            return 防止网页跳转拦截(网址);
+//        });
+
         this.置接收SSL错误事件((网页视图, 线程, 错误) -> 线程.proceed());
         this.置显示自定义视图事件((视图, 回调) -> {
             if (网页视频控件[0] != null) {
@@ -286,6 +240,63 @@ public class 网页视图 extends 安卓.网页工具.网页视图{
         instance.setAcceptCookie(true); //启用Cookie
         instance.setAcceptThirdPartyCookies(this, true); //启用第三方Cookie
         可用Cookie(); //启用Cookie
+    }
+
+    ArrayList<String> 网页链接头 = new ArrayList<>();
+    private boolean 防止网页跳转拦截(String 网址) {
+        网页链接头.add("snssdk1128://");
+        网页链接头.add("snssdk143://");  // 今日头条
+        网页链接头.add("baiduboxapp://");  // 百度
+        网页链接头.add("baiduboxlite://");  //
+        网页链接头.add("baiduhaokan://");  //
+        网页链接头.add("market://");  //
+        网页链接头.add("mttbrowser://"); // 搜狗
+        网页链接头.add("bilibili://"); // 哔哩哔哩
+        网页链接头.add("sohunews://"); //
+        网页链接头.add("wvhzpj://"); //
+        网页链接头.add("freereader://"); //
+        网页链接头.add("wtloginmqq://"); // QQ
+        网页链接头.add("sinaweibo://"); // 微博
+
+        // 检查URL是否以http或https开头
+        for (String 值 : 网页链接头) {
+            if (网址.startsWith(值)) {
+                return true;
+//                    try {
+//                        //判断是否有应用，如果有运行此代码
+//                        // 上面的参数中，url对应文件下载地址，mimetype对应下载文件的MIME类型
+////                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));//创建 Intent
+////                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);// 设置启动模式
+////                    上下文.startActivity(intent);// 启动 Intent
+//                        return true;
+//                    } catch (Exception e) { // 捕获异常
+//                        //判断是否有应用，如果没有运行此代码
+//
+////                    if (!url.startsWith("market://") || !url.startsWith("freereader://")){
+////                        new 对话框.构建器(上下文)
+////                                .置标题("提示").置内容("是否打开外部应用")
+////                                .setPositiveButton("确定", (dialog, which) -> {
+////                                    //if (!公用设置.打开应用商店(上下文)){
+////                                    //if (url.startsWith("baiduhaokan://")){
+////                                    //    view.loadUrl("http://xbox.m.baidu.com/mo/home");
+////                                    //}//else if (url.startsWith("wvhzpj://") ){
+////                                    //    view.loadUrl("https://www.csdn.net/apps/download/");
+////                                    //}
+////
+////                                    //Toast.makeText(上下文, String.valueOf(公用设置.是否是下载链接(url)), Toast.LENGTH_SHORT).show();
+////                                    // }
+////                                })
+////                                .setPositiveButton("取消", (dialog, which) -> {
+////                                    dialog.dismiss();
+////                                })
+////                                .show();
+////                    }
+//
+//                        return true;
+//                    }
+            }
+        }
+        return false;
     }
 
     private void 可用Cookie() {

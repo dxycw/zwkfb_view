@@ -18,31 +18,6 @@ import java.io.IOException;
 
 public class 系统类 {
 
-    public static String 取设备的架构() {
-        return Build.SUPPORTED_ABIS[0]; // 获取设备架构 例如：arm64-v8a
-    }
-
-    public static String 取手机品牌() {
-        return Build.BRAND; // 获取手机品牌 例如：Xiaomi
-    }
-
-    public static String 取手机厂商() {
-        return Build.MANUFACTURER; // 获取厂商 例如：Xiaomi
-    }
-
-    public static String 取手机型号() {
-        return Build.MODEL; // 获取手机型号 例如：MI 6
-    }
-
-    public static String 取手机系统版本号() {
-        return Build.VERSION.RELEASE; // 获取系统版本号 例如：8.0
-    }
-
-    @SuppressLint("HardwareIds")
-    public static String 取手机唯一标识() {
-        return Build.SERIAL; // 获取手机唯一标识 例如：9d0c0d0c0d0c0d0c
-    }
-
     @SuppressLint("HardwareIds")
     public static String 取设备唯一标识(Context 上下文) {
         return Settings.Secure.getString(上下文.getContentResolver(), Settings.Secure.ANDROID_ID);

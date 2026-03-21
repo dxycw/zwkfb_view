@@ -44,11 +44,6 @@
 
     <!--    </安卓x.约束布局.组件.约束布局>-->
 
-
-    <自定义.文本类.搜索栏
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
     <商业.谷歌.安卓.材质.标签.标签布局
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
@@ -101,9 +96,17 @@
             android:layout_margin="10dp"
             android:text="视频1" />
 
-        <商业.谷歌.安卓.材质.加载指示器.加载指示器
+        <SurfaceView
+            android:id="@+id/surfaceView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="200dp" />
+
+        <Button
+            android:id="@+id/bf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="50dp"
+            android:text="播放" />
 
         <Button
             android:id="@+id/btn4"

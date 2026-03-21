@@ -1,6 +1,5 @@
 package 安卓.网页工具;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.webkit.DownloadListener;
@@ -8,8 +7,6 @@ import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import java.util.ArrayList;
 
 /**
  * 创建时间：2025年12月16日.

@@ -61,7 +61,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.github.dxycw"
             artifactId = "zwkfb_view"
-            version = "0.3.4"
+            version = "0.3.5"
 
             // 关键：使用 afterEvaluate 获取组件
             afterEvaluate {
@@ -79,10 +79,6 @@ dependencies {
     api("androidx.activity:activity:1.13.0") // activity库
     api("androidx.constraintlayout:constraintlayout:2.2.1") // 约束布局库
     api("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0") // 下拉刷新库
-
-    //=====================================================================
-
-//    api("com.google.firebase:firebase-crashlytics-buildtools:3.0.6") // firebase crashlytics 构建工具
 
     //=====================================================================
 

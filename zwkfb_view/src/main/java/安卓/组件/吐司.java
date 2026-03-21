@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.annotation.StringRes;
+
 import 自定义.主题类.主题类;
 
 /**
@@ -22,18 +25,90 @@ import 自定义.主题类.主题类;
  */
 public class 吐司 extends Toast{
 
-    public 吐司(Context 上下文) {
-        super(上下文);
-    }
-
     /**
      * 描述：长度_短
      */
     public static final int 长度_短 = Toast.LENGTH_SHORT;
     /**
-     * 描述：长
+     * 描述：长度_长
      */
     public static final int 长度_长 = Toast.LENGTH_LONG;
+
+    //==============================================================================================
+
+    public 吐司(Context 上下文) {
+        super(上下文);
+    }
+
+    //==============================================================================================
+
+    public void 显示(){
+        this.show();
+    }
+
+    public void 取消(){
+        this.cancel();
+    }
+
+
+    public void 置视图(View 视图){
+        this.setView(视图);
+    }
+
+    public View 取视图(){
+        return this.getView();
+    }
+
+
+    public void 置持续时间(int 持续时间){
+        this.setDuration(持续时间);
+    }
+
+    public int 取持续时间(){
+        return this.getDuration();
+    }
+
+
+    public void 置边距(float 水平边距, float 垂直边距){
+        this.setMargin(水平边距, 垂直边距);
+    }
+
+    public float 取水平边距(){
+        return this.getHorizontalMargin();
+    }
+
+    public float 取垂直边距(){
+        return this.getVerticalMargin();
+    }
+
+
+    public void 置对齐方式(int 对齐方式, int x偏移, int y偏移){
+        this.setGravity(对齐方式, x偏移, y偏移);
+    }
+
+    public int 取对齐方式(){
+        return this.getGravity();
+    }
+
+    public int 取x偏移(){
+        return this.getXOffset();
+    }
+
+    public int 取y偏移(){
+        return this.getYOffset();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    public void 添加回调(Callback 回调){
+        this.addCallback(回调);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    public void 移除回调(Callback 回调){
+        this.removeCallback(回调);
+    }
+
+    //==============================================================================================
 
     /**
      * 描述：制作文本
@@ -61,6 +136,7 @@ public class 吐司 extends Toast{
         return 制作文本1(上下文, 上下文.getResources().getText(资源Id), 持续时间);
     }
 
+    //==============================================================================================
 
     public static 吐司 自定义制作文本(Context 上下文, CharSequence 文本, int 持续时间) {
         return 自定义制作文本1(上下文, 文本, 持续时间);
@@ -99,8 +175,9 @@ public class 吐司 extends Toast{
         return 自定义制作文本1(上下文, 上下文.getText(资源Id), 持续时间);
     }
 
+    //==============================================================================================
 
-    public void 置文本(int 资源Id){
+    public void 置文本(@StringRes int 资源Id){
         this.setText(资源Id);
     }
 
@@ -108,32 +185,28 @@ public class 吐司 extends Toast{
         this.setText(文本);
     }
 
-    public void 显示(){
-        this.show();
+    //==============================================================================================
+
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    public abstract static class 回调 extends Callback{
+        @Override
+        public void onToastHidden() {
+            this.吐司隐藏回调();
+        }
+
+        @Override
+        public void onToastShown() {
+            this.吐司显示回调();
+        }
+
+        public void 吐司显示回调(){
+            super.onToastShown();
+        }
+
+        public void 吐司隐藏回调(){
+            super.onToastHidden();
+        }
+
     }
-
-    public void 取消(){
-        this.cancel();
-    }
-
-
-    public void 置视图(View 视图){
-        this.setView(视图);
-    }
-
-    public View 取视图(){
-        return this.getView();
-    }
-
-    public void 置持续时间(int 持续时间){
-        this.setDuration(持续时间);
-    }
-
-    public int 取持续时间(){
-        return this.getDuration();
-    }
-
-
-
 
 }
