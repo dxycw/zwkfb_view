@@ -30,7 +30,7 @@ class App : 应用程序() {
 
     }
 
-//    companion object{
+    companion object{
 //        private lateinit var dataSourceFactory: OkHttpDataSource.Factory
 //
 //        @androidx.annotation.OptIn(UnstableApi::class)
@@ -38,6 +38,6 @@ class App : 应用程序() {
 //            return ProgressiveMediaSource.Factory(dataSourceFactory)
 //                .createMediaSource(MediaItem.fromUri(url))
 //        }
-//    }
+    }
 
 }

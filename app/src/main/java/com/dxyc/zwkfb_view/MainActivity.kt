@@ -88,7 +88,7 @@ class MainActivity : 应用兼容活动() {
 //        }
 
         视图组件.tv1.应用{
-            文本 = "支持的ABI：${Build.SUPPORTED_ABIS.joinToString()}\n本进程运行在：${Build.SUPPORTED_ABIS[0]}."
+            文本 = "支持的ABI：${构建.支持_ABIS.joinToString()}\n本进程运行在：${构建.支持_ABIS[0]}."
         }
 
         视图组件.btn2.应用{

@@ -2,7 +2,7 @@ package 自定义.网络类;
 
 import 安卓.操作系统.构建;
 
-public class 网页配置 {
+public class 网页设置 {
 
     public static class Android {
         public final static String 夸克UA =

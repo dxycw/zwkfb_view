@@ -40,7 +40,7 @@ dependencyResolutionManagement {
 
 ```groovy
 dependencies {
-    implementation 'com.github.dxycw:zwkfb_view:0.3.6' // 添加 zwkfb_view 依赖
+    implementation 'com.github.dxycw:zwkfb_view:0.3.7' // 添加 zwkfb_view 依赖
 }
 ```
 
@@ -48,7 +48,7 @@ dependencies {
 
 ```kotlin
 dependencies {
-    implementation("com.github.dxycw:zwkfb_view:0.3.6") // 添加 zwkfb_view 依赖
+    implementation("com.github.dxycw:zwkfb_view:0.3.7") // 添加 zwkfb_view 依赖
 }
 ```
 
@@ -66,7 +66,7 @@ dependencies {
 * androidx.activity:activity:1.13.0
 * androidx.constraintlayout:constraintlayout:2.2.1 
 * androidx.swiperefreshlayout:swiperefreshlayout:1.2.0
-* androidx.webkit:webkit:1.15.0
+* androidx.webkit:webkit:1.16.0-alpha03
 
 ## 其他依赖库
 
@@ -76,9 +76,9 @@ dependencies {
 * com.squareup.okhttp3:okhttp:5.3.2 ([OkHttp](https://square.github.io/okhttp/))
 * com.google.code.gson:gson:2.13.2 ([Gson](https://github.com/google/gson))
 * io.noties.markwon:core:4.6.2 ([Markwon](https://github.com/noties/Markwon))
-* androidx.media3:media3-exoplayer:1.10.0-rc01 ([ExoPlayer](https://github.com/androidx/media))
-* androidx.media3:media3-datasource-okhttp:1.10.0-rc01 ([OkHttp](https://github.com/androidx/media))
-* androidx.media3:media3-ui:1.10.0-rc01 ([Media3 UI](https://github.com/androidx/media))
+* androidx.media3:media3-exoplayer:1.10.0-rc02 ([ExoPlayer](https://github.com/androidx/media))
+* androidx.media3:media3-datasource-okhttp:1.10.0-rc02 ([OkHttp](https://github.com/androidx/media))
+* androidx.media3:media3-ui:1.10.0-rc02 ([Media3 UI](https://github.com/androidx/media))
 * com.github.CarGuo.GSYVideoPlayer:gsyvideoplayer:v12.0.0 ([GSYVideoPlayer](https://github.com/CarGuo/GSYVideoPlayer))
 * com.github.bilibili.DanmakuFlameMaster:DanmakuFlameMaster:0.9.25 ([DanmakuFlameMaster](https://github.com/bilibili/DanmakuFlameMaster))
 * org.mozilla.geckoview:geckoview-nightly:145.0.20251006095753 ([Geckoview](https://mozilla.github.io/geckoview/javadoc/mozilla-central/org/mozilla/geckoview/doc-files/CHANGELOG))
@@ -91,6 +91,13 @@ dependencies {
 如果使用混淆并且使用了“MySQL”、“Geckoview”依赖库，请查看[打包体积压缩](%E6%89%93%E5%8C%85%E4%BD%93%E7%A7%AF%E5%8E%8B%E7%BC%A9.md)。
 
 # 更新内容
+
+## 0.3.7
+
+* 修复 “自定义.网络类.网页视图”的“默认配置”函数“snssdk35”不能加载的Bug；
+* 修改 “自定义.网络类.网页配置”为“自定义.网络类.网页设置”；
+* 更新 androidx.webkit:webkit 依赖库版本为 1.16.0-alpha03；
+* 更新 所有 androidx.media3 依赖库版本为 1.10.0-rc02；
 
 ## 0.3.6
 

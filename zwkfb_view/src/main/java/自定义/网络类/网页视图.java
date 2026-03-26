@@ -202,7 +202,7 @@ public class 网页视图 extends 安卓.网页工具.网页视图{
         WebSettings 网页设置 = this.getSettings();
         网页设置.setJavaScriptEnabled(true); //启用 JavaScript 支持。
         // 设置User-Agent
-        网页设置.setUserAgentString( (系统类.是否为平板(上下文))? 网页配置.Windows.夸克UA : 网页配置.Android.夸克UA);
+        网页设置.setUserAgentString( (系统类.是否为平板(上下文))? 自定义.网络类.网页设置.Windows.夸克UA : 自定义.网络类.网页设置.Android.夸克UA);
         网页设置.setUseWideViewPort(true); //启用支持自定义窗口。
         网页设置.setLoadWithOverviewMode(true);  //启用支持内容大小。
         网页设置.setDomStorageEnabled(true);  //启用 DOM 存储。
@@ -238,6 +238,7 @@ public class 网页视图 extends 安卓.网页工具.网页视图{
     private boolean 防止网页跳转拦截(String 网址) {
         网页链接头.add("snssdk1128://");
         网页链接头.add("snssdk143://");  // 今日头条
+        网页链接头.add("snssdk35://");   // 今日头条
         网页链接头.add("baiduboxapp://");  // 百度
         网页链接头.add("baiduboxlite://");  //
         网页链接头.add("baiduhaokan://");  //
