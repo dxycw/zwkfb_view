@@ -8,8 +8,8 @@ package com.dxyc.zwkfb_view
 import 安卓.应用.应用程序
 
 class App : 应用程序() {
-    override fun onCreate() {
-        super.onCreate()
+    override fun 创建() {
+        super.创建()
 
 //        PlayerFactory.setPlayManager(Exo2PlayerManager::class.java)
 //        CacheFactory.setCacheManager(ExoPlayerCacheManager::class.java)

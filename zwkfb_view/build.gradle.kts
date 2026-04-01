@@ -61,7 +61,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.github.dxycw"
             artifactId = "zwkfb_view"
-            version = "0.3.7"
+            version = "0.3.8"
             // 关键：使用 afterEvaluate 获取组件
             afterEvaluate {
                 from(components["release"])
@@ -103,7 +103,7 @@ dependencies {
 //    api("androidx.bluetooth:bluetooth:1.0.0-alpha02")
 
     //它本身不是新内核，而是给系统 WebView 增加了新 API，并保证在低版本系统上也能调用，开发者无需自己写版本判断。
-    api("androidx.webkit:webkit:1.16.0-alpha03")
+    api("androidx.webkit:webkit:1.16.0-alpha04")
 
     //=====================================================================
 
@@ -139,10 +139,10 @@ dependencies {
 
     // Markdown,md解析
     api("io.noties.markwon:core:4.6.2")
-
+    
     //=====================================================================
 
-    val media3Version = "1.10.0-rc02"
+    val media3Version = "1.10.0"
     // 使用 ExoPlayer 播放媒体 核心库
     api("androidx.media3:media3-exoplayer:$media3Version")
 
