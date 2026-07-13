@@ -2,4 +2,4 @@ jdk:
   - openjdk21
 
 install:
-  - ./gradlew :zwkfb:assemble :zwkfb:publishToMavenLocal -Pgroup=com.github.dxycw -Pversion=$VERSION
+  - ./gradlew :zwkfb:assembleRelease :zwkfb:publishToMavenLocal -Pgroup=com.github.dxycw -Pversion=$VERSION
