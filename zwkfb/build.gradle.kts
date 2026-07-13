@@ -55,20 +55,20 @@ android {
     }
 }
 
-//// 关键：使用正确的 publishing 配置
-//publishing {
-//    publications {
-//        create<MavenPublication>("release") {
-//            groupId = "com.github.dxycw"
-//            artifactId = "zwkfb-view"
-//            version = "0.4.0"
-//            // 关键：使用 afterEvaluate 获取组件
-//            afterEvaluate {
-//                from(components["release"])
-//            }
-//        }
-//    }
-//}
+// 关键：使用正确的 publishing 配置
+publishing {
+    publications {
+        create<MavenPublication>("release") {
+            groupId = "com.github.dxycw"
+            artifactId = "zwkfb-view"
+            version = "0.4.0"
+            // 关键：使用 afterEvaluate 获取组件
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+    }
+}
 
 dependencies {
     api("androidx.core:core-ktx:1.18.0") // 核心ktx库
