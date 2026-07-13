@@ -14,6 +14,4 @@ public abstract class 定时任务 extends TimerTask {
         super();
     }
 
-
-
 }

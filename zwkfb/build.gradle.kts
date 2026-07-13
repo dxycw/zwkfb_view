@@ -60,8 +60,8 @@ publishing {
     publications {
         create<MavenPublication>("release") {
             groupId = "com.github.dxycw"
-            artifactId = "zwkfb_view"
-            version = "0.3.9"
+            artifactId = "zwkfb-view"
+            version = "0.4.0"
             // 关键：使用 afterEvaluate 获取组件
             afterEvaluate {
                 from(components["release"])
@@ -127,7 +127,7 @@ dependencies {
     //=====================================================================
 
     // OkHttp3 网络请求库
-    api("com.squareup.okhttp3:okhttp:5.3.2")
+    api("com.squareup.okhttp3:okhttp:5.4.0")
 //    api("com.squareup.okio:okio:3.16.4")
 
     //=====================================================================
@@ -272,7 +272,7 @@ dependencies {
     //=====================================================================
 
     // 二维码
-    api("com.github.jenly1314:zxing-lite:3.4.1")
+    api("com.github.jenly1314:zxing-lite:3.5.0")
 
     //=====================================================================
 

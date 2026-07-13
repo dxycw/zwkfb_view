@@ -11,6 +11,38 @@ import 自定义.网络类.下载器;
 
 public class 对话框类 {
 
+    public static void 浏览器下载对话框(Context 上下文, String 下载链接, String 文件名) {
+        new 警告对话框.构建器(上下文)
+                .置标题("下载")
+                .置消息("是否下载") //设置对话框的按钮
+                .置取消按钮("立即下载", (dialog, which) ->
+                        下载器.浏览器文件下载(上下文, 下载链接, 文件名)
+                )
+                .置确定按钮("浏览器下载", (dialog, which) ->
+                        上下文.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(下载链接)))
+                )
+                .置忽略按钮("取消", (dialog, which) -> dialog.dismiss())
+                .显示();
+    }
+
+
+    public static void 材质浏览器下载对话框(Context 上下文, String 下载链接, String 文件名) {
+        new 材质警告对话框构建器(上下文)
+                .setTitle("下载")
+                .setMessage("是否下载") //设置对话框的按钮
+                .setNegativeButton("立即下载", (dialog, which) ->
+                        //下载器.浏览器文件下载(上下文,下载链接);//,用户代理,内容处理,文件类型);
+                        下载器.浏览器文件下载(上下文, 下载链接, 文件名)
+                )
+                .setNeutralButton("浏览器下载", (dialog, which) ->
+                        上下文.startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(下载链接)))
+                )
+                .setPositiveButton("取消", (dialog, which) ->
+                        dialog.dismiss()
+                ).show();
+    }
+
+
     public static void 浏览器下载对话框(Context 上下文, String 下载链接, String 用户代理, String 内容处理, String 文件类型) {
         new 警告对话框.构建器(上下文)
             .置标题("下载")

@@ -18,7 +18,7 @@ import 自定义.系统类.应用类;
 public class 下载器 {
 
 
-    public static void 浏览器文件下载(Context 上下文, String 网址, String 文件名, String 文件类型) {
+    public static void 浏览器文件下载(Context 上下文, String 网址, String 文件名) {
         try {
             DownloadManager.Request request = new DownloadManager.Request(Uri.parse(网址));
             request.allowScanningByMediaScanner();
